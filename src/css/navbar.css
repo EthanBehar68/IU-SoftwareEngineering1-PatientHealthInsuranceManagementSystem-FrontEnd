@@ -1,0 +1,120 @@
+.navbar-flex {
+	display: flex;
+	justify-content: center;
+	border-bottom: 1px solid rgba(188,190,192,0.5);
+	box-shadow: 0px 3px 8px rgba(188,190,192,0.5);
+	position: relative;
+	padding: 0rem 1rem;
+}
+.navbar {
+	height: 3rem;
+	padding: 1rem 0;
+	display: flex;
+	justify-content: space-between;
+	width: 50rem;
+}
+.navbar-full {
+	height: 3rem;
+	padding: 1rem 1.5rem;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.navbar-logo {
+	height: 100%;
+	width: auto;
+	cursor: pointer;
+}
+.navbar-logo-img {
+	height: 100%;
+}
+.nav-item {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	font-size: 0.75rem;
+	font-weight: 500;
+}
+.nav-right {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+.nav-link {
+	color: black;
+}
+.nav-link:hover {
+	color: #3f6bb4;
+}
+.link-active {
+	color: #3f6bb4;
+}
+
+.nav-link.admin:hover {
+	color: #ff6f00;
+}
+.link-active.admin {
+	color: #ff6f00;
+}
+
+.navbar-small {
+	display: flex;
+	border-bottom: 1px solid rgba(188,190,192,0.5);
+	padding: 1rem 1rem;
+	flex-direction: column;
+}
+.nav-first-row {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 2.5rem;
+}
+.navbar-menu {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	height: 6.5rem;
+}
+.navbar-hamburger {
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: 0.2rem;
+	border: 1px solid rgba(188,190,192,0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.hamburger-icon {
+	color: rgba(188,190,192,0.5);
+}
+.menu-nav-item {
+	font-size: 0.75rem;
+	font-weight: 500;
+	padding: 0.5rem 0;
+	text-align: center;
+}
+
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+	.navbar-small {
+		display: none;
+	}
+	.navbar-flex {
+		padding: 0;
+	}
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}

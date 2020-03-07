@@ -1,0 +1,608 @@
+.job-overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 50; /* Specify a stack order in case you're using a different order for other elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.overlay-box {
+  width: 98%;
+  background: white;
+  height: 98%;
+  border-radius: 6px;
+  overflow: auto;
+  position: relative;
+}
+.overlay-content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.5rem;
+}
+.detail-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  clear:both;
+  float:left;
+}
+.close {
+  position: absolute;
+  text-align: right;
+  padding: 0.4rem 0.7rem;
+  font-size: 1rem;
+  color: red;
+  cursor: pointer;
+  right: 0;
+  background: white;
+  border-bottom-left-radius: 6px;
+}
+.calendar-section {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.address-block {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  justify-content: center;
+  width: 100%;
+  align-items: flex-start;
+  text-align: left;
+  margin-top: 1rem;
+}
+.address-line {
+  font-size: 1rem;
+}
+.calendar-interior {
+  display: flex;
+  width: 100%;
+}
+.instructions-block {
+  padding: 1rem 0;
+}
+.worker-card {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: center;
+  font-size: 0.9rem;
+  padding: 0 0.75rem;
+}
+.worker-pic-wrapper {
+  width: 100%;
+  padding-bottom: 100%;
+  margin:1em auto;
+  overflow:hidden;
+  position:relative;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+}
+.worker-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position:absolute;
+  width:auto;
+  min-width:100%;
+  min-height:100%;
+}
+.worker-title {
+  font-size: 1.5rem;
+  padding: 0.75rem 0;
+}
+.workers-div {
+  display: flex;
+  flex-wrap: wrap;
+}
+.cancel-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.accept-btn {
+  background: green;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.worker-hr {
+  border-top: 2px solid grey;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+.description-div {
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0;
+  border-bottom: 2px solid grey;
+}
+.description-content {
+  margin-left: 0;
+}
+.image-btn-container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+}
+.image-btn {
+  width: 48%;
+  border-radius: 6px;
+  color: white;
+  font-size: 1rem;
+  border: none;
+}
+.file-input {
+  max-width: 12rem;
+}
+
+.icon-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.calendar-detail-div {
+  display: flex;
+  flex-direction: row;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  width: 100%;
+}
+.clock-detail-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 2rem 2rem 2rem;
+  flex-direction: column;
+}
+.info-detail-div {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  width: 100%;
+  border-top: 2px solid grey;
+}
+.customer-info-div {
+  display: flex;
+  flex-direction: column;
+}
+.customer-info-text {
+  font-size: 1.3rem;
+  line-height: 2.1rem;
+  margin: 0.2rem 0;
+}
+.customer-info-text.estimate {
+  display: flex;
+}
+.customer-info-text > a {
+  color: rgba(0, 0, 0, 0.65);
+  text-decoration: underline !important;
+  width: auto;
+}
+.icon-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.icon-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.time-val {
+  font-size: 1.1rem;
+}
+.time-val.address {
+  color: rgba(0, 0, 0, 0.65);
+  text-decoration: underline !important;
+  width: auto;
+}
+.type-img {
+  width: 4rem;
+}
+.react-clock {
+  width: 5rem !important;
+  height: 5rem !important;
+}
+.hours-big {
+  display: inline;
+  font-size: 5rem;
+  line-height: 3.5rem;
+  text-align: center;
+  min-width: 5rem;
+}
+.lr-margin {
+  margin-left: 0;
+  margin-top: 2rem;
+}
+.address-graphic {
+  display: flex;
+  font-size: 1.1rem;
+  align-items: center;
+  padding: 1rem 0;
+}
+.completion-header {
+  font-size: 1.3rem;
+}
+.complete-row {
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0;
+  justify-content: space-between;
+  width: 100%;
+} 
+.text-field.complete {
+  background: rgba(188,190,192,0.5);
+  font-size: 1.3rem;
+  line-height: 1.3rem;
+  height: auto;
+  width: 5rem;
+  margin-left: 1.2rem;
+}
+.worker-selection-div {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  justify-content: space-between;
+}
+.worker-selection {
+  border: 1px solid grey;
+  font-size: 1.1rem;
+  line-height: 1.1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 0.3rem 0.5rem 0.3rem 0;
+}
+.sigCanvas {
+  width: 100%;
+  border: 1px solid black;
+  height: 15rem;
+}
+.invoice-section {
+  margin: 2rem 0;
+  display: flex;
+  font-size: 1rem;
+  width: 100%;
+  justify-content: center;
+}
+.invoice-column {
+  display: flex;
+  flex-direction: column;
+  padding-right: 1.5rem;
+  margin-right: 1.5rem;
+  font-size: 1.2rem;
+  border-right: 2px solid grey;
+}
+.invoice-column.right {
+  margin-right: 0;
+}
+.invoice-column.right span {
+  text-align: center;
+}
+.invoice-hr {
+  border-top: 2px solid grey;
+  width: calc(100% + 1.5rem);
+  margin-right: -1.5rem;
+}
+.invoice-hr.right {
+  width: calc(100% + 3rem);
+  margin-left: -1.5rem;
+}
+.number-input {
+  background: rgba(188,190,192,0.5);
+  font-size: 1.3rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+}
+.worker-present-div {
+  width: 100%;
+  border-bottom: 2px solid grey;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  margin: 0;
+}
+.gratuity-div {
+  display: flex;
+  padding-bottom: 1.3rem;
+  flex-direction: column;
+}
+.number-input > input {
+  line-height: 2rem;
+}
+.indiv-payment-div {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid grey;
+  padding: 2.2rem 0;
+}
+.indiv-description {
+  font-size: 1.2rem;
+}
+.indiv-value {
+  font-size: 4rem;
+  color: green;
+}
+.customer-home-div {
+  display: flex;
+  font-size: 1.2rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.yes-home {
+  background: lightgreen;
+  border-radius: 4px;
+  border: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 2rem;
+}
+.no-home {
+  background: tomato;
+  border-radius: 4px;
+  border: 1px solid grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.gratuity-choices {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.gratuity-choice {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  margin-top: 0.4rem;
+}
+.gratuity-choice-button {
+  width: 100%;
+  font-size: 1.5rem;
+  border-radius: 4px;
+  background: rgba(188,190,192,0.5);
+  cursor: pointer;
+}
+.cash-card {
+  display: flex;
+}
+.sig-display {
+  width: 100%;
+  height: 11rem;
+  object-fit: fill;
+}
+
+
+
+.detail-header-img {
+  width: 100%;
+  height: 15rem;
+  object-fit: cover;
+}
+.detail-title-div {
+  background: white;
+  display: inline-block;
+  transform: translateY(-6rem);
+  height: 6rem;
+  padding: 0.5rem 1.5rem;
+  clear:both;
+  float:left;
+  border-top-right-radius: 6px;
+  position: absolute;
+  top: 15.1rem;
+  left: 0;
+}
+.status-title {
+  font-size: 1.4rem;
+  clear:both;
+  float:left;
+}
+.hide-small {
+  display: none;
+}
+.show-small {
+  display: block;
+}
+.estimate-container {
+  display: flex;
+  flex-direction: column;
+}
+.estimate-detail-div {
+  display: flex;
+  margin-left: 0.5rem;
+  border-bottom: 1px solid grey;
+  justify-content: space-between;
+}
+.estimate-detail-items {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.4rem;
+}
+.estimate-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 4px;
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+.estimate-div:hover {
+  background: #3f6bb4;
+  color: white;
+}
+.estimate-div:hover > svg {
+  fill: white;
+}
+.chevron.black {
+  fill: rgba(0, 0, 0, 0.65);
+  margin-top: 0.125rem;
+  transform: translateX(10px);
+}
+.estimate-detail {
+  font-size: 0.8rem;
+  line-height: 1rem;
+  text-align: right;
+}
+.multiplication-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  line-height: 1.4rem;
+}
+
+
+
+
+/* Larger than mobile */
+@media (min-width: 400px) {}
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+  
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+  .worker-card {
+    width: 25%;
+  }
+  .overlay-box {
+    width: 50rem;
+    height: 40rem;
+    max-height: 98%;
+  }
+  .overlay-content {
+    padding: 2rem 3rem;
+  }
+  .calendar-section {
+    justify-content: space-between;
+  }
+  .address-block {
+    text-align: right;
+    align-items: flex-end;
+    margin-top: 0;
+    width: auto;
+  }
+  .calendar-interior {
+    width: auto;
+    max-width: 50%;
+  }
+  .lr-margin {
+    margin-left: 3rem;
+    margin-top: 0;
+  }
+  .icon-section {
+    align-items: flex-start;
+    flex-direction: row;
+  }
+  .complete-row.column {
+    flex-direction: row;
+  }
+  .worker-selection-div {
+    justify-content: flex-start;
+    padding: 0;
+  }
+  .invoice-section {
+    justify-content: flex-start;
+    border-left: 2px solid grey;
+  }
+  .worker-present-div {
+    width: 45%;
+    padding: 0;
+    padding-right: 2rem;
+    margin: 2rem 0;
+    border-bottom: none;
+  }
+  .invoice-section {
+    padding-left: 2rem;
+    margin: 2rem 0;
+    width: 55%;
+  }
+  .time-val {
+    margin-left: 0.5rem;
+  }
+
+  .calendar-detail-div {
+    width: 30%;
+    border-right: 2px solid grey;
+    padding-right: 2rem;
+    flex-direction: column;
+    padding-bottom: 0;
+  }
+  .icon-item {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  .info-detail-div {
+    border-top: none;
+    padding: 2rem;
+  }
+  .clock-detail-div {
+    flex-direction: row;
+  }
+  .icon-row {
+    flex-wrap: nowrap;
+  }
+  .indiv-payment-div {
+    border-bottom: none;
+    width: 50%;
+  }
+  .cash-card {
+    margin-top: 0;
+  }
+  .detail-title-div {
+    padding: 0.5rem 3rem;
+  }
+  .customer-info-div {
+    margin-left: 2rem;
+  }
+  .description-div {
+    flex-direction: row;
+  }
+  .description-content {
+    margin-left: 0.75rem;
+  }
+  .hide-small {
+    display: block;
+  }
+  .show-small {
+    display: none;
+  }
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}
