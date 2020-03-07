@@ -31,10 +31,18 @@ body.react-confirm-alert-body-element {
   animation: react-confirm-alert-fadeIn 0.5s 0.2s forwards;
 }
 
+.react-confirm-alert {
+  margin-right: 60px;
+}
+
 .react-confirm-alert-body {
+  width: 100% !important;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding: 30px;
-  max-width: 98vw;
-  text-align: left;
+  text-align: center;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 20px 75px rgba(0, 0, 0, 0.13);
@@ -49,6 +57,7 @@ body.react-confirm-alert-body-element {
 
 .react-confirm-alert-body > h1 {
   margin-top: 0;
+  text-align: center;
 }
 
 .react-confirm-alert-body > h3 {
@@ -62,7 +71,7 @@ body.react-confirm-alert-body-element {
   display: -ms-flex;
   display: -o-flex;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-top: 20px;
 }
 
@@ -73,14 +82,10 @@ body.react-confirm-alert-body-element {
   display: inline-block;
   padding: 6px 18px;
   color: #eee;
-  margin-right: 10px;
   border-radius: 5px;
   font-size: 12px;
   cursor: pointer;
-}
-
-.react-confirm-alert-button-group > button:hover {
-  background: #3f6bb4;
+  width: 48%;
 }
 
 @-webkit-keyframes react-confirm-alert-fadeIn {
@@ -116,12 +121,5 @@ body.react-confirm-alert-body-element {
   }
   to {
     opacity: 1;
-  }
-}
-
-@media (min-width: 750px) {
-  .react-confirm-alert-body {
-    padding: 30px;
-    max-width: 400px;
   }
 }

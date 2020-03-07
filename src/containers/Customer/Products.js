@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {connect} from "react-redux";
+import {confirmAlert} from 'react-confirm-alert';
 import {db_get_products} from "../../store/actions/products";
 import sumItems from '../../utils/sumItems';
 import moment from 'moment';
@@ -30,12 +31,31 @@ class Products extends Component {
   }
 
   toCart = products => {
+    console.log(products);
   	this.setState({
   		...this.state,
   		items: this.state.items + sumItems(products)
   	});
   	const existing = empty(localStorage.getItem("products")) ? [] : JSON.parse(localStorage.getItem("products"));
   	localStorage.setItem("products", JSON.stringify([...existing, ...products]));
+    this.confirm(products);
+  }
+
+  confirm = products => {
+    confirmAlert({
+      title: 'Added to Cart',
+      message: `${products[0].product}(s) added to cart`,
+      buttons: [
+        {
+          label: 'To Cart',
+          onClick: () => this.props.history.push('/checkout')
+        },
+        {
+          label: 'Keep Shopping',
+          onClick: () => {}
+        }
+      ]
+    });
   }
 
 	render() {
