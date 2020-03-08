@@ -226,7 +226,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 22%;
+	width: 20%;
 }
 .size-input {
 	width: 100%;
@@ -245,11 +245,8 @@
 	cursor: pointer;
 }
 .product-list {
-	width: calc(100%-2rem);
-	border: 1px solid grey;
-	border-radius: 3px;
+	width: 100%;
 	table-layout: auto;
-	padding: 1rem;
 }
 .product-header {
 	justify-content: space-between;
@@ -371,6 +368,9 @@
 	}
 	.product-list {
 		width: 100%;
+	}
+	.size-input-choice {
+		width: calc((100% - 3rem) / 4);
 	}
 }
 

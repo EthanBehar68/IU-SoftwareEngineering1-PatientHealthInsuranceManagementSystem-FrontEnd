@@ -155,21 +155,25 @@ class Checkout extends Component {
                   </div>
                 </div>
               </div>
-              <table className="product-list">
-                <tbody className="product-table-body">
-                  <tr className="product-header">
-                    <th className="product-head hide">Product</th>
-                    <th className="product-head">Name</th>
-                    <th className="product-head" style={{textAlign: "center"}}>Size</th>
-                    <th className="product-head" style={{textAlign: "center"}}>Quantity</th>
-                    <th className="product-head">Price</th>
-                  </tr>
-                  {!empty(this.state.products) && (<Fragment>{product_list}</Fragment>)}
-                  {empty(this.state.products) && (<tr>
-                    <td colSpan="5">There are no products in your cart.</td>
-                  </tr>)}
-                </tbody>
-              </table>
+              <div className="personal-info-container" style={{marginBottom: "0"}}>
+                <table className="product-list">
+                  <tbody className="product-table-body">
+                    <tr className="product-header">
+                      <th className="product-head hide">Product</th>
+                      <th className="product-head">Name</th>
+                      <th className="product-head" style={{textAlign: "center"}}>Size</th>
+                      <th className="product-head" style={{textAlign: "center"}}>Quantity</th>
+                      <th className="product-head">Price</th>
+                    </tr>
+                    {!empty(this.state.products) && (<Fragment>
+                      {product_list}
+                    </Fragment>)}
+                    {empty(this.state.products) && (<tr>
+                      <td colSpan="5">There are no products in your cart.</td>
+                    </tr>)}
+                  </tbody>
+                </table>
+              </div>
             </div>
             <div className="checkout-box">
               <span>Total: ${(getTotal(this.state.products) / 100).toFixed(2)}</span>

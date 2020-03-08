@@ -31,7 +31,6 @@ class Products extends Component {
   }
 
   toCart = products => {
-    console.log(products);
   	this.setState({
   		...this.state,
   		items: this.state.items + sumItems(products)
@@ -74,7 +73,10 @@ class Products extends Component {
 				{!this.state.loaded && (<Loading />)}
 				{this.state.loaded && (<div className="dashboard-container">
 					<div className="dashboard-box">
-				    {!empty(product_list) && (product_list)}
+				    {!empty(product_list) && (<Fragment>
+              {product_list}
+              <div className="dashboard-side" style={{borderBottom: "none", height: "10rem"}}></div>
+            </Fragment>)}
             {empty(product_list) && (
               <div className="thank-you-div">
                 <span style={{fontSize: "1.5rem", textAlign: "center"}}>There are no products currently for sale.</span>
