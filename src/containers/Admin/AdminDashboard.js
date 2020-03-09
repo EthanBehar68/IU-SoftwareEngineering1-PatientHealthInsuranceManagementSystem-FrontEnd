@@ -29,7 +29,8 @@ class AdminDashboard extends Component {
 			product: {
 				name: '',
 				price: '',
-				photo: ''
+				photo: '',
+        sizes: []
 			}
 		};
 		this.getData = this.getData.bind(this);
@@ -198,7 +199,17 @@ class AdminDashboard extends Component {
 
   addProduct = e => {
   	e.preventDefault();
-  	this.props.db_add_product(this.state.product);
+  	this.props.db_add_product({...this.state.product, sizes: JSON.stringify(this.state.product.sizes)});
+  }
+
+  handleSizesChange = e => {
+    this.setState({
+      ...this.state,
+      product: {
+        ...this.state.product,
+        sizes: this.state.product.sizes.includes(e.target.id) ? this.state.product.sizes.filter(size => size != e.target.id) : [...this.state.product.sizes, e.target.id]
+      }
+    })
   }
 
 	render() {
@@ -241,6 +252,36 @@ class AdminDashboard extends Component {
 									<input className="apparel-input" id="price" type="number" pattern="\d*" value={product.price} onChange={this.onProductChange}/>
 									<label>Photo</label>
 									<input className="file-input" type="file" accept="image/*" name="IMAGE" onChange={this.imgHandler}/>
+                  <div className="checkbox-container">
+                    <div className="checkbox-div">
+                      <input type="checkbox" onChange={this.handleSizesChange} id="XS" value="XS" checked={this.state.product.sizes.includes("XS")}/>
+                      <label htmlFor="XS">XS</label>
+                    </div>
+                    <div className="checkbox-div">
+                      <input type="checkbox" onChange={this.handleSizesChange} id="S" value="S" checked={this.state.product.sizes.includes("S")}/>
+                      <label htmlFor="S">S</label>
+                    </div>
+                    <div className="checkbox-div">
+                      <input type="checkbox" onChange={this.handleSizesChange} id="M" value="M" checked={this.state.product.sizes.includes("M")}/>
+                      <label htmlFor="M">M</label>
+                    </div>
+                    <div className="checkbox-div">
+                      <input type="checkbox" onChange={this.handleSizesChange} id="L" value="L" checked={this.state.product.sizes.includes("L")}/>
+                      <label htmlFor="L">L</label>
+                    </div>
+                    <div className="checkbox-div">
+                      <input type="checkbox" onChange={this.handleSizesChange} id="XL" value="XL" checked={this.state.product.sizes.includes("XL")}/>
+                      <label htmlFor="XL">XL</label>
+                    </div>
+                    <div className="checkbox-div">
+                      <input type="checkbox" onChange={this.handleSizesChange} id="XXL" value="XXL" checked={this.state.product.sizes.includes("XXL")}/>
+                      <label htmlFor="XXL">XXL</label>
+                    </div>
+                    <div className="checkbox-div" style={{width: "5rem"}}>
+                      <input type="checkbox" onChange={this.handleSizesChange} id="ONE-SIZE" value="ONE-SIZE" checked={this.state.product.sizes.includes("ONE-SIZE")}/>
+                      <label htmlFor="ONE-SIZE">ONE-SIZE</label>
+                    </div>
+                  </div>
 									<button className="sign-in-btn admin" onClick={this.addProduct}>Add</button>
 								</form></Fragment>)}
 							</div>

@@ -1,4 +1,5 @@
 import React, {Component, Fragment} from 'react';
+import SizeInput from '../Graphics/SizeInput';
 
 class ProductCard extends Component {
 
@@ -37,6 +38,12 @@ class ProductCard extends Component {
 
   render() {
     const {product} = this.props;
+
+    const sizes = JSON.parse(product.sizes);
+    let size_list = sizes.map(size => 
+      <SizeInput key={size} size={size} onChange={this.onChange} total={sizes.length}/>
+    );
+
     return (
       <form className="dashboard-side" ref={(el) => this.myform = el}>
 				<img src={`https://pskapparel.blob.core.windows.net/${product.id}product/photo`} alt="" className="product-photo"/>
@@ -44,22 +51,7 @@ class ProductCard extends Component {
 					<span className="product-title">{product.name}</span>
 					<span>${(product.price / 100).toFixed(2)}</span>
 					<div className="size-input-div">
-						<div className="size-input-choice">
-							<input className="size-input" id="S" type="number" pattern="\d*" onChange={this.onChange}/>
-							<span>S</span>
-						</div>
-						<div className="size-input-choice">
-							<input className="size-input" id="M" type="number" pattern="\d*" onChange={this.onChange}/>
-							<span>M</span>
-						</div>
-						<div className="size-input-choice">
-							<input className="size-input" id="L" type="number" pattern="\d*" onChange={this.onChange}/>
-							<span>L</span>
-						</div>
-						<div className="size-input-choice">
-							<input className="size-input" id="XL" type="number" pattern="\d*" onChange={this.onChange}/>
-							<span>XL</span>
-						</div>
+						{size_list}
 					</div>
 					<button className="add-to-cart" onClick={this.toParentCart}>Add to Cart</button>
 				</div>
