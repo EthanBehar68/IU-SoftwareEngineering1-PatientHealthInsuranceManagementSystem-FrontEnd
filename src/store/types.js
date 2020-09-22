@@ -1,12 +1,1 @@
-export const GET_ERRORS = "GET_ERRORS";
-export const USER_LOADING = "USER_LOADING";
-export const SET_CURRENT_USER = "SET_CURRENT_USER";
-export const UPDATE_CURRENT_USER = "UPDATE_CURRENT_USER";
-
-export const SET_FOOTER = "SET_FOOTER";
-
-export const GET_ADMIN_DATA = "GET_ADMIN_DATA";
-export const UPDATE_ADMIN_DATA = "UPDATE_ADMIN_DATA";
-
-export const GET_PRODUCTS = "GET_PRODUCTS";
-export const GET_PRODUCT_OPTIONS = "GET_PRODUCT_OPTIONS";
+export const GET_EXAMPLE = "GET_EXAMPLE";
