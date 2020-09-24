@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Route, withRouter, Redirect} from 'react-router-dom';
+import {Route, withRouter, Redirect, Switch} from 'react-router-dom';
 import PrivateRoute from '../components/Nav/PrivateRoute';
 import {connect} from "react-redux";
 
@@ -9,6 +9,9 @@ import {createMuiTheme} from '@material-ui/core/styles';
 import {state_set_dark} from '../store/actions/dark';
 
 import Navbar from '../components/Nav/Navbar';
+import Footer from '../components/Nav/Footer';
+
+import Home from './Static/Home';
 
 class Main extends Component {
 	constructor(props) {
@@ -40,7 +43,8 @@ class Main extends Component {
 		      contrastText: dark ? "#bf0a30" : "#fff"
 		    },
 		    background: {
-		      main: dark ? "#002868" : "#fff"
+		      main: dark ? "#002868" : "#fff",
+		      shadow: dark ? "rgba(0,0,0,0.4)" : "rgba(233,233,233,1.0)"
 		    }
 		  }
 		});
@@ -49,6 +53,10 @@ class Main extends Component {
 			<ThemeProvider theme={theme}>
 				<Grid container item direction="column" xs={12}>
 					<Navbar maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
+					<Switch>
+						<Route exact path='/' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
+		      </Switch>
+		      <Footer maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
 	      </Grid>
       </ThemeProvider>
 		)
