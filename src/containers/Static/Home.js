@@ -20,8 +20,8 @@ class Home extends Component {
 
   	return(
   		<Grid xs={12} container item direction="column" alignItems="center" style={{background: theme.background.main, position: "relative"}}>
-		  	<img src={rocket} alt="" style={{height: "40rem", objectFit: "cover", position: "absolute", top: 0, right: 0, width: "100vw"}}/>
-  			<Grid xs={12} container item alignItems="center" style={{maxWidth: maxWidth, height: "40rem"}}>
+		  	<img src={rocket} alt="" style={{height: 'calc(100vh - 4rem)', objectFit: "cover", position: "absolute", top: 0, right: 0, width: "100vw"}}/>
+  			<Grid xs={12} container item alignItems="center" style={{maxWidth: maxWidth, height: 'calc(100vh - 4rem)'}}>
   				<Grid container item direction="column" justify="center" xs={12} style={{zIndex: 1, padding: small ? "1rem" : "", height: "100%", maxWidth: xs ? "100%" : small ? "90%" : "65%"}}>
   					<span style={{color: "white", fontSize: "3.5rem", fontWeight: 500}}>Health care that inspires</span>
   					<span style={{color: "white", fontSize: "2rem", fontWeight: 300}}>Managing your well-being has never been this easy.</span>

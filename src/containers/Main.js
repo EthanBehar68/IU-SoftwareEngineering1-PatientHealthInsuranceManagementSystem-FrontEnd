@@ -12,6 +12,8 @@ import Navbar from '../components/Nav/Navbar';
 import Footer from '../components/Nav/Footer';
 
 import Home from './Static/Home';
+import About from './Static/About';
+import LoginWrapper from './Login/LoginWrapper';
 
 class Main extends Component {
 	constructor(props) {
@@ -55,6 +57,9 @@ class Main extends Component {
 					<Navbar maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
 					<Switch>
 						<Route exact path='/' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
+						<Route exact path='/about' component={() => <About maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
+						<Route exact path='/login' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
+						<Route path='*' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
 		      </Switch>
 		      <Footer maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
 	      </Grid>

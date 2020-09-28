@@ -34,7 +34,7 @@ class Navbar extends Component {
 	  			<Grid container item justify="space-between" alignItems="center" xs={12} style={{maxWidth: maxWidth}}>
 	  				<Link to="/" style={{display: 'flex', alignItems: 'center'}}><img src={dark ? darklogo : logo} style={{height: "1.2rem"}} alt=""/></Link>
 	  				{!small && (<div style={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
-	  					<Link to="#" style={{marginRight: "0.9rem", padding: "3px 9px"}}>
+	  					<Link to="/about" style={{marginRight: "0.9rem", padding: "3px 9px"}}>
 	  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>ABOUT US</span>
 	  					</Link>
 	  					<Link to="#" style={{marginRight: "1.1rem", padding: "3px 9px"}}>
