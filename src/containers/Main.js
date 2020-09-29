@@ -58,7 +58,10 @@ class Main extends Component {
 					<Switch>
 						<Route exact path='/' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
 						<Route exact path='/about' component={() => <About maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
-						<Route exact path='/login' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
+						<Route exact path='/register/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login={false}/>} />
+						<Route exact path='/register' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login={false}/>} />
+						<Route exact path='/login/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} />
+						<Route exact path='/login' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} />
 						<Route path='*' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
 		      </Switch>
 		      <Footer maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>

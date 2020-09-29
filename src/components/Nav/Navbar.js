@@ -37,10 +37,10 @@ class Navbar extends Component {
 	  					<Link to="/about" style={{marginRight: "0.9rem", padding: "3px 9px"}}>
 	  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>ABOUT US</span>
 	  					</Link>
-	  					<Link to="#" style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+	  					<Link to="/register" style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 	  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
 	  					</Link>
-	  					<Link to="#">
+	  					<Link to="/login">
 	  						<Button variant="outlined" color="primary" size="small">
 	  							Sign In
 	  						</Button>
@@ -57,17 +57,17 @@ class Navbar extends Component {
 		            onOpen={() => this.setState({...this.state, open: true})}
 		          >
 		          	<Grid direction="column" style={{background: theme.background.main, height: "100%", paddingTop: "0.5rem"}}>
-			          	<Link to="#">
+			          	<Link to="/about">
 				            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
 					  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>ABOUT US</span>
 					          </ListItem>
 				          </Link>
-				          <Link to="#">
+				          <Link to="/register">
 				            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
 					  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
 					          </ListItem>
 				          </Link>
-				          <Link to="#">
+				          <Link to="/login">
 				            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
 					  					<span style={{fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN IN</span>
 					          </ListItem>

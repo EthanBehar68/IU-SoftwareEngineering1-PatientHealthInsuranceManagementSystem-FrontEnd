@@ -20,6 +20,7 @@
     "react-confirm-alert": "^2.4.1",
     "react-day-picker": "^7.4.0",
     "react-dom": "^16.11.0",
+    "react-google-recaptcha": "^2.1.0",
     "react-idle-timer": "^4.2.11",
     "react-image-crop": "^8.4.0",
     "react-json-view": "^1.19.1",
