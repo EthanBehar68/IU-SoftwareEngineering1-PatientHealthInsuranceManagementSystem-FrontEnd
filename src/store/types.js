@@ -1,1 +1,1 @@
-export const GET_EXAMPLE = "GET_EXAMPLE";
+export const SET_DARK = "SET_DARK";

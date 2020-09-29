@@ -6,9 +6,17 @@ import {BrowserRouter as Router} from 'react-router-dom';
 import {configureStore} from '../store';
 import empty from 'is-empty';
 
+import {state_set_dark} from '../store/actions/dark';
+
 import Main from './Main';
 
+import '../css/overall.css';
+
 const store = configureStore();
+
+if(!empty(localStorage.dark)) {
+  store.dispatch(state_set_dark(localStorage.dark === "true"));
+}
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +24,6 @@ class App extends Component {
     this.state = {
     };
   }
- 
 
   render() {
     return (
