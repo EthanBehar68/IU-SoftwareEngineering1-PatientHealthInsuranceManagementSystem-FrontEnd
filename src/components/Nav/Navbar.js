@@ -49,11 +49,12 @@ class Navbar extends Component {
 		  					</Link>
 	  					</Fragment>)}
 	  					{!empty(user) && (<Fragment>
-	  						<Link to={`/${user.userType}/dashboard`}>
+	  						<Link to={`/${user.userType}/dashboard`} style={{marginRight: "1.1rem"}}>
 		  						<Button variant="outlined" color="primary" size="small">
 		  							{`${user.fname} ${user.lname}`}
 		  						</Button>
 		  					</Link>
+	  						<span onClick={this.props.logoutUser} style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main, cursor: "pointer"}}>LOGOUT</span>
 	  					</Fragment>)}
 	  				</div>)}
 	  				{small && (<ButtonBase onClick={() => this.setState({...this.state, open: true})}>

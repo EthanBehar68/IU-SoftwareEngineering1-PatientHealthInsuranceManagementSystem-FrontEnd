@@ -31,16 +31,7 @@ export const loginUser = userData => dispatch => {
     // Decode token to get user data
     const decoded = jwt_decode(token);
     dispatch(setCurrentUser(decoded));
-
-    return apiCall('get', `/api/patients/${decoded.id}`)
-    .then(function(res) {
-      // Set current user
-      dispatch(setCurrentUser(res));
-      return {complete: true};
-    })
-    .catch(function(err) {
-      return {complete: false, error: err.data.error};
-    });
+    return dispatch(getUser(decoded));
 
   })
   .catch(function(err) {
@@ -49,7 +40,7 @@ export const loginUser = userData => dispatch => {
 };
 
 export const getUser = userData => dispatch => {
-  return apiCall('get', `/api/patients/${userData.id}`)
+  return apiCall('get', `/api/${userData.userType === "insurance" ? "insurance" : `${userData.userType}s`}/${userData.id}`)
   .then(function(res) {
     // Set current user
     dispatch(setCurrentUser(res));

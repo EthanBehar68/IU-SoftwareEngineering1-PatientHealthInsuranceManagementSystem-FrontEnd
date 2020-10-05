@@ -8,7 +8,7 @@ import {Grid, withWidth, withTheme, ThemeProvider} from '@material-ui/core';
 import {createMuiTheme} from '@material-ui/core/styles';
 
 import {state_set_dark} from '../store/actions/dark';
-import {getUser} from '../store/actions/user';
+import {getUser, logoutUser} from '../store/actions/user';
 
 import Navbar from '../components/Nav/Navbar';
 import Footer from '../components/Nav/Footer';
@@ -19,6 +19,8 @@ import About from './Static/About';
 import LoginWrapper from './Login/LoginWrapper';
 
 import PatientDashboard from './Patient/Dashboard';
+import DoctorDashboard from './Doctor/Dashboard';
+import InsuranceDashboard from './Insurance/Dashboard';
 
 class Main extends Component {
 	constructor(props) {
@@ -69,7 +71,7 @@ class Main extends Component {
 		return (
 			<ThemeProvider theme={theme}>
 				{loaded && (<Grid container item direction="column" xs={12}>
-					<Navbar user={user} maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
+					<Navbar logoutUser={this.props.logoutUser} user={user} maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
 					<Switch>
 						<Route exact path='/' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
 						<Route exact path='/about' component={() => <About maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
@@ -78,6 +80,8 @@ class Main extends Component {
 						<Route exact path='/login/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login user={user}/>} />
 						<Route exact path='/login' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login user={user}/>} />
 						<PrivateRoute exact path='/patient/dashboard' component={() => <PatientDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} portal="patient"/>
+						<PrivateRoute exact path='/doctor/dashboard' component={() => <DoctorDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} portal="doctor"/>
+						<PrivateRoute exact path='/insurance/dashboard' component={() => <InsuranceDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} portal="insurance"/>
 						<Route path='*' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
 		      </Switch>
 		      <Footer maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
@@ -92,4 +96,4 @@ const mapStateToProps = state => ({
 	user: state.user
 });
 
-export default connect(mapStateToProps,{state_set_dark, getUser})(withRouter(withWidth()(Main)));
+export default connect(mapStateToProps,{state_set_dark, getUser, logoutUser})(withRouter(withWidth()(Main)));

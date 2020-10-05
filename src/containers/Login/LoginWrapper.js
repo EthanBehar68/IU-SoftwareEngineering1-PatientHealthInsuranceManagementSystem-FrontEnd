@@ -23,7 +23,7 @@ class LoginWrapper extends Component {
 
   componentDidMount() {
     if(empty(this.props.user.iat) && !empty(this.props.user.id)) {
-      this.props.history.push('/patient/dashboard')
+      this.props.history.push(`/${this.props.user.userType}/dashboard`)
     }
   }
 
