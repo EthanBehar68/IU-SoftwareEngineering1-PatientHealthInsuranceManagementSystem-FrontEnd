@@ -2,18 +2,23 @@ import React, {Component, Fragment} from 'react';
 import {Route, withRouter, Redirect, Switch} from 'react-router-dom';
 import PrivateRoute from '../components/Nav/PrivateRoute';
 import {connect} from "react-redux";
+import empty from 'is-empty';
 
 import {Grid, withWidth, withTheme, ThemeProvider} from '@material-ui/core';
 import {createMuiTheme} from '@material-ui/core/styles';
 
 import {state_set_dark} from '../store/actions/dark';
+import {getUser} from '../store/actions/user';
 
 import Navbar from '../components/Nav/Navbar';
 import Footer from '../components/Nav/Footer';
 
 import Home from './Static/Home';
 import About from './Static/About';
+
 import LoginWrapper from './Login/LoginWrapper';
+
+import PatientDashboard from './Patient/Dashboard';
 
 class Main extends Component {
 	constructor(props) {
@@ -23,8 +28,18 @@ class Main extends Component {
 		};
 	}
 
+	async componentDidMount() {
+		if(!empty(this.props.user.iat)) {
+			await this.props.getUser(this.props.user);
+			this.setState({...this.state, loaded: true});
+		} else {
+			this.setState({...this.state, loaded: true});
+		}
+	}
+
 	render() {
-		const {width, dark} = this.props;
+		const {width, dark, user} = this.props;
+		const {loaded} = this.state;
 
 		const small = width === "xs" || width === "sm";
 		const xs = width === "xs";
@@ -53,26 +68,28 @@ class Main extends Component {
 
 		return (
 			<ThemeProvider theme={theme}>
-				<Grid container item direction="column" xs={12}>
-					<Navbar maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
+				{loaded && (<Grid container item direction="column" xs={12}>
+					<Navbar user={user} maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
 					<Switch>
 						<Route exact path='/' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
 						<Route exact path='/about' component={() => <About maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
-						<Route exact path='/register/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login={false}/>} />
-						<Route exact path='/register' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login={false}/>} />
-						<Route exact path='/login/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} />
-						<Route exact path='/login' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} />
+						<Route exact path='/register/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login={false} user={user}/>} />
+						<Route exact path='/register' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login={false} user={user}/>} />
+						<Route exact path='/login/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login user={user}/>} />
+						<Route exact path='/login' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login user={user}/>} />
+						<PrivateRoute exact path='/patient/dashboard' component={() => <PatientDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} portal="patient"/>
 						<Route path='*' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
 		      </Switch>
 		      <Footer maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
-	      </Grid>
+	      </Grid>)}
       </ThemeProvider>
 		)
 	}
 }
 
 const mapStateToProps = state => ({
-	dark: state.dark
+	dark: state.dark,
+	user: state.user
 });
 
-export default connect(mapStateToProps,{state_set_dark})(withRouter(withWidth()(Main)));
+export default connect(mapStateToProps,{state_set_dark, getUser})(withRouter(withWidth()(Main)));

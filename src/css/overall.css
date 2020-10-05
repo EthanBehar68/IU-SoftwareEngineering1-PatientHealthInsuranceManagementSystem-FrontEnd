@@ -10,3 +10,18 @@ a {
 	text-decoration: none;
 	outline: none;
 }
+
+form:focus {
+	outline: none;
+}
+
+button:focus {
+	outline: none;
+}
+
+span:focus {
+	outline: none;
+}
+div:focus {
+	outline: none;
+}

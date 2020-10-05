@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
+import empty from 'is-empty';
 
 import {Grid, Button, ButtonBase, Switch, SwipeableDrawer, ListItem, ListItemText} from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
@@ -25,7 +26,7 @@ class Navbar extends Component {
 	}
 
   render() {
-  	const {maxWidth, small, xs, theme, dark} = this.props;
+  	const {maxWidth, small, xs, theme, dark, user} = this.props;
   	const {open} = this.state;
 
   	return(
@@ -34,17 +35,26 @@ class Navbar extends Component {
 	  			<Grid container item justify="space-between" alignItems="center" xs={12} style={{maxWidth: maxWidth}}>
 	  				<Link to="/" style={{display: 'flex', alignItems: 'center'}}><img src={dark ? darklogo : logo} style={{height: "1.2rem"}} alt=""/></Link>
 	  				{!small && (<div style={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
-	  					<Link to="/about" style={{marginRight: "0.9rem", padding: "3px 9px"}}>
-	  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>ABOUT US</span>
-	  					</Link>
-	  					<Link to="/register" style={{marginRight: "1.1rem", padding: "3px 9px"}}>
-	  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
-	  					</Link>
-	  					<Link to="/login">
-	  						<Button variant="outlined" color="primary" size="small">
-	  							Sign In
-	  						</Button>
-	  					</Link>
+	  					{empty(user) && (<Fragment>
+		  					<Link to="/about" style={{marginRight: "0.9rem", padding: "3px 9px"}}>
+		  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>ABOUT US</span>
+		  					</Link>
+		  					<Link to="/register" style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+		  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
+		  					</Link>
+		  					<Link to="/login">
+		  						<Button variant="outlined" color="primary" size="small">
+		  							Sign In
+		  						</Button>
+		  					</Link>
+	  					</Fragment>)}
+	  					{!empty(user) && (<Fragment>
+	  						<Link to={`/${user.userType}/dashboard`}>
+		  						<Button variant="outlined" color="primary" size="small">
+		  							{`${user.fname} ${user.lname}`}
+		  						</Button>
+		  					</Link>
+	  					</Fragment>)}
 	  				</div>)}
 	  				{small && (<ButtonBase onClick={() => this.setState({...this.state, open: true})}>
 	  					<Menu style={{fontSize: "1.5rem", color: theme.primary.main}} />
@@ -57,21 +67,23 @@ class Navbar extends Component {
 		            onOpen={() => this.setState({...this.state, open: true})}
 		          >
 		          	<Grid direction="column" style={{background: theme.background.main, height: "100%", paddingTop: "0.5rem"}}>
-			          	<Link to="/about">
-				            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
-					  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>ABOUT US</span>
-					          </ListItem>
-				          </Link>
-				          <Link to="/register">
-				            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
-					  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
-					          </ListItem>
-				          </Link>
-				          <Link to="/login">
-				            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
-					  					<span style={{fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN IN</span>
-					          </ListItem>
-				          </Link>
+		          		{empty(user) && (<Fragment>
+				          	<Link to="/about">
+					            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
+						  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>ABOUT US</span>
+						          </ListItem>
+					          </Link>
+					          <Link to="/register">
+					            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
+						  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
+						          </ListItem>
+					          </Link>
+					          <Link to="/login">
+					            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
+						  					<span style={{fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN IN</span>
+						          </ListItem>
+					          </Link>
+				          </Fragment>)}
 			          </Grid>
 		          </SwipeableDrawer>
 		        )}

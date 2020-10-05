@@ -21,6 +21,12 @@ class LoginWrapper extends Component {
     };
   }
 
+  componentDidMount() {
+    if(empty(this.props.user.iat) && !empty(this.props.user.id)) {
+      this.props.history.push('/patient/dashboard')
+    }
+  }
+
   render() {
     const {maxWidth, small, xs, theme, dark, login} = this.props;
     const {role} = this.state;

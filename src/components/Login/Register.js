@@ -5,6 +5,8 @@ import empty from 'is-empty';
 import ReCAPTCHA from "react-google-recaptcha";
 
 import {get_role_img} from '../../utils/images';
+import withToast from '../../utils/withToast';
+import {registerUser} from '../../store/actions/user';
 
 import {Grid, TextField, Button, Divider} from '@material-ui/core';
 
@@ -15,11 +17,11 @@ class Register extends Component {
 		super(props);
     this.state = {
       data: {
-      	first: '',
-      	last: '',
+      	fName: '',
+      	lName: '',
         email: '',
-        phone: '',
-        password: ''
+        phoneNumber: '',
+        pword: ''
       },
       captcha: false
     }
@@ -35,11 +37,18 @@ class Register extends Component {
     })
   }
 
+  onRegister = async () => {
+    this.setState({...this.state, loaded: false});
+    const resp = await this.props.registerUser({...this.state.data, userType: this.props.role});
+    if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
+    this.setState({...this.state, loaded: true});
+  }
+
   render() {
   	const {small, xs, theme, dark, role} = this.props;
     const {data, captcha} = this.state;
 
-    const emptyCheck = !empty(data.first) && !empty(data.last) && !empty(data.email) && !empty(data.phone) && !empty(data.password) && captcha;
+    const emptyCheck = !empty(data.fName) && !empty(data.lName) && !empty(data.email) && !empty(data.phoneNumber) && !empty(data.pword) && captcha;
 
   	return(
   		<Grid xs={12} container item style={{borderRadius: 6, border: `1px solid ${theme.primary.main}`, padding: (dark && small) ? "0" : "1.5rem"}}>
@@ -53,8 +62,8 @@ class Register extends Component {
 	          	<TextField
 		            size="small"
 		            variant="outlined"
-		            value={data.first}
-		            name="first"
+		            value={data.fName}
+		            name="fName"
 		            onChange={this.handleDataChange}
 		            color="primary"
 		            inputProps={{
@@ -63,38 +72,38 @@ class Register extends Component {
 		            style={{marginBottom: "0.5rem"}}
 		            fullWidth
 		          />
-	          	<TextField
-		            size="small"
-		            variant="outlined"
-		            value={data.email}
-		            name="email"
-		            onChange={this.handleDataChange}
-		            color="primary"
-		            inputProps={{
-		              placeholder: "Email"
-		            }}
-		            style={{marginBottom: "0.5rem"}}
-		            fullWidth
-		          />
+              <TextField
+                size="small"
+                variant="outlined"
+                value={data.lName}
+                name="lName"
+                onChange={this.handleDataChange}
+                color="primary"
+                inputProps={{
+                  placeholder: "Last Name"
+                }}
+                style={{marginBottom: "0.5rem"}}
+                fullWidth
+              />
 	          </Grid>
 	          <Grid item container xs={12} sm={6} style={{paddingLeft: !xs ? "0.25rem" : ""}}>
 	          	<TextField
-		            size="small"
-		            variant="outlined"
-		            value={data.last}
-		            name="last"
-		            onChange={this.handleDataChange}
-		            color="primary"
-		            inputProps={{
-		              placeholder: "Last Name"
-		            }}
-		            style={{marginBottom: "0.5rem"}}
-		            fullWidth
-		          />
+                size="small"
+                variant="outlined"
+                value={data.email}
+                name="email"
+                onChange={this.handleDataChange}
+                color="primary"
+                inputProps={{
+                  placeholder: "Email"
+                }}
+                style={{marginBottom: "0.5rem"}}
+                fullWidth
+              />
 		          <PhoneInput
 		          	value={data.phone}
-		          	name="phone"
-		          	onChange={value => this.setState({...this.state, data: {...data, phone: value}})}
+		          	name="phoneNumber"
+		          	onChange={value => this.setState({...this.state, data: {...data, phoneNumber: value}})}
 		          	style={{marginBottom: "0.5rem"}}
 		          />
 	          </Grid>
@@ -102,8 +111,8 @@ class Register extends Component {
           <TextField
             size="small"
             variant="outlined"
-            value={data.password}
-            name="password"
+            value={data.pword}
+            name="pword"
             type="password"
             color="primary"
             onChange={this.handleDataChange}
@@ -118,7 +127,7 @@ class Register extends Component {
             style={{marginBottom: "0.5rem"}}
             onChange={value => this.setState({...this.state, captcha: !empty(value)})}
           />
-          <Button variant="contained" fullWidth style={{backgroundColor: !emptyCheck ? "" : "#002868", color: !emptyCheck ? "" : "white", marginBottom: "1rem"}} size="large" disabled={emptyCheck}>Register</Button>
+          <Button onClick={this.onRegister} variant="contained" fullWidth style={{backgroundColor: !emptyCheck ? "" : "#002868", color: !emptyCheck ? "" : "white", marginBottom: "1rem"}} size="large" disabled={!emptyCheck}>Register</Button>
           <div style={{display: "flex", alignItems: "center", marginBottom: "1rem", width: "100%"}}>
             <Divider style={{flex: 1, marginRight: "1rem"}}/>
             <span style={{fontSize: "0.9rem", color: "#002868"}}>or</span>
@@ -135,5 +144,5 @@ const mapStateToProps = state => ({
   dark: state.dark
 });
  
-export default connect(mapStateToProps,{})(Register);
+export default connect(mapStateToProps,{registerUser})(withToast(Register));
 

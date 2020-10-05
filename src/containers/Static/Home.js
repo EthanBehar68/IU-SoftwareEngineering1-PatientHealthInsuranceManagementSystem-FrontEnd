@@ -26,9 +26,9 @@ class Home extends Component {
   					<span style={{color: "white", fontSize: "3.5rem", fontWeight: 500}}>Health care that inspires</span>
   					<span style={{color: "white", fontSize: "2rem", fontWeight: 300}}>Managing your well-being has never been this easy.</span>
   					<div style={{display: "flex", alignItems: "center", marginTop: "1rem", flexWrap: "wrap", width: "100%"}}>
-  						<Link to="/" style={{width: xs ? "100%" : ""}}><Button variant="contained" style={{width: xs ? "100%" : "", marginRight: xs ? "" : "0.5rem", marginBottom: !xs ? "" : "0.5rem", background: "#bf0a30", color: "white"}}>I NEED CARE</Button></Link>
-  						<Link to="/" style={{width: xs ? "100%" : ""}}><Button variant="contained" style={{width: xs ? "100%" : "", marginRight: xs ? "" : "0.5rem", marginBottom: !xs ? "" : "0.5rem", background: "#002868", color: "white"}}>I'M A DOCTOR</Button></Link>
-  						<Link to="/" style={{width: xs ? "100%" : ""}}><Button variant="contained" style={{width: xs ? "100%" : "", background: "#002868", color: "white"}}>I SELL INSURANCE</Button></Link>
+  						<Link to="/login/patient" style={{width: xs ? "100%" : ""}}><Button variant="contained" style={{width: xs ? "100%" : "", marginRight: xs ? "" : "0.5rem", marginBottom: !xs ? "" : "0.5rem", background: "#bf0a30", color: "white"}}>I NEED CARE</Button></Link>
+  						<Link to="/login/doctor" style={{width: xs ? "100%" : ""}}><Button variant="contained" style={{width: xs ? "100%" : "", marginRight: xs ? "" : "0.5rem", marginBottom: !xs ? "" : "0.5rem", background: "#002868", color: "white"}}>I'M A DOCTOR</Button></Link>
+  						<Link to="/login/insurance" style={{width: xs ? "100%" : ""}}><Button variant="contained" style={{width: xs ? "100%" : "", background: "#002868", color: "white"}}>I SELL INSURANCE</Button></Link>
   					</div>
   				</Grid>
 	      </Grid>

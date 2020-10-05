@@ -1,6 +1,6 @@
 import {SET_DARK} from '../types';
 
-const example = (state = false, action) => {
+const dark = (state = false, action) => {
 	switch(action.type) {
 		case SET_DARK:
 			return action.payload;
@@ -9,4 +9,4 @@ const example = (state = false, action) => {
 	}
 }
 
-export default example;
+export default dark;
