@@ -13,8 +13,7 @@ export const registerUser = (userData, history) => dispatch => {
     // Set token to Auth header
     setAuthToken(token);
     
-    dispatch(getUser({id: res.id, userType: res.userType}));
-    return {complete: true};
+    return dispatch(loginUser({email: userData.email, pword: userData.pword, userType: userData.userType}));
   })
   .catch(function(err) {
     return {complete: false, error: err.data.error};
@@ -23,6 +22,16 @@ export const registerUser = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
   return apiCall('post', `/api/login`, userData)
+  .then(function(res) {
+    return {complete: true, duoData: res};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+export const duoLogin = userData => dispatch => {
+  return apiCall('post', `/api/login/duoauth`, userData)
   .then(function(res) {
     const token = res.token;
     localStorage.setItem("jwtToken", token);
@@ -47,6 +56,7 @@ export const getUser = userData => dispatch => {
     return {complete: true};
   })
   .catch(function(err) {
+    dispatch(logoutUser());
     return {complete: false, error: err.data.error};
   });
 };

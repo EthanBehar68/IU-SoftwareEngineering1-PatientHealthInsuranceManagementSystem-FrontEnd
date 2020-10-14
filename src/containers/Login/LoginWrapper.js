@@ -22,7 +22,7 @@ class LoginWrapper extends Component {
   }
 
   componentDidMount() {
-    if(empty(this.props.user.iat) && !empty(this.props.user.id)) {
+    if(empty(this.props.user.iat) && !empty(this.props.user.id) && empty(this.props.user.hashedDuoCode)) {
       this.props.history.push(`/${this.props.user.userType}/dashboard`)
     }
   }

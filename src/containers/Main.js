@@ -19,7 +19,10 @@ import About from './Static/About';
 import LoginWrapper from './Login/LoginWrapper';
 
 import PatientDashboard from './Patient/Dashboard';
+import PatientAccount from './Patient/Account';
+
 import DoctorDashboard from './Doctor/Dashboard';
+
 import InsuranceDashboard from './Insurance/Dashboard';
 
 class Main extends Component {
@@ -74,12 +77,12 @@ class Main extends Component {
 					<Navbar logoutUser={this.props.logoutUser} user={user} maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} dark={dark} state_set_dark={this.props.state_set_dark}/>
 					<Switch>
 						<Route exact path='/' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
-						<Route exact path='/about' component={() => <About maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
 						<Route exact path='/register/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login={false} user={user}/>} />
 						<Route exact path='/register' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login={false} user={user}/>} />
 						<Route exact path='/login/:role' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login user={user}/>} />
 						<Route exact path='/login' component={() => <LoginWrapper maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login user={user}/>} />
 						<PrivateRoute exact path='/patient/dashboard' component={() => <PatientDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} portal="patient"/>
+						<PrivateRoute exact path='/patient/account' component={() => <PatientAccount maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} portal="patient"/>
 						<PrivateRoute exact path='/doctor/dashboard' component={() => <DoctorDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} portal="doctor"/>
 						<PrivateRoute exact path='/insurance/dashboard' component={() => <InsuranceDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} login/>} portal="insurance"/>
 						<Route path='*' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />

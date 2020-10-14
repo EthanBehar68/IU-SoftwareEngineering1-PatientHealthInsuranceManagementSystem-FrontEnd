@@ -10,9 +10,10 @@ import {get_role_img} from '../../utils/images';
 
 import {Grid, TextField, Button, Divider} from '@material-ui/core';
 
-import {loginUser} from '../../store/actions/user';
+import {loginUser, duoLogin} from '../../store/actions/user';
 
 import Loading from '../Graphics/Loading';
+import Duo from './Duo';
 
 class Login extends Component {
 	constructor(props) {
@@ -23,6 +24,7 @@ class Login extends Component {
         pword: ''
       },
       captcha: false,
+      duoData: {},
       loaded: true
     }
 	}
@@ -41,12 +43,12 @@ class Login extends Component {
     this.setState({...this.state, loaded: false});
     const resp = await this.props.loginUser({...this.state.data, userType: this.props.role});
     if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
-    this.setState({...this.state, loaded: true});
+    this.setState({...this.state, loaded: true, duoData: resp.duoData});
   }
 
   render() {
-  	const {small, xs, theme, dark, role} = this.props;
-    const {data, captcha, loaded} = this.state;
+  	const {small, xs, theme, dark, role, user} = this.props;
+    const {data, captcha, loaded, duoData} = this.state;
 
     const emptyCheck = !empty(data.email) && !empty(data.pword) && captcha;
 
@@ -57,7 +59,7 @@ class Login extends Component {
     			{!small && (<Grid sm={0} md={6} container item style={{paddingRight: small ? "" : "1.5rem"}}>
             <img src={get_role_img(role)} alt="" style={{width: "100%", objectFit: "cover", height: "100%", borderRadius: 6}}/>
           </Grid>)}
-          <Grid sm={12} md={6} container item direction="column" style={{background: "#fff", padding: dark ? "1rem" : "", borderRadius: 6}}>
+          {empty(duoData) && (<Grid sm={12} md={6} container item direction="column" style={{background: "#fff", padding: dark ? "1rem" : "", borderRadius: 6}}>
             <span style={{color: !dark ? theme.primary.main : theme.primary.contrastText, fontSize: "2rem", lineHeight: "1.6rem", marginBottom: "1rem", fontWeight: 500}}>{role.toUpperCase()} LOGIN</span>
             <TextField
               size="small"
@@ -107,7 +109,8 @@ class Login extends Component {
               <Divider style={{flex: 1, marginLeft: "1rem"}}/>
             </div>
             <Link to={`/register/${role}`} style={{width: "100%"}}><Button variant="contained" fullWidth style={{backgroundColor: "#002868", color: "white"}} size="large">Register</Button></Link>
-          </Grid>
+          </Grid>)}
+          {!empty(duoData) && (<Duo duoData={duoData} dark={dark} theme={theme} duoLogin={this.props.duoLogin}/>)}
     		</Grid>
       </Fragment>
   	);
@@ -119,5 +122,5 @@ const mapStateToProps = state => ({
   user: state.user
 });
  
-export default connect(mapStateToProps,{loginUser})(withToast(Login));
+export default connect(mapStateToProps,{loginUser, duoLogin})(withToast(Login));
 

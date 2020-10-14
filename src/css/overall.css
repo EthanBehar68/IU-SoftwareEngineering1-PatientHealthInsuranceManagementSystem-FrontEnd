@@ -25,3 +25,7 @@ span:focus {
 div:focus {
 	outline: none;
 }
+
+.react-toast-notifications__container {
+	z-index: 100000;
+}
