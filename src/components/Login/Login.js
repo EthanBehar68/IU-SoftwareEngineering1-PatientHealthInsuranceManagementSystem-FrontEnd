@@ -14,6 +14,7 @@ import {loginUser, duoLogin} from '../../store/actions/user';
 
 import Loading from '../Graphics/Loading';
 import Duo from './Duo';
+import ForgotPassword from './ForgotPassword';
 
 class Login extends Component {
 	constructor(props) {
@@ -25,7 +26,8 @@ class Login extends Component {
       },
       captcha: false,
       duoData: {},
-      loaded: true
+      loaded: true,
+      forgot: false
     }
 	}
 
@@ -48,13 +50,14 @@ class Login extends Component {
 
   render() {
   	const {small, xs, theme, dark, role, user} = this.props;
-    const {data, captcha, loaded, duoData} = this.state;
+    const {data, captcha, loaded, duoData, forgot} = this.state;
 
     const emptyCheck = !empty(data.email) && !empty(data.pword) && captcha;
 
   	return(
       <Fragment>
         {!loaded && (<Loading />)}
+        {forgot && (<ForgotPassword {...this.props} onClose={() => this.setState({...this.state, forgot: false})}/>)}
     		<Grid xs={12} container item style={{borderRadius: 6, border: `1px solid ${theme.primary.main}`, padding: (dark && small) ? "0" : "1.5rem"}}>
     			{!small && (<Grid sm={0} md={6} container item style={{paddingRight: small ? "" : "1.5rem"}}>
             <img src={get_role_img(role)} alt="" style={{width: "100%", objectFit: "cover", height: "100%", borderRadius: 6}}/>
@@ -88,7 +91,7 @@ class Login extends Component {
               style={{marginBottom: "0.5rem"}}
               fullWidth
             />
-            <Link to="/forgot" style={{marginBottom: "0.5rem", color: !dark ? theme.primary.main : theme.primary.contrastText, fontSize: "0.9rem"}}>Forgot Password?</Link>
+            <span onClick={() => this.setState({...this.state, forgot: true})} style={{cursor: "pointer", marginBottom: "0.5rem", color: !dark ? theme.primary.main : theme.primary.contrastText, fontSize: "0.9rem"}}>Forgot Password?</span>
             <ReCAPTCHA
               sitekey="6LdAldEZAAAAANrCrYaxC6PpkQBYcmOASFJjXht1"
               onChange={value => this.setState({...this.state, captcha: !empty(value)})}

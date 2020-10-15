@@ -60,6 +60,17 @@ export const getUser = userData => dispatch => {
     return {complete: false, error: err.data.error};
   });
 };
+
+export const resetPassword = userData => dispatch => {
+  return apiCall('post', `/api/password`, userData)
+  .then(function(res) {
+    // Set current user
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
 // Set logged in user
 export const setCurrentUser = decoded => {
   return {

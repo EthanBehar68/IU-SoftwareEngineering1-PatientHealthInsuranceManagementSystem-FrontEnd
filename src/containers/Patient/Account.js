@@ -28,7 +28,6 @@ class Account extends Component {
         lname: '',
         email: '',
         phonenumber: '',
-        pword: '',
         img: ''
       },
       medical: {
