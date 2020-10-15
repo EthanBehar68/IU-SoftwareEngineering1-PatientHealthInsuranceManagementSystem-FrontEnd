@@ -49,7 +49,22 @@ class AddressInput extends Component {
 							onChange={this.props.onChange}
 						/>
 					</Grid>
-					<Grid container item xs={12} md={6} style={{marginTop: "0.5rem", paddingRight: small ? "" : "0.5rem"}}>
+					<Grid container item xs={12} md={5} style={{marginTop: "0.5rem", paddingRight: small ? "" : "0.5rem"}}>
+						<span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>City</span>
+						<TextField
+							fullWidth
+							type="text"
+							name="city"
+							variant="outlined"
+							inputProps={{
+								placeholder: "City"
+							}}
+							size="small"
+							value={data.city}
+							onChange={this.props.onChange}
+						/>
+					</Grid>
+					<Grid container item xs={12} md={3} style={{marginTop: "0.5rem", paddingRight: small ? "" : "0.5rem"}}>
 						<span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>State</span>
 						<Select
               native
@@ -67,7 +82,7 @@ class AddressInput extends Component {
               )}
             </Select>
 					</Grid>
-					<Grid container item xs={12} md={6} style={{marginTop: "0.5rem"}}>
+					<Grid container item xs={12} md={4} style={{marginTop: "0.5rem"}}>
 						<span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Zip</span>
 						<TextField
 							fullWidth

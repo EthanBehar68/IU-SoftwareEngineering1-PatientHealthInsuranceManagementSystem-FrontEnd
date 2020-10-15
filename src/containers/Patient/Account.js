@@ -34,6 +34,7 @@ class Account extends Component {
         address1: '',
         address2: '',
         state1: '',
+        city: '',
         zipcode: '',
         birthdate: '',
         sex: '',

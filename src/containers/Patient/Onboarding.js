@@ -24,6 +24,7 @@ class Onboarding extends Component {
       data: {
         address1: '',
         address2: '',
+        city: '',
         state1: '',
         zipcode: '',
         birthdate: '',

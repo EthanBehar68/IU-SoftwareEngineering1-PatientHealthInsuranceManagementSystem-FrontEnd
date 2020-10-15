@@ -53,6 +53,7 @@ class Login extends Component {
     const resp = await this.props.loginGoogleUser({tokenId: response.tokenId, userType: this.props.role});
     if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     this.setState({...this.state, loaded: true, duoData: resp.duoData});
+    console.log(response)
   }
 
   onGoogleFailure = response => {
@@ -136,5 +137,5 @@ const mapStateToProps = state => ({
   user: state.user
 });
  
-export default connect(mapStateToProps,{loginUser, duoLogin})(withToast(Login));
+export default connect(mapStateToProps,{loginUser, duoLogin, loginGoogleUser})(withToast(Login));
 

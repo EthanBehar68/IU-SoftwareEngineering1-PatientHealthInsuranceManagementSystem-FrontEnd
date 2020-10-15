@@ -27,5 +27,5 @@ div:focus {
 }
 
 .react-toast-notifications__container {
-	z-index: 100000;
+	z-index: 100000 !important;
 }
