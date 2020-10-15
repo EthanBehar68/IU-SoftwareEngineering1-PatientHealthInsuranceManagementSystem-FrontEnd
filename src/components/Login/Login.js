@@ -10,7 +10,7 @@ import {get_role_img} from '../../utils/images';
 
 import {Grid, TextField, Button, Divider} from '@material-ui/core';
 
-import {loginUser, duoLogin} from '../../store/actions/user';
+import {loginUser, duoLogin, loginGoogleUser} from '../../store/actions/user';
 
 import Loading from '../Graphics/Loading';
 import Duo from './Duo';
@@ -46,6 +46,17 @@ class Login extends Component {
     const resp = await this.props.loginUser({...this.state.data, userType: this.props.role});
     if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     this.setState({...this.state, loaded: true, duoData: resp.duoData});
+  }
+
+  onGoogleSuccess = async response => {
+    this.setState({...this.state, loaded: false});
+    const resp = await this.props.loginGoogleUser({tokenId: response.tokenId, userType: this.props.role});
+    if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
+    this.setState({...this.state, loaded: true, duoData: resp.duoData});
+  }
+
+  onGoogleFailure = response => {
+    console.log(response)
   }
 
   render() {

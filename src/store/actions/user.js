@@ -30,6 +30,16 @@ export const loginUser = userData => dispatch => {
   });
 };
 
+export const loginGoogleUser = userData => dispatch => {
+  return apiCall('post', `/api/login/google`, userData)
+  .then(function(res) {
+    return {complete: true, duoData: res};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
 export const duoLogin = userData => dispatch => {
   return apiCall('post', `/api/login/duoauth`, userData)
   .then(function(res) {
