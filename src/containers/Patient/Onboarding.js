@@ -54,6 +54,10 @@ class Onboarding extends Component {
 
   onboardPatient = async () => {
     this.setState({...this.state, loaded: false});
+
+    // this.state.data.height = this.state.data.height.replaceAll('_', '');
+    // this.state.data.birthdate = this.state.data.birthdate.replaceAll('_', '');
+
     const resp = await this.props.onboardPatient({...this.state.data, id: this.props.user.id});
     if(!resp.complete) { 
       this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });

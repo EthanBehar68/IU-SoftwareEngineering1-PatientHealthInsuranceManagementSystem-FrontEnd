@@ -15,7 +15,8 @@ import PhoneInput from '../../components/Inputs/PhoneInput';
 
 import {bloodtypes} from '../../utils/options';
 
-import {onboardPatient} from '../../store/actions/patients';
+import {onboardPatient, updateBasic, updateMedical} from '../../store/actions/patients';
+
 import {logoutUser} from '../../store/actions/user';
 
 class Account extends Component {
@@ -98,22 +99,22 @@ class Account extends Component {
 
   updateBasic = async () => {
     this.setState({...this.state, loaded: false});
-    const resp = await this.props.onboardPatient({...this.state.data, id: this.props.user.id});
+    const resp = await this.props.updateBasic({...this.state.basic, id: this.props.user.id});
     if(!resp.complete) { 
       this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     } else {
-      this.props.addToast("Successfully onboarded!", { appearance: 'success', autoDismiss: true });
+      this.props.addToast("Successfully updated user information!", { appearance: 'success', autoDismiss: true });
     }
     this.setState({...this.state, loaded: true});
   }
 
   updateMedical = async () => {
     this.setState({...this.state, loaded: false});
-    const resp = await this.props.onboardPatient({...this.state.data, id: this.props.user.id});
+    const resp = await this.props.updateMedical({...this.state.medical, id: this.props.user.id});
     if(!resp.complete) { 
       this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     } else {
-      this.props.addToast("Successfully onboarded!", { appearance: 'success', autoDismiss: true });
+      this.props.addToast("Successfully updated medical data!", { appearance: 'success', autoDismiss: true });
     }
     this.setState({...this.state, loaded: true});
   }
@@ -365,4 +366,4 @@ const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(mapStateToProps,{onboardPatient, logoutUser})(withRouter(withToast(Account)));
+export default connect(mapStateToProps,{onboardPatient, updateBasic, updateMedical, logoutUser})(withRouter(withToast(Account)));

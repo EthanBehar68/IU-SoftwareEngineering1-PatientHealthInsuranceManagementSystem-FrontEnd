@@ -8,9 +8,33 @@ export const state_update_user = payload => ({
   payload
 });
 
-// Register User
+// Update Patient User Info
+export const updateBasic = data => dispatch => {
+  return apiCall('put', `/api/patients/user`, data)
+  .then(function(res) {
+    dispatch(state_update_user(res));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+// Register Patient Medical Data
 export const onboardPatient = data => dispatch => {
   return apiCall('post', `/api/patients/onboard`, data)
+  .then(function(res) {
+    dispatch(state_update_user(res));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+// Update Patient Medical Data
+export const updateMedical = data => dispatch => {
+  return apiCall('put', `/api/patients/details`, data)
   .then(function(res) {
     dispatch(state_update_user(res));
     return {complete: true};
