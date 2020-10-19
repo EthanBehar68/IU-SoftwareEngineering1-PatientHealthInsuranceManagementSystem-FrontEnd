@@ -43,3 +43,14 @@ export const updateMedical = data => dispatch => {
     return {complete: false, error: err.data.error};
   });
 };
+
+// Update Patient Profile Picture
+export const updateProfilePic = data => {
+  return apiCall('put', `/api/patients/profilepic`, data)
+  .then(function(res) {
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
