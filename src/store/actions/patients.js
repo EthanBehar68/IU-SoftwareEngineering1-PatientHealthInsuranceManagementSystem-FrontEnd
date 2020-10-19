@@ -54,3 +54,14 @@ export const updateProfilePic = data => {
     return {complete: false, error: err.data.error};
   });
 };
+
+// Update Patient Password
+export const updatePassword = data => {
+  return apiCall('put', `/api/patients/password`, data)
+  .then(function(res) {
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};

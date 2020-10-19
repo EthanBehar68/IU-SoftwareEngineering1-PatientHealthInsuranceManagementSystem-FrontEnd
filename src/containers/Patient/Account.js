@@ -15,7 +15,7 @@ import PhoneInput from '../../components/Inputs/PhoneInput';
 
 import {bloodtypes} from '../../utils/options';
 
-import {onboardPatient, updateBasic, updateMedical, updateProfilePic} from '../../store/actions/patients';
+import {onboardPatient, updateBasic, updatePassword, updateMedical, updateProfilePic} from '../../store/actions/patients';
 
 import {logoutUser} from '../../store/actions/user';
 
@@ -30,6 +30,11 @@ class Account extends Component {
         email: '',
         phonenumber: '',
         img: ''
+      },
+      password: {
+        pwordOld: '',
+        pword: '',
+        pwordConfirmation: ''
       },
       medical: {
         address1: '',
@@ -105,6 +110,16 @@ class Account extends Component {
     })
   } 
 
+  handlePasswordChange = e => {
+    this.setState({
+      ...this.state,
+      password: {
+        ...this.state.password,
+        [e.target.name]: e.target.value
+      }
+    })
+  } 
+
   handleMedicalChange = e => {
     this.setState({
       ...this.state,
@@ -126,6 +141,18 @@ class Account extends Component {
     this.setState({...this.state, loaded: true});
   }
 
+  updatePassword = async () => {
+    this.setState({...this.state, loaded: false});
+    const resp = await updatePassword({...this.state.password, id: this.props.user.id});
+    if(!resp.complete) { 
+      this.setState({...this.state, loaded: true});
+      this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
+    } else {
+      this.setState({...this.state, loaded: true, password: {pword: '', pwordOld: '', pwordConfirmation: ''}});
+      this.props.addToast("Successfully updated password!", { appearance: 'success', autoDismiss: true });
+    }
+  }
+
   updateMedical = async () => {
     this.setState({...this.state, loaded: false});
     const resp = await this.props.updateMedical({...this.state.medical, id: this.props.user.id});
@@ -139,9 +166,10 @@ class Account extends Component {
 
   render() {
     const {maxWidth, small, xs, theme, dark, user} = this.props;
-    const {loaded, medical, basic, updateImg, time} = this.state;
+    const {loaded, medical, basic, updateImg, time, password} = this.state;
 
     const basicEmptyCheck = !empty(basic.fname) && !empty(basic.lname) && !empty(basic.email) && !empty(basic.phonenumber);
+    const passwordEmptyCheck = !empty(password.pwordOld) && !empty(password.pword) && !empty(password.pwordConfirmation);
     const medicalEmptyCheck = !empty(medical.address1) && !empty(medical.state1) && !empty(medical.zipcode) && !empty(medical.birthdate) && !empty(medical.sex) && !empty(medical.height) && !empty(medical.weight1) && !empty(medical.bloodtype) && !empty(medical.smoke) && (medical.smoke ? !empty(medical.smokefreq) : true) && !empty(medical.drink) && (medical.drink ? !empty(medical.drinkfreq) : true) && !empty(medical.caffeine) && (medical.caffeine ? !empty(medical.caffeinefreq) : true);
     
     return (
@@ -224,7 +252,7 @@ class Account extends Component {
             </Grid>
             <span style={{marginBottom: "0.5rem", color: "#002868", fontSize: "1.5rem", fontWeight: 400, width: "100%"}}>Patient Information</span>
             <Divider style={{marginBottom: "1rem", width: "100%"}}/>
-            <Grid item container xs={12}>
+            <Grid item container xs={12} style={{marginBottom: "2rem"}}>
               <Grid container item xs={12} sm={6} direction="column" style={{paddingRight: xs ? "" : "0.5rem"}}>
                 <span style={{width: "100%", fontSize: "1.1rem", fontWeight: 400, marginBottom: "0.5rem"}}>Home Address</span>
                 <Divider style={{marginBottom: "0.75rem", width: "100%"}}/>
@@ -377,6 +405,62 @@ class Account extends Component {
                 <Button onClick={this.updateMedical} variant="contained" color="primary" fullWidth={xs} disabled={!medicalEmptyCheck}>Save</Button>
               </Grid>
             </Grid>
+            {empty(user.goauth) && (<Fragment>
+              <span style={{marginBottom: "0.5rem", color: "#002868", fontSize: "1.5rem", fontWeight: 400, width: "100%"}}>Password Reset</span>
+              <Divider style={{marginBottom: "1rem", width: "100%"}}/>
+              <Grid item container xs={12}>
+                <Grid item container xs={12} sm={6} direction="column">
+                  <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Current Password</span>
+                  <TextField
+                    size="small"
+                    variant="outlined"
+                    value={password.pwordOld}
+                    name="pwordOld"
+                    onChange={this.handlePasswordChange}
+                    color="primary"
+                    type="password"
+                    inputProps={{
+                      placeholder: "Old Password"
+                    }}
+                    style={{marginBottom: "0.5rem"}}
+                    fullWidth
+                  />
+                  <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>New Password</span>
+                  <TextField
+                    size="small"
+                    variant="outlined"
+                    value={password.pword}
+                    name="pword"
+                    type="password"
+                    onChange={this.handlePasswordChange}
+                    color="primary"
+                    inputProps={{
+                      placeholder: "New Password"
+                    }}
+                    style={{marginBottom: "0.5rem"}}
+                    fullWidth
+                  />
+                  <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Confirm New Password</span>
+                  <TextField
+                    size="small"
+                    variant="outlined"
+                    value={password.pwordConfirmation}
+                    name="pwordConfirmation"
+                    type="password"
+                    onChange={this.handlePasswordChange}
+                    color="primary"
+                    inputProps={{
+                      placeholder: "Confirm New Password"
+                    }}
+                    style={{marginBottom: "0.5rem"}}
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item container xs={12} sm={6} alignItems="flex-end" justify="flex-end">
+                  <Button onClick={this.updatePassword} variant="contained" color="primary" fullWidth={xs} disabled={!passwordEmptyCheck}>UPDATE</Button>
+                </Grid>
+              </Grid>
+            </Fragment>)}
           </Grid>
         </Grid>
       </Fragment>
