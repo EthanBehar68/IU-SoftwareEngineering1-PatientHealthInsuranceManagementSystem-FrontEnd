@@ -5,7 +5,7 @@ const PrivateRoute = ({ component: Component, user, portal, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      portal === user.userType ? (
+      portal === user.usertype ? (
         <Component {...props} />
       ) : (
         <Redirect to="/" />

@@ -43,14 +43,14 @@ class Login extends Component {
 
   onLogin = async () => {
     this.setState({...this.state, loaded: false});
-    const resp = await this.props.loginUser({...this.state.data, userType: this.props.role});
+    const resp = await this.props.loginUser({...this.state.data, usertype: this.props.role});
     if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     this.setState({...this.state, loaded: true, duoData: resp.duoData});
   }
 
   onGoogleSuccess = async response => {
     this.setState({...this.state, loaded: false});
-    const resp = await this.props.loginGoogleUser({tokenId: response.tokenId, userType: this.props.role});
+    const resp = await this.props.loginGoogleUser({tokenid: response.tokenId, usertype: this.props.role});
     if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     this.setState({...this.state, loaded: true, duoData: resp.duoData});
     console.log(response)

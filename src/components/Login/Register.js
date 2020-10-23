@@ -43,7 +43,7 @@ class Register extends Component {
 
   onRegister = async () => {
     this.setState({...this.state, loaded: false});
-    const resp = await this.props.registerUser({...this.state.data, userType: this.props.role});
+    const resp = await this.props.registerUser({...this.state.data, usertype: this.props.role});
     if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     this.setState({...this.state, loaded: true, duoData: resp.duoData});
   }

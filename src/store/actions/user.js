@@ -13,7 +13,7 @@ export const registerUser = (userData, history) => dispatch => {
     // Set token to Auth header
     setAuthToken(token);
     
-    return dispatch(loginUser({email: userData.email, pword: userData.pword, userType: userData.userType}));
+    return dispatch(loginUser({email: userData.email, pword: userData.pword, usertype: userData.usertype}));
   })
   .catch(function(err) {
     return {complete: false, error: err.data.error};
@@ -59,7 +59,7 @@ export const duoLogin = userData => dispatch => {
 };
 
 export const getUser = userData => dispatch => {
-  return apiCall('get', `/api/${userData.userType === "insurance" ? "insurance" : `${userData.userType}s`}/${userData.id}`)
+  return apiCall('get', `/api/${userData.usertype === "insurance" ? "insurance" : `${userData.usertype}s`}/${userData.id}`)
   .then(function(res) {
     // Set current user
     dispatch(setCurrentUser(res));

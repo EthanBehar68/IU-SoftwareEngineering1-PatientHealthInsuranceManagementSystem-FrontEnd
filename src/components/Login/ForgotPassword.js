@@ -34,7 +34,7 @@ class ForgotPassword extends Component {
 
   onSubmit = async () => {
     this.setState({...this.state, loaded: false});
-    const resp = await this.props.resetPassword({userType: this.props.role, email: this.state.data.email});
+    const resp = await this.props.resetPassword({usertype: this.props.role, email: this.state.data.email});
     if(!resp.complete) this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     if(resp.complete) this.props.addToast(`Your new password has been sent to ${this.state.data.email}.`, { appearance: 'success' });
     this.setState({...this.state, loaded: true});
@@ -42,7 +42,7 @@ class ForgotPassword extends Component {
   }
 
   render() {
-  	const {theme, dark, userType} = this.props;
+  	const {theme, dark, usertype} = this.props;
     const {data, loaded, submitted} = this.state;
 
     const emptyCheck = !empty(data.email);
