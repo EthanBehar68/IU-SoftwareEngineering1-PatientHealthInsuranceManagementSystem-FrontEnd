@@ -46,10 +46,13 @@ class Navbar extends Component {
 		  					</Link>
 	  					</Fragment>)}
 	  					{!empty(user) && (<Fragment>
-	  						<Link to={`/${user.usertype}/dashboard`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+	  						<Link to={`/${user.usertype}/dashboard`} style={{padding: "3px 9px"}}>
 	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>DASHBOARD</span>
 	  						</Link>
-	  						<Link to={`/${user.usertype}/account`}>
+	  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
+	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>FIND A DOCTOR</span>
+	  						</Link>)}
+	  						<Link to={`/${user.usertype}/account`} style={{marginLeft: "1.2rem"}}>
 		  						<Button variant="outlined" color="primary" size="small" style={{display: "flex", alignItems: "center"}}>
 		  							<AccountCircle style={{fontSize: "1rem"}}/>
 		  							<span style={{margin: "0 0.25rem 0 0.15rem"}}>{user.fname}</span>
@@ -70,24 +73,29 @@ class Navbar extends Component {
 		          	<Grid direction="column" style={{background: theme.background.main, height: "100%", paddingTop: "0.5rem"}}>
 		          		{empty(user) && (<Fragment>
 					          <Link to="/register">
-					            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
+					            <ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 						  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
 						          </ListItem>
 					          </Link>
 					          <Link to="/login">
-					            <ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
+					            <ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 						  					<span style={{fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN IN</span>
 						          </ListItem>
 					          </Link>
 				          </Fragment>)}
 				          {!empty(user) && (<Fragment>
 			  						<Link to={`/${user.usertype}/dashboard`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
-			  							<ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
+			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>DASHBOARD</span>
 			  							</ListItem>
 			  						</Link>
+			  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>FIND A DOCTOR</span>
+			  							</ListItem>
+			  						</Link>)}
 			  						<Link to={`/${user.usertype}/account`}>
-			  							<ListItem button style={{minWidth: "15rem", padding: "0.7rem 1.2rem"}}>
+			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 					  						<Button variant="outlined" color="primary" size="small" style={{display: "flex", alignItems: "center"}}>
 					  							<AccountCircle style={{fontSize: "1rem"}}/>
 					  							<span style={{margin: "0 0.25rem 0 0.15rem"}}>{user.fname}</span>

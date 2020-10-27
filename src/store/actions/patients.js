@@ -1,10 +1,15 @@
 import {apiCall} from "../../services/api";
 import jwt_decode from "jwt-decode";
 
-import {UPDATE_USER} from "../types";
+import {UPDATE_USER, GET_DOCTORS} from "../types";
 
 export const state_update_user = payload => ({
   type: UPDATE_USER,
+  payload
+});
+
+export const state_get_doctors = payload => ({
+  type: GET_DOCTORS,
   payload
 });
 
@@ -65,3 +70,20 @@ export const updatePassword = data => {
     return {complete: false, error: err.data.error};
   });
 };
+
+/*--------------------------------------------------------*/
+
+export const getDoctors = data => dispatch => {
+  return apiCall('post', `/api/doctorsearch`, data)
+  .then(function(res) {
+    dispatch(state_get_doctors(res));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+
+
+

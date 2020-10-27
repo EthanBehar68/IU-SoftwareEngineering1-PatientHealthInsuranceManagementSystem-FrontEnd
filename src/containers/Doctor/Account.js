@@ -320,7 +320,7 @@ class Account extends Component {
                   </Grid>
                   <Grid container item xs={12} sm={5}>
                     <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Do you treat COVID-19?</span>
-                    <RadioGroup style={{width: "100%"}} row value={medical.treatscovid} onChange={e => { this.setState({...this.state, medical: {...medical, treatscovid: JSON.parse(e.target.value), bedsmax: ''}})}}>
+                    <RadioGroup style={{width: "100%"}} row value={medical.treatscovid} onChange={e => { this.setState({...this.state, medical: {...medical, treatscovid: JSON.parse(e.target.value), bedsmax: 0}})}}>
                       <FormControlLabel value={true} control={<Radio color="primary"/>} label="Yes" />
                       <FormControlLabel value={false} control={<Radio color="primary"/>} label="No" />
                     </RadioGroup>
