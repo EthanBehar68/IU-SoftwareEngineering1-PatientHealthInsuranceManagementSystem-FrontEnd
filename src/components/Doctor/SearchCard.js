@@ -42,7 +42,7 @@ class SearchCard extends Component {
           <span style={{fontSize: "0.9rem", fontWeight: 300, display: "flex", alignItems: "center"}}>{doctor.detail.treatscovid ? <CheckCircle style={{fontSize: "1rem", color: "green", marginRight: "0.25rem"}}/> : <Cancel style={{fontSize: "1rem", color: "red", marginRight: "0.25rem"}}/>} COVID-19 care</span>
           <ul style={{paddingInlineStart: "1.5rem", marginBlockStart: "0.5rem"}}>{getSpecializations(arr).map(item => <li style={{fontWeight: 300, fontSize: "0.9rem"}}>{item}</li>)}</ul>
           <Stars rating={3.5} number={100}/>
-          <Link to={`/profile/${doctor.id}`} style={{marginTop: "0.25rem"}}><Button variant="outlined" color="secondary">VIEW PROFILE</Button></Link>
+          <Link to={`/patient/find/${doctor.id}`} style={{marginTop: "0.25rem"}}><Button variant="outlined" color="secondary">VIEW PROFILE</Button></Link>
         </Grid>)}
       </Grid>
     )

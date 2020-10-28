@@ -87,6 +87,7 @@ class Main extends Component {
 						<PrivateRoute exact path='/patient/dashboard' component={() => <PatientDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
 						<PrivateRoute exact path='/patient/account' component={() => <PatientAccount maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
 						<PrivateRoute exact path='/patient/find' component={() => <PatientFind maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
+						<PrivateRoute exact path='/patient/find/:id' component={() => <PatientFind maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
 						<PrivateRoute exact path='/doctor/dashboard' component={() => <DoctorDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="doctor"/>
 						<PrivateRoute exact path='/doctor/account' component={() => <DoctorAccount maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="doctor"/>
 						<PrivateRoute exact path='/insurance/dashboard' component={() => <InsuranceDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="insurance"/>

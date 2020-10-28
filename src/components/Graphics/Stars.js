@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import StarRatings from 'react-star-ratings';
+import empty from 'is-empty';
 
 class Stars extends Component {
   render() {
@@ -13,7 +14,7 @@ class Stars extends Component {
 	        starDimension="16px"
 	        starSpacing="1px"
 	      />
-	      <span style={{fontSize: "0.8rem", marginLeft: "0.3rem", marginBottom: "0.2rem"}}>({this.props.number})</span>
+	      {!empty(this.props.number) && (<span style={{fontSize: "0.8rem", marginLeft: "0.3rem", marginBottom: "0.2rem"}}>({this.props.number})</span>)}
   		</div>
   		
   	);

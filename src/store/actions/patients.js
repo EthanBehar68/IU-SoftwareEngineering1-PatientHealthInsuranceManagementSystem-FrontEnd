@@ -84,6 +84,16 @@ export const getDoctors = data => dispatch => {
   });
 };
 
+export const getDoctor = id => {
+  return apiCall('get', `/api/doctorsearch/${id}`)
+  .then(function(res) {
+    return {complete: true, data: res};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
 
 
 

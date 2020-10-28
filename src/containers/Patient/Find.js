@@ -10,6 +10,7 @@ import {TextField, Grid, MenuItem, Button, Divider, withWidth, InputAdornment, S
 import Loading from '../../components/Graphics/Loading';
 import SearchCard from '../../components/Doctor/SearchCard';
 import GoogleMap from '../../components/Graphics/Map';
+import DoctorProfile from './DoctorProfile';
 
 import {specializationOptions} from '../../utils/options';
 
@@ -26,8 +27,20 @@ class Find extends Component {
         name: '',
         address: '',
         treatscovid: ''
-      }
+      },
+      doctorId: this.props.match.params.id || ''
     };
+  }
+
+  componentDidMount() {
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.match !== this.props.match) {
+      if(!empty(this.props.match.params.id)) {
+        this.setState({...this.state, doctorId: this.props.match.params.id});
+      }
+    }
   }
 
   handleSearchChange = e => {
@@ -41,22 +54,35 @@ class Find extends Component {
   } 
 
   onSearch = async () => {
+    this.setState({...this.state, loaded: false});
     const resp = await this.props.getDoctors(this.state.search);
     if(!resp.complete) {
       this.props.addToast(resp.error, {appearance: 'error', autoDismiss: true});
     }
+    this.setState({...this.state, loaded: true});
   }
 
   render() {
     const {maxWidth, small, xs, theme, dark, user, doctors} = this.props;
-    const {loaded, search} = this.state;
+    const {loaded, search, doctorId} = this.state;
     
     return (
       <Fragment>
         {!loaded && (<Loading />)}
+        {!empty(doctorId) && (<DoctorProfile 
+          doctorId={doctorId}
+          onClose={() => this.setState({...this.state, doctorId: ''})}
+          maxWidth={maxWidth}
+          small={small}
+          xs={xs}
+          theme={theme}
+        />)}
         <Grid item container xs={12} direction="column" alignItems="center" style={{backgroundColor: theme.background.main, minHeight: "calc(100vh - 4rem)"}}>
           <Grid item container direction="column" alignItems="center" style={{height: "100%", background: "#bf0a30"}}>
             <Grid item container xs={12} style={{width: maxWidth, padding: small ? "1rem" : "2rem 0 1rem"}}>
+              <Grid item container xs={12} style={{margin: "1rem 0 0.75rem"}}>
+                <span style={{fontSize: "2rem", color: 'white', fontWeight: 500}}>Find a Doctor</span>
+              </Grid>
               <Grid item container xs={12} sm={6} md={4} direction="column">
                 <div style={{display: "flex", alignItems: "center"}}>
                   <span style={{fontSize: "0.9rem", fontWeight: 300, color: "white"}}>Search by:</span>
@@ -104,7 +130,7 @@ class Find extends Component {
                   onChange={this.handleSearchChange}
                   color="primary"
                   inputProps={{
-                    placeholder: "Zip Code or City"
+                    placeholder: "Zip Code or City, State"
                   }}
                   style={{marginTop: "0.5rem", background: "white", borderRadius: 4}}
                   fullWidth
@@ -124,7 +150,7 @@ class Find extends Component {
                   style={{marginTop: "0.5rem", background: 'white'}}
                   onChange={this.handleSearchChange}
                 >
-                  {['', 'Yes', 'No'].map((x, i) =>
+                  {['', 'Yes'].map((x, i) =>
                     <option key={i} value={x}>{x}</option>
                   )}
                 </Select>
