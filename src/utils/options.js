@@ -100,5 +100,9 @@ export const specializationOptions = [
 	}
 ];
 
+export const getSpecializations = arr => {
+	return arr.map(item => specializationOptions.filter(option => option.value === item)[0].label);
+}
+
 
 

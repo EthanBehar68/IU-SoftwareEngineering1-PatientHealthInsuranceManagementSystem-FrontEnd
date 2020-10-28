@@ -56,8 +56,8 @@ class Find extends Component {
         {!loaded && (<Loading />)}
         <Grid item container xs={12} direction="column" alignItems="center" style={{backgroundColor: theme.background.main, minHeight: "calc(100vh - 4rem)"}}>
           <Grid item container direction="column" alignItems="center" style={{height: "100%", background: "#bf0a30"}}>
-            <Grid item container xs={12} style={{width: maxWidth, padding: "2rem 0 1rem"}}>
-              <Grid item container xs={4} direction="column">
+            <Grid item container xs={12} style={{width: maxWidth, padding: small ? "1rem" : "2rem 0 1rem"}}>
+              <Grid item container xs={12} sm={6} md={4} direction="column">
                 <div style={{display: "flex", alignItems: "center"}}>
                   <span style={{fontSize: "0.9rem", fontWeight: 300, color: "white"}}>Search by:</span>
                   <span onClick={() => this.setState({...this.state, search: {...search, namesearch: false, name: ''}})} style={{fontSize: "0.9rem", margin: "0 0.25rem", fontWeight: !search.namesearch ? 600 : 300, cursor: "pointer", color: "white"}}>Speciality</span>
@@ -94,7 +94,7 @@ class Find extends Component {
                   fullWidth
                 />)}
               </Grid>
-              <Grid item container xs={3} direction="column" style={{paddingLeft: "0.5rem"}}>
+              <Grid item container xs={6} sm={3} md={3} direction="column" style={{paddingLeft: xs ? "" : "0.5rem", marginTop: xs ? "0.5rem" : ""}}>
                 <span style={{fontSize: "0.9rem", fontWeight: 300, color: "white"}}>Location:</span>
                 <TextField
                   size="small"
@@ -110,7 +110,7 @@ class Find extends Component {
                   fullWidth
                 />
               </Grid>
-              <Grid item container xs={2} direction="column" style={{paddingLeft: "0.5rem"}}>
+              <Grid item container xs={6} sm={3} md={2} direction="column" style={{paddingLeft: "0.5rem", marginTop: xs ? "0.5rem" : ""}}>
                 <span style={{fontSize: "0.9rem", fontWeight: 300, color: "white"}}>COVID-19 Care:</span>
                 <Select
                   native
@@ -129,20 +129,20 @@ class Find extends Component {
                   )}
                 </Select>
               </Grid>
-              <Grid item container xs={3} alignItems="flex-end" justify="flex-end" style={{paddingLeft: "0.5rem"}}>
-                <Button onClick={this.onSearch} variant="contained" color="primary" size="large">Search</Button>
+              <Grid item container xs={12} md={3} alignItems="flex-end" justify="flex-end" style={{paddingLeft: small ? "" : "0.5rem", marginTop: small ? "0.5rem" : ""}}>
+                <Button fullWidth={small} onClick={this.onSearch} variant="contained" color="primary" size="large">Search</Button>
               </Grid>
             </Grid>
             <Divider />
           </Grid>
           <Grid item container direction="column" alignItems="center" style={{height: "100%", background: "#fff"}}>
-            <Grid item container xs={12} style={{width: maxWidth, padding: "1rem 0", position: "relative"}}>
+            <Grid item container xs={12} style={{width: maxWidth, padding: small ? "1rem" : "1rem 0", position: "relative"}}>
               <Grid item container xs={12} direction="column" style={{position: "relative"}}>
                 <div style={{position: "sticky", display: "flex", justifyContent: "flex-end", top: 0, width: "100%", height: 0}}>
-                  {!empty(doctors) && (<GoogleMap 
+                  {(!empty(doctors) && !xs) && (<GoogleMap 
                     lat={doctors[0].detail.lat} 
                     lng={doctors[0].detail.lng} 
-                    style={{width: "23.4rem", height: "25rem", background: "white", marginTop: "1.5rem"}}
+                    style={{width: small ? "47%" : "23.4rem", height: "25rem", background: "white", marginTop: "1.5rem"}}
                     markers={doctors.map(doctor => ({lng: doctor.detail.lng, lat: doctor.detail.lat}))}
                   />)}
                 </div>
@@ -155,6 +155,8 @@ class Find extends Component {
                     key={i}
                     doctor={doctor}
                     i={i}
+                    small={small}
+                    xs={xs}
                   />
                 ))}
               </Grid>
