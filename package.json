@@ -15,6 +15,7 @@
     "jwt-decode": "^2.2.0",
     "lottie-react-web": "^2.1.4",
     "moment": "^2.24.0",
+    "nodemon": "^2.0.6",
     "query-string": "^6.9.0",
     "react": "^16.11.0",
     "react-clock": "^2.4.0",

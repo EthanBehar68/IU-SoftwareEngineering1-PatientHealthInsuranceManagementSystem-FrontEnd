@@ -55,11 +55,11 @@ class Onboarding extends Component {
   onboardPatient = async () => {
     this.setState({...this.state, loaded: false});
 
-    // this.state.data.height = this.state.data.height.replaceAll('_', '');
+     this.state.data.height = this.state.data.height.replaceAll('_', '');
     // this.state.data.birthdate = this.state.data.birthdate.replaceAll('_', '');
 
     const resp = await this.props.onboardPatient({...this.state.data, id: this.props.user.id});
-    if(!resp.complete) { 
+    if(!resp.complete) {
       this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     } else {
       this.props.addToast("Successfully onboarded!", { appearance: 'success', autoDismiss: true });
@@ -72,7 +72,7 @@ class Onboarding extends Component {
     const {loaded, data} = this.state;
 
     const emptyCheck = !empty(data.address1) && !empty(data.state1) && !empty(data.zipcode) && !empty(data.birthdate) && !empty(data.sex) && !empty(data.height) && !empty(data.weight1) && !empty(data.bloodtype) && !empty(data.smoke) && (data.smoke ? !empty(data.smokefreq) : true) && !empty(data.drink) && (data.drink ? !empty(data.drinkfreq) : true) && !empty(data.caffeine) && (data.caffeine ? !empty(data.caffeinefreq) : true);
-    
+
     return (
       <Modal open style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
         <div style={{backgroundColor: "#fff", width: `calc(${maxWidth} - 4rem)`, padding: small ? "1rem" : "2rem", position: "relative", maxHeight: "80vh", overflowY: "scroll", borderRadius: 6, display: "flex", flexWrap: "wrap"}}>

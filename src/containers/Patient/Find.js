@@ -51,7 +51,7 @@ class Find extends Component {
         [e.target.name]: e.target.value
       }
     })
-  } 
+  }
 
   onSearch = async () => {
     this.setState({...this.state, loaded: false});
@@ -65,11 +65,11 @@ class Find extends Component {
   render() {
     const {maxWidth, small, xs, theme, dark, user, doctors} = this.props;
     const {loaded, search, doctorId} = this.state;
-    
+
     return (
       <Fragment>
         {!loaded && (<Loading />)}
-        {!empty(doctorId) && (<DoctorProfile 
+        {!empty(doctorId) && (<DoctorProfile
           doctorId={doctorId}
           onClose={() => this.setState({...this.state, doctorId: ''})}
           maxWidth={maxWidth}
@@ -165,9 +165,9 @@ class Find extends Component {
             <Grid item container xs={12} style={{width: maxWidth, padding: small ? "1rem" : "1rem 0", position: "relative"}}>
               <Grid item container xs={12} direction="column" style={{position: "relative"}}>
                 <div style={{position: "sticky", display: "flex", justifyContent: "flex-end", top: 0, width: "100%", height: 0}}>
-                  {(!empty(doctors) && !xs) && (<GoogleMap 
-                    lat={doctors[0].detail.lat} 
-                    lng={doctors[0].detail.lng} 
+                  {(!empty(doctors) && !xs) && (<GoogleMap
+                    lat={doctors[0].detail.lat}
+                    lng={doctors[0].detail.lng}
                     style={{width: small ? "47%" : "23.4rem", height: "25rem", background: "white", marginTop: "1.5rem"}}
                     markers={doctors.map(doctor => ({lng: doctor.detail.lng, lat: doctor.detail.lat}))}
                   />)}
