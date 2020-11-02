@@ -1,7 +1,7 @@
 import {apiCall} from "../../services/api";
 import jwt_decode from "jwt-decode";
 
-import {UPDATE_USER, GET_DOCTORS} from "../types";
+import {UPDATE_USER, GET_DOCTORS, GET_APPOINTMENTS, UPDATE_APPOINTMENTS} from "../types";
 
 export const state_update_user = payload => ({
   type: UPDATE_USER,
@@ -10,6 +10,16 @@ export const state_update_user = payload => ({
 
 export const state_get_doctors = payload => ({
   type: GET_DOCTORS,
+  payload
+});
+
+export const state_get_appointments = payload => ({
+  type: GET_APPOINTMENTS,
+  payload
+});
+
+export const state_update_appointments = payload => ({
+  type: UPDATE_APPOINTMENTS,
   payload
 });
 
@@ -88,6 +98,30 @@ export const getDoctor = id => {
   return apiCall('get', `/api/doctorsearch/${id}`)
   .then(function(res) {
     return {complete: true, data: res};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+/*--------------------------------------------------------*/
+
+export const getAppointments = data => dispatch => {
+  return apiCall('post', `/api/bookappointment/get`, data)
+  .then(function(res) {
+    dispatch(state_get_appointments(res));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+export const addAppointment = data => dispatch => {
+  return apiCall('post', `/api/bookappointment`, data)
+  .then(function(res) {
+    dispatch(state_update_appointments(res));
+    return {complete: true};
   })
   .catch(function(err) {
     return {complete: false, error: err.data.error};

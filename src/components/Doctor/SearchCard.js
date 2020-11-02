@@ -29,7 +29,7 @@ class SearchCard extends Component {
       <Grid id={`${i + 1}`} container item xs={12} sm={6} md={7} style={{padding: "1rem", border: "1px solid #ddd", marginBottom: "1px", position: "relative", paddingRight: "0.5rem"}}>
         {!xs && (<span style={{position: "absolute", right: 3, top: 3, color: "#ccc", fontSize: "0.8rem"}}>{i + 1}</span>)}
         <Grid container item xs={4} md={3}>
-          <img src={`https://apollocare.blob.core.windows.net/doctor${doctor.id}/profile`} alt="" style={{width: "100%", objectFit: "cover", borderRadius: 3}}/>
+          <img src={`https://apollocare.blob.core.windows.net/doctor${doctor.id}/profile`} alt="" style={{width: "100%", objectFit: "cover", borderRadius: 3, maxHeight: "13rem"}}/>
         </Grid>
         <Grid container item xs={8} md={5} direction="column" style={{paddingLeft: "1rem"}}>
           <span style={{fontSize: "1.5rem", fontWeight: 500}}>{doctor.fname} {doctor.lname}</span>
