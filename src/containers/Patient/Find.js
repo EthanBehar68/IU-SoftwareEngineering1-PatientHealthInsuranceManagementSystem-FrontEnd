@@ -71,7 +71,7 @@ class Find extends Component {
         {!loaded && (<Loading />)}
         {!empty(doctorId) && (<DoctorProfile
           doctorId={doctorId}
-          onClose={() => this.setState({...this.state, doctorId: ''})}
+          onClose={() => { this.setState({...this.state, doctorId: ''}); this.props.history.push('/patient/find'); } }
           maxWidth={maxWidth}
           small={small}
           xs={xs}

@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import moment from 'moment';
+import empty from 'is-empty';
 
 import {Grid, Divider, Button} from '@material-ui/core';
 import {Menu, NavigateNext, NavigateBefore} from '@material-ui/icons';
@@ -37,17 +38,24 @@ class Calendar extends Component {
   }
 
   onAddAppointment = async data => {
-    this.setState({...this.state, loaded: false});
-    const resp = await this.props.addAppointment({...data, did: this.props.doctor.id, pid: this.props.user.id});
-    if(!resp.complete) {
-      this.props.onError(resp.error);
+    const currentMinutes = (this.state.currentDate.getHours() * 60) + this.state.currentDate.getMinutes();
+    if(data.starttime < currentMinutes && moment.utc().format('MM-DD-YYYY') === moment.utc(data.appointmentdate).format('MM-DD-YYYY')) {
+      this.props.onError('This time is no longer available.');
+    } else {
+      this.setState({...this.state, loaded: false});
+      const resp = await this.props.addAppointment({...data, did: this.props.doctor.id, pid: this.props.user.id});
+      if(!resp.complete) {
+        this.props.onError(resp.error);
+      }
+      this.setState({...this.state, loaded: true});
     }
-    this.setState({...this.state, loaded: true});
   } 
 
   render() {
   	const {maxWidth, small, xs, theme, dark, appointments, user} = this.props;
     const {loaded, offset, currentDate} = this.state;
+
+    const currentMinutes = (currentDate.getHours() * 60) + currentDate.getMinutes();
 
   	return(
       <Fragment>
@@ -114,7 +122,7 @@ class Calendar extends Component {
     				</div>
     				{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(moment.utc(), offset).format('MM-DD-YYYY'))).map((row, i) => (
               <Fragment key={i}>
-      					{!row.pid && (<Button onClick={() => this.onAddAppointment({appointmentdate: addWeekday(moment.utc(), offset).format('MM-DD-YYYY'), ...row})} style={{height: "1.5rem"}} disabled={!(row.starttime > currentDate.getMinutes())}>
+      					{!row.pid && (<Button onClick={() => this.onAddAppointment({appointmentdate: addWeekday(moment.utc(), offset).format('MM-DD-YYYY'), ...row})} style={{height: "1.5rem"}} disabled={(row.starttime < currentMinutes) && empty(offset)}>
       						<span style={{fontSize: "0.8rem", fontWeight: 300}}>BOOK</span>
       					</Button>)}
                 {row.pid && (<div style={{display: "flex", justifyContent: "center", alignItems: "center", height: "1.5rem", background: row.pid === user.id ? "green" : "red"}}>

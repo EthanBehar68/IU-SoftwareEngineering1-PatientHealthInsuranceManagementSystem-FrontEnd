@@ -332,7 +332,7 @@ class Account extends Component {
                   <Grid container item xs={12} style={{marginBottom: "0.5rem"}}>
                     <Grid container item xs={12} sm={6} direction="column">
                       <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Do you smoke?</span>
-                      <RadioGroup row value={medical.smoke} onChange={e => { this.setState({...this.state, medical: {...medical, smoke: JSON.parse(e.target.value), smokefreq: ''}})}}>
+                      <RadioGroup row value={medical.smoke} onChange={e => { this.setState({...this.state, medical: {...medical, smoke: JSON.parse(e.target.value), smokefreq: 0}})}}>
                         <FormControlLabel value={true} control={<Radio color="primary"/>} label="Yes" />
                         <FormControlLabel value={false} control={<Radio color="primary"/>} label="No" />
                       </RadioGroup>
@@ -356,7 +356,7 @@ class Account extends Component {
                   <Grid container item xs={12} style={{marginBottom: "0.5rem"}}>
                     <Grid container item xs={12} sm={6} direction="column">
                       <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Do you drink alcohol?</span>
-                      <RadioGroup row value={medical.drink} onChange={e => { this.setState({...this.state, medical: {...medical, drink: JSON.parse(e.target.value), drinkfreq: ''}})}}>
+                      <RadioGroup row value={medical.drink} onChange={e => { this.setState({...this.state, medical: {...medical, drink: JSON.parse(e.target.value), drinkfreq: 0}})}}>
                         <FormControlLabel value={true} control={<Radio color="primary"/>} label="Yes" />
                         <FormControlLabel value={false} control={<Radio color="primary"/>} label="No" />
                       </RadioGroup>
@@ -380,7 +380,7 @@ class Account extends Component {
                   <Grid container item xs={12}>
                     <Grid container item xs={12} sm={6} direction="column">
                       <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Do you drink caffeine?</span>
-                      <RadioGroup row value={medical.caffeine} onChange={e => { this.setState({...this.state, medical: {...medical, caffeine: JSON.parse(e.target.value), caffeinefreq: ''}})}}>
+                      <RadioGroup row value={medical.caffeine} onChange={e => { this.setState({...this.state, medical: {...medical, caffeine: JSON.parse(e.target.value), caffeinefreq: 0}})}}>
                         <FormControlLabel value={true} control={<Radio color="primary"/>} label="Yes" />
                         <FormControlLabel value={false} control={<Radio color="primary"/>} label="No" />
                       </RadioGroup>

@@ -57,7 +57,9 @@ class DoctorProfile extends Component {
           {loaded && (<div style={{backgroundColor: "#fff", width: `calc(${maxWidth} - 4rem)`, padding: small ? "1rem" : "2rem", position: "relative", minHeight: "70vh", maxHeight: "80vh", overflowY: "scroll", borderRadius: 6, display: "flex", flexDirection: "column", position: "relative"}}>
             <Cancel onClick={this.props.onClose} style={{position: "absolute", right: 8, top: 8, color: "red", cursor: "pointer", fontSize: "1.5rem"}}/>
             <Grid container item xs={12} alignItems="center">
-              <img src={`https://apollocare.blob.core.windows.net/doctor${doctor.id}/profile`} alt="" style={{width: xs ? "2.5rem" : "3.5rem", height: xs ? "2.5rem" : "3.5rem", borderRadius: 3, marginRight: "1rem", objectFit: "cover"}}/>
+              <div style={{width: xs ? "2.5rem" : "3.5rem", height: xs ? "2.5rem" : "3.5rem", borderRadius: 3, overflow: "hidden", marginRight: "1rem"}}>
+                <img src={`https://apollocare.blob.core.windows.net/doctor${doctor.id}/profile`} alt="" style={{width: "100%", borderRadius: 3, objectFit: "cover"}}/>
+              </div>
               <span style={{fontSize: xs ? "2rem" : "4rem", lineHeight: xs ? "2rem" : "3rem", fontWeight: 500}}>{doctor.fname} {doctor.lname}</span>
             </Grid>
             <Divider style={{width: "100%", margin: "1rem 0"}}/>

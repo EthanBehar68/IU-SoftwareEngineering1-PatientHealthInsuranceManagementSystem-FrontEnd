@@ -33,11 +33,11 @@ class Onboarding extends Component {
         weight1: '',
         bloodtype: '',
         smoke: '',
-        smokefreq: '',
+        smokefreq: 0,
         drink: '',
-        drinkfreq: '',
+        drinkfreq: 0,
         caffeine: '',
-        caffeinefreq: ''
+        caffeinefreq: 0
       }
     };
   }
@@ -155,7 +155,7 @@ class Onboarding extends Component {
               <Grid container item xs={12} style={{marginBottom: "0.5rem"}}>
                 <Grid container item xs={12} sm={6} direction="column">
                   <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Do you smoke?</span>
-                  <RadioGroup row value={data.smoke} onChange={e => { this.setState({...this.state, data: {...data, smoke: JSON.parse(e.target.value), smokefreq: ''}})}}>
+                  <RadioGroup row value={data.smoke} onChange={e => { this.setState({...this.state, data: {...data, smoke: JSON.parse(e.target.value), smokefreq: 0}})}}>
                     <FormControlLabel value={true} control={<Radio color="primary"/>} label="Yes" />
                     <FormControlLabel value={false} control={<Radio color="primary"/>} label="No" />
                   </RadioGroup>
@@ -179,7 +179,7 @@ class Onboarding extends Component {
               <Grid container item xs={12} style={{marginBottom: "0.5rem"}}>
                 <Grid container item xs={12} sm={6} direction="column">
                   <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Do you drink alcohol?</span>
-                  <RadioGroup row value={data.drink} onChange={e => { this.setState({...this.state, data: {...data, drink: JSON.parse(e.target.value), drinkfreq: ''}})}}>
+                  <RadioGroup row value={data.drink} onChange={e => { this.setState({...this.state, data: {...data, drink: JSON.parse(e.target.value), drinkfreq: 0}})}}>
                     <FormControlLabel value={true} control={<Radio color="primary"/>} label="Yes" />
                     <FormControlLabel value={false} control={<Radio color="primary"/>} label="No" />
                   </RadioGroup>
@@ -203,7 +203,7 @@ class Onboarding extends Component {
               <Grid container item xs={12}>
                 <Grid container item xs={12} sm={6} direction="column">
                   <span style={{fontSize: "0.9rem", marginBottom: "0.25rem"}}>Do you drink caffeine?</span>
-                  <RadioGroup row value={data.caffeine} onChange={e => { this.setState({...this.state, data: {...data, caffeine: JSON.parse(e.target.value), caffeinefreq: ''}})}}>
+                  <RadioGroup row value={data.caffeine} onChange={e => { this.setState({...this.state, data: {...data, caffeine: JSON.parse(e.target.value), caffeinefreq: 0}})}}>
                     <FormControlLabel value={true} control={<Radio color="primary"/>} label="Yes" />
                     <FormControlLabel value={false} control={<Radio color="primary"/>} label="No" />
                   </RadioGroup>
