@@ -46,6 +46,7 @@ class Calendar extends Component {
 			this.props.onError('This time is no longer available.');
 		} else {
 			this.setState({starttime: data.starttime, appointmentdate: data.appointmentdate});
+			this.props.onChoose();
 		}
 	}
 
@@ -194,7 +195,7 @@ class Calendar extends Component {
 						))}
 					</Grid>
 				</Grid>)}
-				{!empty(appointmentdate) && (<CovidSurvey {...this.props} {...this.state} currentMinutes={currentMinutes} onClose={() => this.setState({...this.state, appointmentdate: '', starttime: ''})}/>)}
+				{!empty(appointmentdate) && (<CovidSurvey {...this.props} {...this.state} currentMinutes={currentMinutes} onClose={() => {this.setState({...this.state, appointmentdate: '', starttime: ''}); this.props.onChoose(); }}/>)}
 			</Fragment>
 		);
 	}
