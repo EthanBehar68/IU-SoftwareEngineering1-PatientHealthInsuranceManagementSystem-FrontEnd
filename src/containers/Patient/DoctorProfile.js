@@ -29,6 +29,7 @@ class DoctorProfile extends Component {
   async componentDidMount() {
     const resp = await getDoctor(this.props.doctorId);
     if (resp.complete) {
+      console.log(resp.data)
       this.setState({ ...this.state, loaded: true, doctor: resp.data });
     } else {
       this.props.onClose();

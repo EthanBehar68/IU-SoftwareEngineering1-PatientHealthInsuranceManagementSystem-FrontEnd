@@ -7,6 +7,7 @@ import { Grid, Divider, Button } from '@material-ui/core';
 import { Menu, NavigateNext, NavigateBefore } from '@material-ui/icons';
 
 import Loading from '../Graphics/Loading';
+import CovidSurvey from './CovidSurvey';
 
 import { addWeekday } from '../../utils/addWeekday';
 import { replaceTime } from '../../utils/options';
@@ -17,7 +18,9 @@ class Calendar extends Component {
 		this.state = {
 			loaded: false,
 			offset: 0,
-			currentDate: new Date()
+			currentDate: new Date(),
+			appointmentdate: '',
+			starttime: ''
 		}
 	}
 
@@ -39,28 +42,23 @@ class Calendar extends Component {
 
 	onAddAppointment = async data => {
 		const currentMinutes = (this.state.currentDate.getHours() * 60) + this.state.currentDate.getMinutes();
-		if (data.starttime < currentMinutes && moment.utc().format('MM-DD-YYYY') === moment.utc(data.appointmentdate).format('MM-DD-YYYY')) {
+		if (data.starttime < currentMinutes && moment().format('MM-DD-YYYY') === moment(data.appointmentdate).format('MM-DD-YYYY')) {
 			this.props.onError('This time is no longer available.');
 		} else {
-			this.setState({ ...this.state, loaded: false });
-			const resp = await this.props.addAppointment({ ...data, did: this.props.doctor.id, pid: this.props.user.id });
-			if (!resp.complete) {
-				this.props.onError(resp.error);
-			}
-			this.setState({ ...this.state, loaded: true });
+			this.setState({starttime: data.starttime, appointmentdate: data.appointmentdate});
 		}
 	}
 
 	render() {
 		const { maxWidth, small, xs, theme, dark, appointments, user } = this.props;
-		const { loaded, offset, currentDate } = this.state;
+		const { loaded, offset, currentDate, appointmentdate, starttime } = this.state;
 
 		const currentMinutes = (currentDate.getHours() * 60) + currentDate.getMinutes();
 
 		return (
 			<Fragment>
 				{!loaded && (<Loading />)}
-				<Grid xs={12} container item>
+				{empty(appointmentdate) && (<Grid xs={12} container item>
 					<Grid xs={12} container item justify="space-between">
 						<span style={{ fontSize: "1.5rem", fontWeight: 400, marginBottom: "0.5rem" }}>Book an Appointment</span>
 						<div style={{ display: "flex", alignItems: "center" }}>
@@ -122,7 +120,7 @@ class Calendar extends Component {
 						</div>
 						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(moment.utc(), offset).format('MM-DD-YYYY'))).map((row, i) => (
 							<Fragment key={i}>
-								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(moment.utc(), offset).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }} disabled={(row.starttime < currentMinutes) && empty(offset)}>
+								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(moment.utc(), offset).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }} disabled={(row.starttime < currentMinutes) && empty(offset) && !((moment().isoWeekday() === 6) || (moment().isoWeekday() === 7))}>
 									<span style={{ fontSize: "0.8rem", fontWeight: 300 }}>OPEN</span>
 								</Button>)}
 								{row.pid && (<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "1.5rem", background: row.pid === user.id ? "green" : "red" }}>
@@ -195,8 +193,9 @@ class Calendar extends Component {
 							</Fragment>
 						))}
 					</Grid>
-				</Grid>
-			</Fragment >
+				</Grid>)}
+				{!empty(appointmentdate) && (<CovidSurvey {...this.props} {...this.state} currentMinutes={currentMinutes} onClose={() => this.setState({...this.state, appointmentdate: '', starttime: ''})}/>)}
+			</Fragment>
 		);
 	}
 }

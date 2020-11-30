@@ -21,8 +21,14 @@ export default function Map(props) {
       <GoogleMap
         mapContainerStyle={props.style}
         options={defaultMapOptions}
-        center={{lat: props.lat, lng: props.lng}}
         zoom={13}
+        onLoad={map => {
+          const bounds = new window.google.maps.LatLngBounds();
+          props.markers.forEach(marker => {
+            bounds.extend( new window.google.maps.LatLng(marker.lat, marker.lng) );
+          })
+          map.fitBounds(bounds);
+        }}
       >
         {props.markers.map((marker, i) => (
           <Marker 

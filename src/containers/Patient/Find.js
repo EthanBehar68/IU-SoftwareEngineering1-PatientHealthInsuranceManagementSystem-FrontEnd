@@ -66,6 +66,8 @@ class Find extends Component {
     const { maxWidth, small, xs, theme, dark, user, doctors } = this.props;
     const { loaded, search, doctorId } = this.state;
 
+    const searchBtn = !empty(search.speciality) || !empty(search.name) || !empty(search.address);
+
     return (
       <Fragment>
         {!loaded && (<Loading />)}
@@ -156,7 +158,7 @@ class Find extends Component {
                 </Select>
               </Grid>
               <Grid item container xs={12} md={3} alignItems="flex-end" justify="flex-end" style={{ paddingLeft: small ? "" : "0.5rem", marginTop: small ? "0.5rem" : "" }}>
-                <Button fullWidth={small} onClick={this.onSearch} variant="contained" color="primary" size="large">Search</Button>
+                <Button fullWidth={small} onClick={this.onSearch} variant="contained" color="primary" size="large" disabled={!searchBtn}>Search</Button>
               </Grid>
             </Grid>
             <Divider />
@@ -165,9 +167,7 @@ class Find extends Component {
             <Grid item container xs={12} style={{ width: maxWidth, padding: small ? "1rem" : "1rem 0", position: "relative" }}>
               <Grid item container xs={12} direction="column" style={{ position: "relative" }}>
                 <div style={{ position: "sticky", display: "flex", justifyContent: "flex-end", top: 0, width: "100%", height: 0 }}>
-                  {(!empty(doctors) && !xs) && (<GoogleMap
-                    lat={doctors[0].detail.lat}
-                    lng={doctors[0].detail.lng}
+                  {(!empty(doctors) && !xs) && loaded && (<GoogleMap
                     style={{ width: small ? "47%" : "23.4rem", height: "25rem", background: "white", marginTop: "1.5rem" }}
                     markers={doctors.map(doctor => ({ lng: doctor.detail.lng, lat: doctor.detail.lat }))}
                   />)}
