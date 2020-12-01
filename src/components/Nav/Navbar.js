@@ -52,6 +52,9 @@ class Navbar extends Component {
 	  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
 	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>FIND A DOCTOR</span>
 	  						</Link>)}
+	  						{user.usertype === "patient" && (<Link to={`/patient/appointments`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
+	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY APPOINTMENTS</span>
+	  						</Link>)}
 	  						<Link to={`/${user.usertype}/account`} style={{marginLeft: "1.2rem"}}>
 		  						<Button variant="outlined" color="primary" size="small" style={{display: "flex", alignItems: "center"}}>
 		  							<AccountCircle style={{fontSize: "1rem"}}/>
@@ -92,6 +95,11 @@ class Navbar extends Component {
 			  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>FIND A DOCTOR</span>
+			  							</ListItem>
+			  						</Link>)}
+			  						{user.usertype === "patient" && (<Link to={`/patient/appointments`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY APPOINTMENTS</span>
 			  							</ListItem>
 			  						</Link>)}
 			  						<Link to={`/${user.usertype}/account`}>

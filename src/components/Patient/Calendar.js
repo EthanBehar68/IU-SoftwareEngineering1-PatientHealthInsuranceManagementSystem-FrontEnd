@@ -32,7 +32,7 @@ class Calendar extends Component {
 	onChangeWeek = async next => {
 		const { offset } = this.state;
 		this.setState({ ...this.state, loaded: false });
-		const resp = await this.props.getAppointments({ startdate: addWeekday(moment.utc(), next ? offset + 5 : offset - 5).format('MM-DD-YYYY'), did: this.props.doctor.id });
+		const resp = await this.props.getAppointments({ startdate: addWeekday(this.state.currentDate, next ? offset + 5 : offset - 5).format('MM-DD-YYYY'), did: this.props.doctor.id });
 		if (resp.complete) {
 			this.setState({ ...this.state, offset: next ? offset + 5 : offset - 5, loaded: true });
 		} else {
@@ -42,7 +42,7 @@ class Calendar extends Component {
 
 	onAddAppointment = async data => {
 		const currentMinutes = (this.state.currentDate.getHours() * 60) + this.state.currentDate.getMinutes();
-		if (data.starttime < currentMinutes && moment().format('MM-DD-YYYY') === moment(data.appointmentdate).format('MM-DD-YYYY')) {
+		if (data.starttime < currentMinutes && moment.utc().format('MM-DD-YYYY') === moment.utc(data.appointmentdate).format('MM-DD-YYYY')) {
 			this.props.onError('This time is no longer available.');
 		} else {
 			this.setState({starttime: data.starttime, appointmentdate: data.appointmentdate});
@@ -117,11 +117,11 @@ class Calendar extends Component {
 					<Grid container item xs={2} direction="column" style={{ borderRight: "1px solid #ddd", position: "relative" }}>
 						<Divider style={{ width: "100%", position: "absolute", right: 0, bottom: 0, color: "#ddd" }} />
 						<div style={{ borderBottom: "1px solid #ddd", borderTop: "1px solid #ddd", display: "flex", justifyContent: "center", alignItems: "center", height: "calc(2rem - 2px)" }}>
-							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(moment.utc(), offset).format('ddd, M/D')}</span>
+							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(currentDate, offset).format('ddd, M/D')}</span>
 						</div>
-						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(moment.utc(), offset).format('MM-DD-YYYY'))).map((row, i) => (
+						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(currentDate, offset).format('MM-DD-YYYY'))).map((row, i) => (
 							<Fragment key={i}>
-								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(moment.utc(), offset).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }} disabled={(row.starttime < currentMinutes) && empty(offset) && !((moment().isoWeekday() === 6) || (moment().isoWeekday() === 7))}>
+								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(currentDate, offset).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }} disabled={(row.starttime < currentMinutes) && empty(offset) && !((moment.utc().isoWeekday() === 6) || (moment.utc().isoWeekday() === 7))}>
 									<span style={{ fontSize: "0.8rem", fontWeight: 300 }}>OPEN</span>
 								</Button>)}
 								{row.pid && (<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "1.5rem", background: row.pid === user.id ? "green" : "red" }}>
@@ -133,11 +133,11 @@ class Calendar extends Component {
 					<Grid container item xs={2} direction="column" style={{ borderRight: "1px solid #ddd", position: "relative" }}>
 						<Divider style={{ width: "100%", position: "absolute", right: 0, bottom: 0, color: "#ddd" }} />
 						<div style={{ borderBottom: "1px solid #ddd", borderTop: "1px solid #ddd", display: "flex", justifyContent: "center", alignItems: "center", height: "calc(2rem - 2px)" }}>
-							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(moment.utc(), offset + 1).format('ddd, M/D')}</span>
+							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(currentDate, offset + 1).format('ddd, M/D')}</span>
 						</div>
-						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(moment.utc(), offset + 1).format('MM-DD-YYYY'))).map((row, i) => (
+						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(currentDate, offset + 1).format('MM-DD-YYYY'))).map((row, i) => (
 							<Fragment key={i}>
-								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(moment.utc(), offset + 1).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }}>
+								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(currentDate, offset + 1).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }}>
 									<span style={{ fontSize: "0.8rem", fontWeight: 300 }}>OPEN</span>
 								</Button>)}
 								{row.pid && (<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "1.5rem", background: row.pid === user.id ? "green" : "red" }}>
@@ -149,11 +149,11 @@ class Calendar extends Component {
 					<Grid container item xs={2} direction="column" style={{ borderRight: "1px solid #ddd", position: "relative" }}>
 						<Divider style={{ width: "100%", position: "absolute", right: 0, bottom: 0, color: "#ddd" }} />
 						<div style={{ borderBottom: "1px solid #ddd", borderTop: "1px solid #ddd", display: "flex", justifyContent: "center", alignItems: "center", height: "calc(2rem - 2px)" }}>
-							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(moment.utc(), offset + 2).format('ddd, M/D')}</span>
+							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(currentDate, offset + 2).format('ddd, M/D')}</span>
 						</div>
-						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(moment.utc(), offset + 2).format('MM-DD-YYYY'))).map((row, i) => (
+						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(currentDate, offset + 2).format('MM-DD-YYYY'))).map((row, i) => (
 							<Fragment key={i}>
-								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(moment.utc(), offset + 2).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }}>
+								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(currentDate, offset + 2).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }}>
 									<span style={{ fontSize: "0.8rem", fontWeight: 300 }}>OPEN</span>
 								</Button>)}
 								{row.pid && (<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "1.5rem", background: row.pid === user.id ? "green" : "red" }}>
@@ -165,11 +165,11 @@ class Calendar extends Component {
 					<Grid container item xs={2} direction="column" style={{ borderRight: "1px solid #ddd", position: "relative" }}>
 						<Divider style={{ width: "100%", position: "absolute", right: 0, bottom: 0, color: "#ddd" }} />
 						<div style={{ borderBottom: "1px solid #ddd", borderTop: "1px solid #ddd", display: "flex", justifyContent: "center", alignItems: "center", height: "calc(2rem - 2px)" }}>
-							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(moment.utc(), offset + 3).format('ddd, M/D')}</span>
+							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(currentDate, offset + 3).format('ddd, M/D')}</span>
 						</div>
-						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(moment.utc(), offset + 3).format('MM-DD-YYYY'))).map((row, i) => (
+						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(currentDate, offset + 3).format('MM-DD-YYYY'))).map((row, i) => (
 							<Fragment key={i}>
-								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(moment.utc(), offset + 3).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }}>
+								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(currentDate, offset + 3).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }}>
 									<span style={{ fontSize: "0.8rem", fontWeight: 300 }}>OPEN</span>
 								</Button>)}
 								{row.pid && (<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "1.5rem", background: row.pid === user.id ? "green" : "red" }}>
@@ -181,11 +181,11 @@ class Calendar extends Component {
 					<Grid container item xs={2} direction="column" style={{ borderRight: "1px solid #ddd", position: "relative" }}>
 						<Divider style={{ width: "100%", position: "absolute", right: 0, bottom: 0, color: "#ddd" }} />
 						<div style={{ borderBottom: "1px solid #ddd", borderTop: "1px solid #ddd", display: "flex", justifyContent: "center", alignItems: "center", height: "calc(2rem - 2px)" }}>
-							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(moment.utc(), offset + 4).format('ddd, M/D')}</span>
+							<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(currentDate, offset + 4).format('ddd, M/D')}</span>
 						</div>
-						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(moment.utc(), offset + 4).format('MM-DD-YYYY'))).map((row, i) => (
+						{replaceTime(appointments.filter(item => moment.utc(item.appointmentdate).format('MM-DD-YYYY') === addWeekday(currentDate, offset + 4).format('MM-DD-YYYY'))).map((row, i) => (
 							<Fragment key={i}>
-								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(moment.utc(), offset + 4).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }}>
+								{!row.pid && (<Button onClick={() => this.onAddAppointment({ appointmentdate: addWeekday(currentDate, offset + 4).format('MM-DD-YYYY'), ...row })} style={{ borderRadius: "0em", height: "1.5rem", background: i % 2 === 0 ? "#f2f2f2" : "white" }}>
 									<span style={{ fontSize: "0.8rem", fontWeight: 300 }}>OPEN</span>
 								</Button>)}
 								{row.pid && (<div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "1.5rem", background: row.pid === user.id ? "green" : "red" }}>

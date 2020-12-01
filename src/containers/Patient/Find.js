@@ -80,7 +80,7 @@ class Find extends Component {
           theme={theme}
         />)}
         <Grid item container xs={12} direction="column" alignItems="center" style={{ backgroundColor: theme.background.main, minHeight: "calc(100vh - 4rem)" }}>
-          <Grid item container direction="column" alignItems="center" style={{ height: "100%", background: "#bf0a30" }}>
+          <Grid item container direction="column" alignItems="center" style={{ height: "100%", background: theme.secondary.main }}>
             <Grid item container xs={12} style={{ width: maxWidth, padding: small ? "1rem" : "2rem 0 1rem" }}>
               <Grid item container xs={12} style={{ margin: "1rem 0 0.75rem" }}>
                 <span style={{ fontSize: "2rem", color: 'white', fontWeight: 500 }}>Find a Doctor</span>

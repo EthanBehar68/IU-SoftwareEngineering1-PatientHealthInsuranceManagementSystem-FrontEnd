@@ -1,5 +1,6 @@
 import {apiCall} from "../../services/api";
 import jwt_decode from "jwt-decode";
+import empty from "is-empty";
 
 import {UPDATE_USER, GET_DOCTORS, GET_APPOINTMENTS, UPDATE_APPOINTMENTS} from "../types";
 
@@ -128,6 +129,16 @@ export const addAppointment = data => dispatch => {
   });
 };
 
+export const getPatientAppointments = id => dispatch => {
+  return apiCall('get', `/api/patients/${id}/myappointments`)
+  .then(function(res) {
+    dispatch(state_get_appointments(res));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
 
 
 

@@ -21,6 +21,7 @@ import LoginWrapper from './Login/LoginWrapper';
 import PatientDashboard from './Patient/Dashboard';
 import PatientAccount from './Patient/Account';
 import PatientFind from './Patient/Find';
+import PatientAppointments from './Patient/Appointments';
 
 import DoctorDashboard from './Doctor/Dashboard';
 import DoctorAccount from './Doctor/Account';
@@ -61,10 +62,14 @@ class Main extends Component {
 		  palette: {
 		    primary: {
 		      main: dark ? "#fff" : "#002868",
+		      light: '#8FC0EF',
+		      dark: '#00103C',
 		      contrastText: dark ? "#002868" : "#fff"
 		    },
 		    secondary: {
 		      main: dark ? "#fff" : "#bf0a30",
+		      light: '#F8A19A',
+		      dark: '#6E0338',
 		      contrastText: dark ? "#bf0a30" : "#fff"
 		    },
 		    background: {
@@ -88,6 +93,9 @@ class Main extends Component {
 						<PrivateRoute exact path='/patient/account' component={() => <PatientAccount maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
 						<PrivateRoute exact path='/patient/find' component={() => <PatientFind maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
 						<PrivateRoute exact path='/patient/find/:id' component={() => <PatientFind maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
+						<PrivateRoute exact path='/patient/appointments' component={() => <PatientAppointments maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
+						<PrivateRoute exact path='/patient/appointments/:filter' component={() => <PatientAppointments maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
+						<PrivateRoute exact path='/patient/appointments/:filter/:appointmentId' component={() => <PatientAppointments maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
 						<PrivateRoute exact path='/doctor/dashboard' component={() => <DoctorDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="doctor"/>
 						<PrivateRoute exact path='/doctor/account' component={() => <DoctorAccount maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="doctor"/>
 						<PrivateRoute exact path='/insurance/dashboard' component={() => <InsuranceDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="insurance"/>

@@ -2,6 +2,8 @@ import {apiCall} from "../../services/api";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "../../utils/setAuthToken";
 
+import {socket_register_listeners} from './conversations';
+
 import {SET_USER} from "../types";
 
 // Register User
@@ -63,6 +65,7 @@ export const getUser = userData => dispatch => {
   .then(function(res) {
     // Set current user
     dispatch(setCurrentUser(res));
+    dispatch(socket_register_listeners({id: res.id, usertype: res.usertype}));
     return {complete: true};
   })
   .catch(function(err) {
