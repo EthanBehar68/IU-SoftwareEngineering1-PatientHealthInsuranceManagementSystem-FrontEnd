@@ -8,7 +8,7 @@ import empty from 'is-empty';
 import { TextField, Grid, MenuItem, Button, Divider, withWidth, InputAdornment, Select } from '@material-ui/core';
 
 import Loading from '../../components/Graphics/Loading';
-import SearchCard from '../../components/Doctor/SearchCard';
+import SearchCard from '../../components/Patient/SearchCard';
 import GoogleMap from '../../components/Graphics/Map';
 import DoctorProfile from './DoctorProfile';
 

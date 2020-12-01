@@ -25,6 +25,7 @@ import PatientAppointments from './Patient/Appointments';
 
 import DoctorDashboard from './Doctor/Dashboard';
 import DoctorAccount from './Doctor/Account';
+import DoctorAppointments from './Doctor/Appointments';
 
 import InsuranceDashboard from './Insurance/Dashboard';
 import InsuranceAccount from './Insurance/Account';
@@ -98,6 +99,8 @@ class Main extends Component {
 						<PrivateRoute exact path='/patient/appointments/:filter/:appointmentId' component={() => <PatientAppointments maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="patient"/>
 						<PrivateRoute exact path='/doctor/dashboard' component={() => <DoctorDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="doctor"/>
 						<PrivateRoute exact path='/doctor/account' component={() => <DoctorAccount maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="doctor"/>
+						<PrivateRoute exact path='/doctor/appointments' component={() => <DoctorAppointments maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="doctor"/>
+						<PrivateRoute exact path='/doctor/appointments/:appointmentId' component={() => <DoctorAppointments maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="doctor"/>
 						<PrivateRoute exact path='/insurance/dashboard' component={() => <InsuranceDashboard maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="insurance"/>
 						<PrivateRoute exact path='/insurance/account' component={() => <InsuranceAccount maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette} />} portal="insurance"/>
 						<Route path='*' component={() => <Home maxWidth={maxWidth} xs={xs} small={small} theme={theme.palette}/>} />
