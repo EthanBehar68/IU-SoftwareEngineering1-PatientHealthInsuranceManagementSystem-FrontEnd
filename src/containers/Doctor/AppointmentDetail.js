@@ -27,7 +27,7 @@ class AppointmentDetail extends Component {
     const patient = appointment.patient;
 
     return (
-      <Fragment>
+      <Grid xs={12} container item style={{minHeight: "calc(100vh - 4rem)"}}>
         {!loaded && (<Loading />)}
         <Grid xs={12} container item alignItems="center">
           <div onClick={this.props.onClose} style={{display: "flex", alignItems: "center", cursor: "pointer", marginBottom: "0.5rem", marginLeft: "-0.5rem"}}>
@@ -45,26 +45,52 @@ class AppointmentDetail extends Component {
         <Grid container item xs={12} style={{ position: "relative" }}>
           {!small && (<div style={{ position: "relative", display: "flex", justifyContent: "flex-end", top: 0, width: "100%", height: 0 }}>
             <Grid item container xs={12} md={6} direction="column" style={{ paddingLeft: "1rem" }}>
-              <Chat theme={theme} appointment={appointment}/>
+              <Chat theme={theme} appointment={appointment} otherUser={appointment.patient.fname}/>
             </Grid>
           </div>)}
           <Grid container item xs={12} md={6} direction="column" style={{ paddingRight: small ? "" : "1rem" }}>
             <Fragment>
-              <span style={{ fontSize: "1.5rem", fontWeight: 400 }}>{patient.detail.practicename}</span>
-              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}>{patient.detail.address1}{empty(patient.detail.address2) ? '' : `, ${patient.detail.address2}`}</span>
-              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}>{patient.detail.city}, {patient.detail.state1} {patient.detail.zipcode}</span>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem" }}>
-                <span style={{ fontSize: "1.1rem", fontWeight: 400 }}>Specializations</span>
-                <span style={{ fontSize: "1rem", fontWeight: 300, display: "flex", alignItems: "center", marginTop: "0.25rem" }}>{patient.detail.treatscovid ? <CheckCircle style={{ fontSize: "1rem", color: "green", marginRight: "0.25rem" }} /> : <Cancel style={{ fontSize: "1rem", color: "red", marginRight: "0.25rem" }} />} COVID-19 care</span>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontSize: "1.5rem", fontWeight: 400 }}>Personal Information</span>
               </div>
               <Divider style={{ width: "100%", margin: "0.5rem 0" }} />
             </Fragment>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Name: </span>{patient.fname} {patient.lname}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Email: </span>{patient.email}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Phone: </span>{patient.phonenumber}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Home location: </span>{patient.detail.city}, {patient.detail.state1}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Birthdate: </span>{patient.detail.birthdate}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Sex: </span>{patient.detail.sex}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Height: </span>{patient.detail.height}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Weight: </span>{patient.detail.weight1} lbs</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Blood type: </span>{patient.detail.bloodtype}</span>
+            <Fragment>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem" }}>
+                <span style={{ fontSize: "1.5rem", fontWeight: 400 }}>Behavioral Information</span>
+              </div>
+              <Divider style={{ width: "100%", margin: "0.5rem 0" }} />
+            </Fragment>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Smoke: </span>{patient.detail.smoke ? "YES" : "NO"} {patient.detail.smoke ? `- ${patient.detail.smokefreq} times per week` : ""}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Drink: </span>{patient.detail.drink ? "YES" : "NO"} {patient.detail.drink ? `- ${patient.detail.drinkfreq} times per week` : ""}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Caffeine: </span>{patient.detail.caffeine ? "YES" : "NO"} {patient.detail.caffeine ? `- ${patient.detail.caffeinefreq} times per week` : ""}</span>
+            <Fragment>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem" }}>
+                <span style={{ fontSize: "1.5rem", fontWeight: 400 }}>COVID-19 Information</span>
+              </div>
+              <Divider style={{ width: "100%", margin: "0.5rem 0" }} />
+            </Fragment>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Survey date: </span>{patient.survey.surveydate}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Positive test: </span>{patient.survey.covidpositivetest ? "YES" : "NO"}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Symptoms: </span>{patient.survey.symptoms ? "YES" : "NO"}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Contact with positive individual: </span>{patient.survey.contactwithcovidperson ? "YES" : "NO"}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Currently self-isolating: </span>{patient.survey.selfmoniter ? "YES" : "NO"}</span>
+            <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem", marginBottom: "1rem" }}><span style={{fontWeight: 400}}>Requesting test: </span>{patient.survey.requesttest ? "YES" : "NO"}</span>
             {small && (<Grid item container xs={12} direction="column">
-              <Chat theme={theme} appointment={appointment}/>
+              <Chat theme={theme} appointment={appointment} otherUser={appointment.patient.fname}/>
             </Grid>)}
           </Grid>
         </Grid>
-      </Fragment>
+      </Grid>
     )
   }
 }

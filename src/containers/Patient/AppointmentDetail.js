@@ -54,7 +54,7 @@ class AppointmentDetail extends Component {
         <Grid container item xs={12} style={{ position: "relative" }}>
           {!small && (<div style={{ position: "relative", display: "flex", justifyContent: "flex-end", top: 0, width: "100%", height: 0 }}>
             <Grid item container xs={12} md={6} direction="column" style={{ paddingLeft: "1rem" }}>
-              <Chat theme={theme} appointment={appointment}/>
+              <Chat theme={theme} appointment={appointment} otherUser={appointment.doctor.fname}/>
             </Grid>
           </div>)}
           <Grid container item xs={12} md={6} direction="column" style={{ paddingRight: small ? "" : "1rem" }}>
@@ -70,7 +70,7 @@ class AppointmentDetail extends Component {
               <ul style={{ paddingInlineStart: "1.5rem", marginBlockStart: "0" }}>{getSpecializations(arr).map((item, i) => <li key={i} style={{ fontWeight: 300, fontSize: "0.9rem" }}>{item}</li>)}</ul>
             </Fragment>
             {small && (<Grid item container xs={12} direction="column">
-              <Chat theme={theme} appointment={appointment}/>
+              <Chat theme={theme} appointment={appointment} otherUser={appointment.doctor.fname}/>
             </Grid>)}
             <Fragment>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: small ? "2rem" : "1rem" }}>

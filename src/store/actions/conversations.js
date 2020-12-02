@@ -20,14 +20,14 @@ export const user_typing = payload => ({
 	payload
 });
 
-export const socket_join_room = payload => ({
-	event: 'joinroom',
+export const socket_join_page = payload => ({
+	event: 'join_page',
 	emit: true,
 	payload
 });
 
-export const socket_leave_room = payload => ({
-	event: 'leaveroom',
+export const socket_leave_page = payload => ({
+	event: 'leave_page',
 	emit: true,
 	payload
 });
@@ -63,59 +63,21 @@ export const state_listen_for_typing = () => ({
 	handle: USER_TYPING
 });
 
-export const state_listen_for_notifications = () => ({
-	event: 'update_notifications',
+export const state_listen_for_user_connect = () => ({
+	event: 'user_connected',
 	handle: UPDATE_CONVERSATION
 });
 
-export const state_detect_socket_status = payload => ({
-	handle: SET_SOCKET_STATUS,
-	check: true,
-	payload
+export const state_listen_for_user_disconnect = () => ({
+	event: 'user_disconnected',
+	handle: UPDATE_CONVERSATION
 });
-
-export const state_setup_socket_status = payload => ({
-	type: SET_SOCKET_STATUS,
-	payload
-})
 
 export const socket_register_listeners = data => dispatch => {
 	dispatch(state_listen_for_conversations());
 	dispatch(state_listen_for_messages());
-	dispatch(state_listen_for_notifications());
 	dispatch(state_listen_for_typing());
+	dispatch(state_listen_for_user_connect());
+	dispatch(state_listen_for_user_disconnect());
 	dispatch(first_socket_connect(data));
-}
-
-export const check_socket_status = (payload) => dispatch => {
-	dispatch(state_detect_socket_status(payload));
-	setTimeout(() => dispatch(state_detect_socket_status(payload)), 1000);
-	const timerId = setInterval(() => dispatch(state_detect_socket_status(payload)), 2000);
-	dispatch(state_setup_socket_status({timerId: timerId}));
-}
-
-export const db_append_chat_messages = (job_id, customer_included, offset) => (dispatch, getState) => {
-	const user = getState().user;
-	return apiCall('get', `/messages/${job_id}?customer_included=${customer_included}&offset=${offset}`)
-	.then(function(res) {
-		dispatch(state_append_messages({job_id: job_id, customer_included: customer_included, messages: res}));
-		dispatch(state_update_conversation({job_id: job_id, customer_included: customer_included, noMoreMessages: res.length === 0, room_id: `${customer_included ? 'customer' : 'worker'}${job_id}`, user_id: user.id}));
-		return {complete: true};
-	})
-	.catch(function(err) {
-		return {complete: false, error: err.data.error};
-	});
-}
-
-export const db_prepend_chat_messages = (job_id, customer_included, id) => (dispatch, getState) => {
-	const user = getState().user;
-	return apiCall('get', `/messages/prepend/${job_id}?customer_included=${customer_included}&id=${id}`)
-	.then(function(res) {
-		dispatch(state_prepend_messages({job_id: job_id, customer_included: customer_included, messages: res}));
-		dispatch(state_update_conversation({job_id: job_id, customer_included: customer_included, noMoreMessages: res.length === 30, room_id: `${customer_included ? 'customer' : 'worker'}${job_id}`, user_id: user.id}));
-		return {complete: true};
-	})
-	.catch(function(err) {
-		return {complete: false, error: err.data.error};
-	});
 }

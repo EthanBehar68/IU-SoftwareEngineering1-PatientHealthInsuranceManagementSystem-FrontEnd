@@ -11,7 +11,7 @@ import { Menu, NavigateNext, NavigateBefore, CheckCircle } from '@material-ui/ic
 import Loading from '../Graphics/Loading';
 import Message from '../Graphics/Message';
 
-import {add_message, user_typing, state_update_conversation} from '../../store/actions/conversations';
+import {add_message, user_typing, state_update_conversation, socket_join_page, socket_leave_page} from '../../store/actions/conversations';
 
 class Chat extends Component {
 	constructor(props) {
@@ -25,23 +25,23 @@ class Chat extends Component {
 				usertype: this.props.user.usertype,
 				room_id: `${this.props.appointment.id}appt`,
 				message: ''
-			},
-			userTyping: false,
-			timerId: ''
+			}
 		}
 	}
 
 	async componentDidMount() {
+		this.props.socket_join_page({id: this.props.user.id, usertype: this.props.user.usertype, room_id: `${this.props.appointment.id}appt`});
 		this.setState({ ...this.state, loaded: true });
-		this.messagesEnd.scrollTop = this.messagesEnd.offsetHeight;
+		this.messagesEnd.scrollTop = this.messagesBottom.offsetTop;
+	}
+
+	componentWillUnmount() {
+		this.props.socket_leave_page({id: this.props.user.id, usertype: this.props.user.usertype, room_id: `${this.props.appointment.id}appt`});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if(prevProps.conversations !== this.props.conversations) {
-			this.messagesEnd.scrollTop = this.messagesEnd.offsetHeight;
-		}
-		if((this.props.conversations.filter(convo => convo.room_id === `${this.props.appointment.id}appt`)[0]?.userTyping !== prevProps.conversations.filter(convo => convo.room_id === `${this.props.appointment.id}appt`)[0]?.userTyping)) {
-			setTimeout(() => { this.setState({...this.state, userTyping: this.props.conversations.filter(convo => convo.room_id === `${this.props.appointment.id}appt`)[0]?.userTyping}); this.messagesEnd.scrollTop = this.messagesEnd.offsetHeight;} , 300);
+			this.messagesEnd.scrollTop = this.messagesBottom.offsetTop;
 		}
 	}
 
@@ -54,7 +54,7 @@ class Chat extends Component {
     if(this.timeout2) clearTimeout(this.timeout2);
     this.timeout2 = setTimeout(() => {
       this.props.user_typing({room_id: this.state.chat.room_id, userTyping: false});
-    }, 5000);
+    }, 3000);
     this.setState({
       ...this.state,
       chat: {
@@ -66,12 +66,13 @@ class Chat extends Component {
 
   sendChat = () => {
   	this.props.add_message(this.state.chat);
+  	this.props.user_typing({room_id: this.state.chat.room_id, userTyping: false});
   	this.setState({...this.state, chat: {...this.state.chat, message: ""}});
   }
 
 	render() {
-		const { maxWidth, small, xs, theme, appointment, user } = this.props;
-		const { loaded, chat, userTyping } = this.state;
+		const { maxWidth, small, xs, theme, appointment, user, otherUser } = this.props;
+		const { loaded, chat } = this.state;
 
 		const conversation = this.props.conversations.filter(convo => convo.room_id === `${appointment.id}appt`)[0];
 
@@ -79,28 +80,36 @@ class Chat extends Component {
 			<Fragment>
 				{!loaded && (<Loading />)}
 				<Grid xs={12} container item>
-					<Grid xs={12} container item justify="space-between">
-						<span style={{ fontSize: "1.5rem", fontWeight: 400, marginBottom: "0.5rem" }}>Chat</span>
-						<Divider style={{width: "100%", marginBottom: "0.75rem"}}/>
+					<Grid xs={12} container item justify="space-between" alignItems="center">
+						<span style={{ fontSize: "1.5rem", fontWeight: 400 }}>Chat</span>
+						<div style={{display: "flex", alignItems: "center"}}>
+							<span style={{ fontSize: "0.9rem", fontWeight: 300 }}>{otherUser} {empty(conversation) ? "" : conversation.userConnected ? "connected" : "not connected"}</span>
+							{!empty(conversation) && (<div style={{backgroundColor: conversation.userConnected ? "green" : "red", width: "0.75rem", height: "0.75rem", borderRadius: "50%", marginLeft: "0.25rem"}}/>)}
+						</div>
+						<Divider style={{width: "100%", marginBottom: "0.75rem", marginTop: "0.5rem"}}/>
 					</Grid>
 					<Grid xs={12} container direction="column" item style={{border: `1px solid ${theme.primary.main}`, borderRadius: 3, height: "30rem", maxHeight: "70vh", overflowY: 'scroll', padding: "0 0.5rem", position: "relative", paddingBottom: "calc(40px + 1rem)"}}>
 
 						<div style={{height: "100%", overflowY: "scroll"}} ref={(el) => { this.messagesEnd = el; }}>
-							{!empty(conversation) && (conversation.messages.map((message, i) => (
-								<Message 
-									key={i}
-									message={message}
-									prevMessage={i !== 0 ? conversation.messages[i - 1] : ''}
-									theme={theme}
-									userMessage={message.user_id === user.id}
-									lastMessage={conversation.messages.length - 1 === i}
-								/>
-							)))}
-							{userTyping && (<div style={{display: 'flex', alignItems: "center", width: "100%", marginTop: "0.15rem", marginBottom: "1rem"}}>
-								<div style={{backgroundColor: 'rgb(238, 238, 238)', display: "flex", alignItems: "center", justifyContent: "center", padding: "0.1rem 0.9rem", borderRadius: 1000}}>
-									<span style={{fontSize: "2rem", linHeight: "2rem", color: "#aaaaaa", paddingBottom: "0.15rem"}}>•••</span>
-								</div>
-							</div>)}
+							{!empty(conversation) && (<Fragment>
+								{conversation.messages.map((message, i) => (
+									<Message 
+										key={i}
+										message={message}
+										prevMessage={i !== 0 ? conversation.messages[i - 1] : ''}
+										theme={theme}
+										userMessage={message.user_id === user.id}
+										lastMessage={conversation.messages.length - 1 === i}
+										userTyping={conversation.userTyping}
+									/>
+								))}
+								{conversation.userTyping && (<div style={{display: 'flex', alignItems: "center", width: "100%", marginTop: "0.15rem", marginBottom: "1rem"}}>
+									<div style={{backgroundColor: 'rgb(238, 238, 238)', display: "flex", alignItems: "center", justifyContent: "center", padding: "0.1rem 0.6rem", borderRadius: 1000}}>
+										<span style={{fontSize: "1.4rem", linHeight: "2rem", color: "#aaaaaa", paddingBottom: "0.15rem"}}>•••</span>
+									</div>
+								</div>)}
+								<div ref={(el) => { this.messagesBottom = el; }}/>
+							</Fragment>)}
 						</div>
 
 						<div style={{position: "absolute", bottom: 0, left: 0, width: "100%", padding: "0.5rem", backgroundColor: "rgb(238, 238, 238)"}}>
@@ -143,5 +152,5 @@ const mapStateToProps = state => ({
   conversations: state.conversations
 });
 
-export default connect(mapStateToProps, { add_message, user_typing, state_update_conversation })(withRouter(withToast(Chat)));
+export default connect(mapStateToProps, { add_message, user_typing, state_update_conversation, socket_join_page, socket_leave_page })(withRouter(withToast(Chat)));
 

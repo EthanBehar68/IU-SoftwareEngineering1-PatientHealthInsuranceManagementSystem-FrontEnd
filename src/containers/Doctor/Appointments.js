@@ -29,7 +29,7 @@ class Appointments extends Component {
 	}
 
 	async componentDidMount() {
-		await this.props.getAppointments(this.props.user.id, moment.utc().format('MM-DD-YYYY'));
+		await this.props.getAppointments(this.props.user.id, moment().format('MM-DD-YYYY'));
 		this.setState({ ...this.state, loaded: true });
 	}
 
@@ -130,6 +130,7 @@ class Appointments extends Component {
 									</div>
 								</Grid>
 								<Grid container item xs={2} direction="column" style={{ borderRight: "1px solid #ddd", position: "relative" }}>
+									{(currentMinutes >= 540 && currentMinutes <= 1020) && (<Divider style={{position: "absolute", width: "100%", backgroundColor: theme.secondary.main, height: 2, opacity: 0.25, top: `calc(3rem + ${((currentMinutes - 540) / 10.0).toFixed(2)}rem)`}}/>)}
 									<Divider style={{ width: "100%", position: "absolute", right: 0, bottom: 0, color: "#ddd" }} />
 									<div style={{ borderBottom: "1px solid #ddd", borderTop: "1px solid #ddd", display: "flex", justifyContent: "center", alignItems: "center", height: "calc(3rem - 2px)" }}>
 										<span style={{ fontWeight: 300, fontSize: "0.8rem" }}>{addWeekday(currentDate, offset).format('ddd, M/D')}</span>

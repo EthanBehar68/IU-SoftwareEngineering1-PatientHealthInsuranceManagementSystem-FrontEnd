@@ -8,7 +8,8 @@ const mockState = [
 		unread: 0,
 		time: '2020-06-15T20:24:32.747Z',
 		messages: [],
-		userTyping: false
+		userTyping: false,
+		userConnected: false
 	}
 ]
 
