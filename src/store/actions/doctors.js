@@ -73,6 +73,18 @@ export const updatePassword = data => {
 
 /*-----------------------------------------------------*/
 
+export const getUnreadAppointments = (id) => dispatch => {
+  return apiCall('get', `/api/doctors/${id}/unread/myappointments`)
+  .then(function(res) {
+    dispatch(state_get_appointments(res));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    console.log(err);
+    return {complete: false, error: err.data.error};
+  });
+};
+
 export const getAppointments = (id, startdate) => dispatch => {
   return apiCall('get', `/api/doctors/${id}/myappointments?startdate=${startdate}`)
   .then(function(res) {

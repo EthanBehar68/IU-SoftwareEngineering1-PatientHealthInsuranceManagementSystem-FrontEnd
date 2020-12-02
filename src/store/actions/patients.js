@@ -136,6 +136,7 @@ export const getPatientAppointments = id => dispatch => {
     return {complete: true};
   })
   .catch(function(err) {
+    console.log(err)
     return {complete: false, error: err.data.error};
   });
 };

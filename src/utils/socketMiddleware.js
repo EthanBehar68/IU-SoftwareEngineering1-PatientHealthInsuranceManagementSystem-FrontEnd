@@ -24,23 +24,10 @@ export default function socketMiddleware() {
     } = action;
 
     if(emit) {
-      console.log(payload)
       socket.emit(event, payload);
       if (typeof handle === 'string') {
         dispatch({ type: handle, payload, ...rest });
       }
-    }
-
-    if(check) {
-      if(!socket.connected) {
-        socket.connect();
-        socket.emit('socketConnect', payload);
-      }
-      return dispatch({ type: handle, payload: 
-        {
-          status: socket.connected ? "Connected" : "Disconnected"
-        } 
-      });
     }
 
     if(!event) {

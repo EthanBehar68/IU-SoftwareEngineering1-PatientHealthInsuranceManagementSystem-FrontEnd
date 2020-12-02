@@ -30,7 +30,7 @@ class AppointmentDetail extends Component {
       <Grid xs={12} container item style={{minHeight: "calc(100vh - 4rem)"}}>
         {!loaded && (<Loading />)}
         <Grid xs={12} container item alignItems="center">
-          <div onClick={this.props.onClose} style={{display: "flex", alignItems: "center", cursor: "pointer", marginBottom: "0.5rem", marginLeft: "-0.5rem"}}>
+          <div onClick={() => this.props.history.goBack()} style={{display: "flex", alignItems: "center", cursor: "pointer", marginBottom: "0.5rem", marginLeft: "-0.5rem"}}>
             <NavigateBefore style={{ fontSize: "2rem", color: "black" }}/>
             <span style={{fontSize: "0.9rem"}}>BACK</span>
           </div>

@@ -31,12 +31,14 @@ class Chat extends Component {
 
 	async componentDidMount() {
 		this.props.socket_join_page({id: this.props.user.id, usertype: this.props.user.usertype, room_id: `${this.props.appointment.id}appt`});
-		this.setState({ ...this.state, loaded: true });
+		this.props.state_update_conversation({room_id: `${this.props.appointment.id}appt`, unread: 0, meConnected: true});
+		this.setState({ ...this.state, loaded: true }); 
 		this.messagesEnd.scrollTop = this.messagesBottom.offsetTop;
 	}
 
 	componentWillUnmount() {
 		this.props.socket_leave_page({id: this.props.user.id, usertype: this.props.user.usertype, room_id: `${this.props.appointment.id}appt`});
+		this.props.state_update_conversation({room_id: `${this.props.appointment.id}appt`, meConnected: false});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -108,8 +110,8 @@ class Chat extends Component {
 										<span style={{fontSize: "1.4rem", linHeight: "2rem", color: "#aaaaaa", paddingBottom: "0.15rem"}}>•••</span>
 									</div>
 								</div>)}
-								<div ref={(el) => { this.messagesBottom = el; }}/>
 							</Fragment>)}
+							<div ref={(el) => { this.messagesBottom = el; }}/>
 						</div>
 
 						<div style={{position: "absolute", bottom: 0, left: 0, width: "100%", padding: "0.5rem", backgroundColor: "rgb(238, 238, 238)"}}>

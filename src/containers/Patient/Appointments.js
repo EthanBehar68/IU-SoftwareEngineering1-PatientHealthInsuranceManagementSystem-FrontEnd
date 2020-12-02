@@ -58,6 +58,7 @@ class Appointments extends Component {
         small={small}
         filter={filter}
         xs={xs}
+        conversation={this.props.conversations.filter(convo => convo.room_id == `${appt.id}appt`)[0] || {}}
       />
     );
 
@@ -114,7 +115,8 @@ class Appointments extends Component {
 const mapStateToProps = state => ({
   dark: state.dark,
   user: state.user,
-  appointments: state.appointments
+  appointments: state.appointments,
+  conversations: state.conversations
 });
 
 export default connect(mapStateToProps, { getPatientAppointments })(withRouter(withToast(Appointments)));

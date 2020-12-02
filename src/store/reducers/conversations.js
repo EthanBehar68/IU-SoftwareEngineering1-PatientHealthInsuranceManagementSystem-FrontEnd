@@ -9,7 +9,8 @@ const mockState = [
 		time: '2020-06-15T20:24:32.747Z',
 		messages: [],
 		userTyping: false,
-		userConnected: false
+		userConnected: false,
+		meConnected: false
 	}
 ]
 
@@ -63,6 +64,7 @@ const conversations = (state = [], action) => {
 				if(convo.room_id === action.payload[0].room_id){
 					return {
 						...convo,
+						unread: convo.meConnected ? convo.unread : convo.unread + 1,
 						messages: [...convo.messages, ...action.payload]
 					};
 				} else {

@@ -19,13 +19,12 @@ class ManageRow extends Component {
 		const {appointment, theme, small, xs, filter, conversation} = this.props;
 
 		return (
-			<Link to={`/patient/appointments/${filter}/${appointment.id}`}>
+			<Link to={`/doctor/appointments/${filter}/${appointment.id}`}>
 				<div style={{display: "flex", flexWrap: "wrap", position: "relative", justifyContent: "space-between", padding: "1rem", background: "rgb(238, 238, 238)", cursor: "pointer"}}>
-					<Grid item container xs={12} sm={2}><img src={`https://apollocare.blob.core.windows.net/doctor${appointment.doctor.id}/profile`} alt="Profile" style={{height: xs ? "12rem" : "8.5rem", width: "100%", objectFit: "cover", borderRadius: 6}}/></Grid>
-					<Grid item container xs={12} sm={10}>
+					<Grid item container xs={12} sm={1}><img src={`https://apollocare.blob.core.windows.net/patient${appointment.patient.id}/profile`} alt="Profile" style={{height: xs ? "12rem" : "5.5rem", width: "100%", objectFit: "cover", borderRadius: 6}}/></Grid>
+					<Grid item container xs={12} sm={11}>
 						<div style={{display: "flex", flexDirection: "column", width: "100%", marginLeft: !xs ? "1rem" : "", marginTop: xs ? "0.5rem" : ""}}>
-							<span style={{width: "100%", fontSize: "2rem", color: "black"}}>{appointment.doctor.fname} {appointment.doctor.lname}</span>
-							<span style={{fontWeight: 300, width: "100%", marginTop: "0.15rem", color: "black", fontSize: "1.1rem"}}>{appointment.doctor.detail.practicename}</span>
+							<span style={{width: "100%", fontSize: "2rem", color: "black"}}>{appointment.patient.fname} {appointment.patient.lname}</span>
 							<span style={{fontWeight: 300, width: "100%", marginTop: "0.15rem", color: "black", fontSize: "1.1rem"}}>{moment.utc(appointment.appointmentdate).format("MMM Do, YYYY")}</span>
 							<span style={{fontWeight: 300, width: "100%", marginTop: "0.15rem", color: "black", fontSize: "1.1rem"}}>{getTime(appointment.starttime)} - {getTime(appointment.endtime)}</span>
 						</div>

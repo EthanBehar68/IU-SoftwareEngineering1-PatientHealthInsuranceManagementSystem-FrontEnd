@@ -1,9 +1,10 @@
 import React, {Component, Fragment} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
+import { connect } from "react-redux";
 import empty from 'is-empty';
 
 import {Grid, Button, ButtonBase, Switch, SwipeableDrawer, ListItem, ListItemText} from '@material-ui/core';
-import {Menu, AccountCircle} from '@material-ui/icons';
+import {Menu, AccountCircle, ChatBubble} from '@material-ui/icons';
 
 import {logo, darklogo} from '../../utils/images';
 
@@ -26,8 +27,10 @@ class Navbar extends Component {
 	}
 
   render() {
-  	const {maxWidth, small, xs, theme, dark, user} = this.props;
+  	const {maxWidth, small, xs, theme, dark, user, conversations} = this.props;
   	const {open} = this.state;
+
+  	const unreadCount = conversations.map(convo => convo.unread).reduce((a,b) => a + b, 0);
 
   	return(
   		<Grid xs={12} container item direction="column" alignItems="center" style={{background: theme.background.main, zIndex: 100}}>
@@ -52,11 +55,20 @@ class Navbar extends Component {
 	  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
 	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>FIND A DOCTOR</span>
 	  						</Link>)}
-	  						{user.usertype === "patient" && (<Link to={`/patient/appointments`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
+	  						{user.usertype === "patient" && (<Link to={`/patient/appointments`} style={{marginLeft: "0.7rem", padding: "3px 9px", position: "relative"}}>
 	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY APPOINTMENTS</span>
+	  							{!empty(unreadCount) && (<div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "1rem", height: "1rem", borderRadius: "50%", backgroundColor: "red", position: 'absolute', top: 0, right: "-0.2rem"}}>
+	  								<span style={{color: "white", fontSize: "0.25rem", lineHeight: "0.25rem"}}>{unreadCount > 99 ? "99+" : unreadCount}</span>
+	  							</div>)}
 	  						</Link>)}
-	  						{user.usertype === "doctor" && (<Link to={`/doctor/appointments`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
+	  						{user.usertype === "doctor" && (<Link to={`/doctor/schedule`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
 	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY SCHEDULE</span>
+	  						</Link>)}
+	  						{user.usertype === "doctor" && (<Link to={`/doctor/appointments`} style={{marginLeft: "0.7rem", padding: "3px 9px", position: "relative"}}>
+	  							<ChatBubble style={{fontSize: "1.25rem", marginTop: "0.25rem", lineHeight: 1.75, color: theme.primary.main}}/>
+	  							{!empty(unreadCount) && (<div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "1rem", height: "1rem", borderRadius: "50%", backgroundColor: "red", position: 'absolute', top: 0, right: 0}}>
+	  								<span style={{color: "white", fontSize: "0.25rem", lineHeight: "0.25rem"}}>{unreadCount > 99 ? "99+" : unreadCount}</span>
+	  							</div>)}
 	  						</Link>)}
 	  						<Link to={`/${user.usertype}/account`} style={{marginLeft: "1.2rem"}}>
 		  						<Button variant="outlined" color="primary" size="small" style={{display: "flex", alignItems: "center"}}>
@@ -100,14 +112,19 @@ class Navbar extends Component {
 			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>FIND A DOCTOR</span>
 			  							</ListItem>
 			  						</Link>)}
-			  						{user.usertype === "patient" && (<Link to={`/patient/appointments`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+			  						{user.usertype === "patient" && (<Link to={`/patient/schedule`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY APPOINTMENTS</span>
 			  							</ListItem>
 			  						</Link>)}
-			  						{user.usertype === "doctor" && (<Link to={`/doctor/appointments`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+			  						{user.usertype === "doctor" && (<Link to={`/doctor/schedule`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY SCHEDULE</span>
+			  							</ListItem>
+			  						</Link>)}
+			  						{user.usertype === "doctor" && (<Link to={`/doctor/appointments`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>APPOINTMENTS</span>
 			  							</ListItem>
 			  						</Link>)}
 			  						<Link to={`/${user.usertype}/account`}>
@@ -128,5 +145,11 @@ class Navbar extends Component {
   	);
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user,
+  conversations: state.conversations
+});
  
-export default Navbar;
+export default connect(mapStateToProps, { })(withRouter(Navbar));
+
