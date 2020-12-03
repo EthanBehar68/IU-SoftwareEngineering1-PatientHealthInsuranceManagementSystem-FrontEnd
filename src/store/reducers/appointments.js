@@ -5,7 +5,13 @@ const appointments = (state = [], action) => {
 		case GET_APPOINTMENTS:
 			return [...action.payload];
 		case UPDATE_APPOINTMENTS:
-			return [...state, action.payload]
+			return state.map(function(appt) {
+				if(appt.id === action.payload.id) {
+					return action.payload;
+				} else {
+					return appt;
+				}
+			});
 		default:
 			return state;
 	}

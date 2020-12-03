@@ -55,7 +55,7 @@ class DoctorProfile extends Component {
       <Fragment>
         {!loaded && (<Loading />)}
         <Modal onClose={this.props.onClose} open={loaded} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-          {loaded && (<div style={{ backgroundColor: "#fff", width: `calc(${maxWidth} - 4rem)`, padding: small ? "1rem" : "2rem", position: "relative", minHeight: "70vh", maxHeight: "80vh", overflowY: "scroll", borderRadius: 6, display: "flex", flexDirection: "column", position: "relative" }}>
+          {loaded && (<div style={{ backgroundColor: "#fff", width: `calc(${maxWidth} - 4rem)`, padding: small ? "1rem" : "2rem", position: "relative", minHeight: "75vh", maxHeight: "80vh", overflowY: "scroll", borderRadius: 6, display: "flex", flexDirection: "column", position: "relative" }}>
             <Cancel onClick={this.props.onClose} style={{ position: "absolute", right: 8, top: 8, color: "red", cursor: "pointer", fontSize: "1.5rem" }} />
             <Grid container item xs={12} alignItems="center">
               <div style={{ width: xs ? "2.5rem" : "3.5rem", height: xs ? "2.5rem" : "3.5rem", borderRadius: 3, overflow: "hidden", marginRight: "1rem" }}>
@@ -88,31 +88,10 @@ class DoctorProfile extends Component {
                 {!chosen && (<Fragment>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: small ? "2rem" : "1rem" }}>
                     <span style={{ fontSize: "1.1rem", fontWeight: 400 }}>Reviews</span>
-                    <Stars style={{ marginBottom: "-0.2rem" }} rating={3.5} number={100} />
+                    <Stars style={{ marginBottom: "-0.2rem" }} rating={parseFloat(doctor.reviews.map(r => r.rating).reduce((a,b) => a + b, 0)) / parseFloat(doctor.reviews.length)} number={doctor.reviews.length} />
                   </div>
                   <Divider style={{ width: "100%", marginTop: "0.5rem" }} />
-                  {[
-                    {
-                      reviewmessage: "Great appointment! They heard my concerns. I told them I didn't want to take presciption pills. They recommended a natural remedy.",
-                      rating: 4,
-                      patientname: "John Doe"
-                    },
-                    {
-                      reviewmessage: "My experience with the doctor was great. But the service at the practice was subpar. The people behind the desk frequently ignored me. It took my 15 minutes just to sign in and get my paper work done because the clerks were so unhelpful. I hope the doctor takes my feedback seriously. I told them about this awful experience; I just hope they act on it.",
-                      rating: 3,
-                      patientname: "John Ipsum"
-                    },
-                    {
-                      reviewmessage: "I ended up speaking with the doctor for one hour. We talked a lot about my concerns for my health. We discuss many treatment options and possible routes. Then we discussed the recovery options for each treatment. They are very transparent with the whole process for my treatment. Couldn.t ask for a better experience.",
-                      rating: 5,
-                      patientname: "John Deer"
-                    },
-                    {
-                      reviewmessage: "I don't think I'll see this doctor ever again. It seems like my own reserach on my health conditions proved to be more meaningful then the doctor's degree and experience. I knew more about my symptoms and issues. I corrected them on two aspects of my disease they spoke about. All in all this doctor is either not familiar with many disease or honestly... a hack. Please avoid this doctor.",
-                      rating: 2,
-                      patientname: "Jane Doe"
-                    }
-                  ].map((review, i) => (
+                  {doctor.reviews.map((review, i) => (
                     <Review key={i} review={review} />
                   ))}
                 </Fragment>)}

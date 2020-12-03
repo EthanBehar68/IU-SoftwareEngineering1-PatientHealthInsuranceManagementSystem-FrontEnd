@@ -21,7 +21,6 @@ export default function Map(props) {
       <GoogleMap
         mapContainerStyle={props.style}
         options={defaultMapOptions}
-        zoom={13}
         onLoad={map => {
           const bounds = new window.google.maps.LatLngBounds();
           props.markers.forEach(marker => {

@@ -141,5 +141,19 @@ export const getPatientAppointments = id => dispatch => {
   });
 };
 
+/*--------------------------------------------------------*/
+
+export const addReview = (data, appointment, name) => dispatch => {
+  return apiCall('post', `/api/patients/addreview`, data)
+  .then(function(res) {
+    dispatch(state_update_appointments({...appointment, doctor: {...appointment.doctor, reviews: [...appointment.doctor.reviews, {...res, patientname: name}]}}));
+    return {complete: true, data: res};
+  })
+  .catch(function(err) {
+    console.log(err);
+    return {complete: false, error: err.data.error};
+  });
+};
+
 
 

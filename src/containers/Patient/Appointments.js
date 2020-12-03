@@ -13,7 +13,7 @@ import AppointmentDetail from './AppointmentDetail';
 
 import { specializationOptions } from '../../utils/options';
 
-import { getPatientAppointments } from '../../store/actions/patients';
+import { getPatientAppointments, addReview } from '../../store/actions/patients';
 
 class Appointments extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class Appointments extends Component {
       />
     );
 
-    const appointment = empty(this.props.appointments.filter(appt => appt.id == appointmentId)) ? {} : this.props.appointments.filter(appt => appt.id == appointmentId)[0];
+    let appointment = empty(this.props.appointments.filter(appt => appt.id == appointmentId)) ? {} : this.props.appointments.filter(appt => appt.id == appointmentId)[0];
 
     return (
       <Fragment>
@@ -80,8 +80,8 @@ class Appointments extends Component {
             <Grid item container xs={12} direction="column" style={{ width: maxWidth, padding: small ? "1rem" : "2rem 0 1rem" }}>
               {empty(appointment) && (<Fragment>
                 <div style={{display: "flex", width: "100%", overflow: "scroll"}}>
-                  {['Scheduled', 'Past'].map(header => (
-                    <Link to={`/patient/appointments/${header}`}>
+                  {['Scheduled', 'Past'].map((header, i) => (
+                    <Link to={`/patient/appointments/${header}`} key={i}>
                       <div style={{padding: "1rem 1.5rem 0 0", cursor: "pointer", display: "flex", flexDirection: "column"}}>
                         <div style={{display: "flex", alignItems: "center"}}>
                           <span style={{fontWeight: filter === header ? 500 : 300, color: filter === header ? theme.primary.main : "#000"}}>{header}</span>
@@ -99,9 +99,12 @@ class Appointments extends Component {
               </Fragment>)}
               {!empty(appointment) && (<AppointmentDetail 
                 onClose={() => this.setState({...this.state, appointmentId: ''})}
-                appointment={appointment} 
+                appointment={appointment}
                 theme={theme} 
                 small={small} 
+                filter={filter}
+                user={user}
+                addReview={this.props.addReview}
                 xs={xs}
               />)}
             </Grid>
@@ -119,4 +122,4 @@ const mapStateToProps = state => ({
   conversations: state.conversations
 });
 
-export default connect(mapStateToProps, { getPatientAppointments })(withRouter(withToast(Appointments)));
+export default connect(mapStateToProps, { getPatientAppointments, addReview })(withRouter(withToast(Appointments)));

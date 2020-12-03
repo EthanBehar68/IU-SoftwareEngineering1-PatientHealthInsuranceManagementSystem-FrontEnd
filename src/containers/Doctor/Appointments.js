@@ -80,7 +80,7 @@ class Appointments extends Component {
           <Grid xs={12} item container direction="column" alignItems="center" style={{ height: "100%", background: theme.primary.main }}>
             <Grid item container xs={12} style={{ width: maxWidth, padding: small ? "1rem" : "2rem 0 1rem" }}>
               <Grid item container xs={12} style={{ margin: "1rem 0 0.75rem" }}>
-                <span style={{ fontSize: "2rem", color: 'white', fontWeight: 500 }}>{empty(appointment) ? "Unread Messages" : `${moment.utc(appointment.appointmentdate).format('MM/DD/YY')} Appointment`}</span>
+                <span style={{ fontSize: "2rem", color: 'white', fontWeight: 500 }}>{empty(appointment) ? "Messaging" : `${moment.utc(appointment.appointmentdate).format('MM/DD/YY')} Appointment`}</span>
               </Grid>
             </Grid>
             <Divider />
