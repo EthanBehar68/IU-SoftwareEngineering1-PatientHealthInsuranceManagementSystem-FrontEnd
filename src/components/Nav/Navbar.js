@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import empty from 'is-empty';
 
 import {Grid, Button, ButtonBase, Switch, SwipeableDrawer, ListItem, ListItemText} from '@material-ui/core';
-import {Menu, AccountCircle, ChatBubble} from '@material-ui/icons';
+import {Menu, AccountCircle, ChatBubble, Home} from '@material-ui/icons';
 
 import {logo, darklogo} from '../../utils/images';
 
@@ -40,7 +40,7 @@ class Navbar extends Component {
 	  				{!small && (<div style={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
 	  					{empty(user) && (<Fragment>
 		  					<Link to="/register" style={{marginRight: "1.1rem", padding: "3px 9px"}}>
-		  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
+		  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Sign Up</span>
 		  					</Link>
 		  					<Link to="/login">
 		  						<Button variant="outlined" color="primary" size="small">
@@ -50,21 +50,33 @@ class Navbar extends Component {
 	  					</Fragment>)}
 	  					{!empty(user) && (<Fragment>
 	  						<Link to={`/${user.usertype}/dashboard`} style={{padding: "3px 9px"}}>
-	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>DASHBOARD</span>
+	  							<Home style={{fontSize: "1.25rem", marginTop: "0.25rem", lineHeight: 1.75, color: theme.primary.main}}/>
 	  						</Link>
 	  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
-	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>FIND A DOCTOR</span>
+	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Find a Doctor</span>
+	  						</Link>)}
+	  						{user.usertype === "patient" && (<Link to={`/patient/insurance`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
+	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Insurance</span>
 	  						</Link>)}
 	  						{user.usertype === "patient" && (<Link to={`/patient/appointments`} style={{marginLeft: "0.7rem", padding: "3px 9px", position: "relative"}}>
-	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY APPOINTMENTS</span>
+	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>My Appointments</span>
 	  							{!empty(unreadCount) && (<div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "1rem", height: "1rem", borderRadius: "50%", backgroundColor: "red", position: 'absolute', top: 0, right: "-0.2rem"}}>
 	  								<span style={{color: "white", fontSize: "0.25rem", lineHeight: "0.25rem"}}>{unreadCount > 99 ? "99+" : unreadCount}</span>
 	  							</div>)}
 	  						</Link>)}
 	  						{user.usertype === "doctor" && (<Link to={`/doctor/schedule`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
-	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY SCHEDULE</span>
+	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>My Schedule</span>
 	  						</Link>)}
 	  						{user.usertype === "doctor" && (<Link to={`/doctor/appointments`} style={{marginLeft: "0.7rem", padding: "3px 9px", position: "relative"}}>
+	  							<ChatBubble style={{fontSize: "1.25rem", marginTop: "0.25rem", lineHeight: 1.75, color: theme.primary.main}}/>
+	  							{!empty(unreadCount) && (<div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "1rem", height: "1rem", borderRadius: "50%", backgroundColor: "red", position: 'absolute', top: 0, right: 0}}>
+	  								<span style={{color: "white", fontSize: "0.25rem", lineHeight: "0.25rem"}}>{unreadCount > 99 ? "99+" : unreadCount}</span>
+	  							</div>)}
+	  						</Link>)}
+	  						{user.usertype === "insurance" && (<Link to={`/insurance/plans`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
+	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Plans</span>
+	  						</Link>)}
+	  						{user.usertype === "insurance" && (<Link to={`/insurance/messages`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
 	  							<ChatBubble style={{fontSize: "1.25rem", marginTop: "0.25rem", lineHeight: 1.75, color: theme.primary.main}}/>
 	  							{!empty(unreadCount) && (<div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "1rem", height: "1rem", borderRadius: "50%", backgroundColor: "red", position: 'absolute', top: 0, right: 0}}>
 	  								<span style={{color: "white", fontSize: "0.25rem", lineHeight: "0.25rem"}}>{unreadCount > 99 ? "99+" : unreadCount}</span>
@@ -104,27 +116,42 @@ class Navbar extends Component {
 				          {!empty(user) && (<Fragment>
 			  						<Link to={`/${user.usertype}/dashboard`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>DASHBOARD</span>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Home</span>
 			  							</ListItem>
 			  						</Link>
 			  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>FIND A DOCTOR</span>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Find a Doctor</span>
+			  							</ListItem>
+			  						</Link>)}
+			  						{user.usertype === "patient" && (<Link to={`/patient/insurance`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Insurance</span>
 			  							</ListItem>
 			  						</Link>)}
 			  						{user.usertype === "patient" && (<Link to={`/patient/schedule`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY APPOINTMENTS</span>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>My Appointments</span>
 			  							</ListItem>
 			  						</Link>)}
 			  						{user.usertype === "doctor" && (<Link to={`/doctor/schedule`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>MY SCHEDULE</span>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>My Schedule</span>
 			  							</ListItem>
 			  						</Link>)}
 			  						{user.usertype === "doctor" && (<Link to={`/doctor/appointments`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>APPOINTMENTS</span>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Messages</span>
+			  							</ListItem>
+			  						</Link>)}
+			  						{user.usertype === "insurance" && (<Link to={`/insurance/plans`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Plans</span>
+			  							</ListItem>
+			  						</Link>)}
+			  						{user.usertype === "insurance" && (<Link to={`/insurance/messages`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
+			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
+			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Messages</span>
 			  							</ListItem>
 			  						</Link>)}
 			  						<Link to={`/${user.usertype}/account`}>

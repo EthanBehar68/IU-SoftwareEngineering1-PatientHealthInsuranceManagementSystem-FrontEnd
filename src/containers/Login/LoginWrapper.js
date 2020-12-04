@@ -40,21 +40,21 @@ class LoginWrapper extends Component {
               <Paper variant="outlined" style={{display: "flex", flexDirection: "column", padding: "1rem", background: theme.primary.contrastText, borderColor: theme.primary.main}}>
                 <img src={patient} alt="" style={{width: "100%", height: "10rem", objectFit: "cover", borderRadius: 5}}/>
                 <span style={{fontWeight: 500, color: theme.primary.main, fontSize: "1.4rem", marginTop: "0.5rem"}}>Patient</span>
-                <span style={{color: theme.primary.main, marginTop: "0.3rem"}}>Search for doctors, choose an insurance provider, or get directions to your next appointment.</span>
+                <span style={{color: theme.primary.main, marginTop: "0.3rem"}}>Search for doctors and manage your insurance plan.</span>
               </Paper>
             </Link>
             <Link to={`/${login ? "login" : "register"}/doctor`} style={{width: xs ? "calc(100vw - 2rem)" : "calc(33.33% - 1rem)", marginRight: xs ? "" : "1.5rem", marginBottom: xs ? "1rem" : ""}}>
               <Paper variant="outlined" style={{display: "flex", flexDirection: "column", padding: "1rem", background: theme.primary.contrastText, borderColor: theme.primary.main}}>
                 <img src={doctor} alt="" style={{width: "100%", height: "10rem", objectFit: "cover", borderRadius: 5}}/>
                 <span style={{fontWeight: 500, color: theme.primary.main, fontSize: "1.4rem", marginTop: "0.5rem"}}>Doctor</span>
-                <span style={{color: theme.primary.main, marginTop: "0.3rem"}}>Search for doctors, choose an insurance provider, or get directions to your next appointment.</span>
+                <span style={{color: theme.primary.main, marginTop: "0.3rem"}}>Chat with patients and manage your schedule.</span>
               </Paper>
             </Link>
             <Link to={`/${login ? "login" : "register"}/insurance`} style={{width: xs ? "calc(100vw - 2rem)" : "calc(33.33% - 1rem)"}}>
               <Paper variant="outlined" style={{display: "flex", flexDirection: "column", padding: "1rem", background: theme.primary.contrastText, borderColor: theme.primary.main}}>
                 <img src={insurance} alt="" style={{width: "100%", height: "10rem", objectFit: "cover", borderRadius: 5}}/>
                 <span style={{fontWeight: 500, color: theme.primary.main, fontSize: "1.4rem", marginTop: "0.5rem"}}>Insurance Provider</span>
-                <span style={{color: theme.primary.main, marginTop: "0.3rem"}}>Search for doctors, choose an insurance provider, or get directions to your next appointment.</span>
+                <span style={{color: theme.primary.main, marginTop: "0.3rem"}}>Chat with patients, manage and create your company's plans.</span>
               </Paper>
             </Link>
           </Grid>

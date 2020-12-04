@@ -15,3 +15,7 @@ export const ADD_MESSAGE = "ADD_MESSAGE";
 export const PREPEND_MESSAGES = "PREPEND_MESSAGES";
 export const SET_SOCKET_STATUS = "SET_SOCKET_STATUS";
 export const USER_TYPING = "USER_TYPING";
+
+export const GET_PLANS = "GET_PLANS";
+export const UPDATE_PLAN = "UPDATE_PLAN";
+export const ADD_PLAN = "ADD_PLAN";

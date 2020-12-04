@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import withToast from '../../utils/withToast';
+import getTime from '../../utils/getTime';
 import moment from 'moment';
 import empty from 'is-empty';
 
@@ -61,7 +62,7 @@ class Appointments extends Component {
       />
     );
 
-    const readList = (filter === "Scheduled" ? scheduled : past).filter(appt => empty((this.props.conversations.filter(convo => convo.room_id == `${appt.id}appt`)[0] || {unread: 0})['unread'])).map(appt => 
+    const readList = (filter === "Scheduled" ? scheduled.reverse() : past).filter(appt => empty((this.props.conversations.filter(convo => convo.room_id == `${appt.id}appt`)[0] || {unread: 0})['unread'])).map(appt => 
       <ManageRow 
         key={appt.id + "unread"}
         appointment={appt}
@@ -79,8 +80,9 @@ class Appointments extends Component {
         <Grid item container xs={12} direction="column" alignItems="center" style={{ backgroundColor: theme.background.main, minHeight: "calc(100vh - 4rem)" }}>
           <Grid xs={12} item container direction="column" alignItems="center" style={{ height: "100%", background: theme.primary.main }}>
             <Grid item container xs={12} style={{ width: maxWidth, padding: small ? "1rem" : "2rem 0 1rem" }}>
-              <Grid item container xs={12} style={{ margin: "1rem 0 0.75rem" }}>
+              <Grid item container xs={12} direction="column" style={{ margin: "1rem 0 0.75rem" }}>
                 <span style={{ fontSize: "2rem", color: 'white', fontWeight: 500 }}>{empty(appointment) ? "Messaging" : `${moment.utc(appointment.appointmentdate).format('MM/DD/YY')} Appointment`}</span>
+                {!empty(appointment) && (<span style={{fontSize: "1rem", marginTop: "0.25rem", color: "white", fontWeight: 400}}>{getTime(appointment.starttime)} - {getTime(appointment.endtime)}</span>)}
               </Grid>
             </Grid>
             <Divider />

@@ -5,6 +5,7 @@ import doctors from "./doctors";
 import appointments from "./appointments";
 import conversations from "./conversations";
 import socket from "./socket";
+import plans from "./plans";
 
 const rootReducer = combineReducers({
 	dark,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
 	doctors,
 	appointments,
 	conversations,
-	socket
+	socket,
+	plans
 });
 
 export default rootReducer;

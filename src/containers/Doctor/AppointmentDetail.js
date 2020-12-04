@@ -75,6 +75,23 @@ class AppointmentDetail extends Component {
             <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Caffeine: </span>{patient.detail.caffeine ? "YES" : "NO"} {patient.detail.caffeine ? `- ${patient.detail.caffeinefreq} times per week` : ""}</span>
             <Fragment>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem" }}>
+                <span style={{ fontSize: "1.5rem", fontWeight: 400 }}>Insurance Information</span>
+              </div>
+              <Divider style={{ width: "100%", margin: "0.5rem 0" }} />
+            </Fragment>
+            {empty(patient.insurance) && (<span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}>No insurance.</span>)}
+            {!empty(patient.insurance) && (<Fragment>
+              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Company: </span>{patient.insurance.companyname}</span>
+              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Plan: </span>{patient.insurance.planname}</span>
+              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Policy Number: </span>{patient.insurance.policynumber}</span>
+              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Premium: </span>${patient.insurance.premium.toFixed(2)}</span>
+              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Deductible: </span>${patient.insurance.deductible.toFixed(2)}</span>
+              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Medical: </span>{patient.insurance.includesmedical ? "YES" : "NO"}</span>
+              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Dental: </span>{patient.insurance.includesdental ? "YES" : "NO"}</span>
+              <span style={{ fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem" }}><span style={{fontWeight: 400}}>Vision: </span>{patient.insurance.includesvision ? "YES" : "NO"}</span>
+            </Fragment>)}
+            <Fragment>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1rem" }}>
                 <span style={{ fontSize: "1.5rem", fontWeight: 400 }}>COVID-19 Information</span>
               </div>
               <Divider style={{ width: "100%", margin: "0.5rem 0" }} />

@@ -2,7 +2,7 @@ import {apiCall} from "../../services/api";
 import jwt_decode from "jwt-decode";
 import empty from "is-empty";
 
-import {UPDATE_USER, GET_DOCTORS, GET_APPOINTMENTS, UPDATE_APPOINTMENTS} from "../types";
+import {UPDATE_USER, GET_DOCTORS, GET_PLANS, GET_APPOINTMENTS, UPDATE_APPOINTMENTS} from "../types";
 
 export const state_update_user = payload => ({
   type: UPDATE_USER,
@@ -11,6 +11,11 @@ export const state_update_user = payload => ({
 
 export const state_get_doctors = payload => ({
   type: GET_DOCTORS,
+  payload
+});
+
+export const state_get_plans = payload => ({
+  type: GET_PLANS,
   payload
 });
 
@@ -155,5 +160,38 @@ export const addReview = (data, appointment, name) => dispatch => {
   });
 };
 
+/*--------------------------------------------------------*/
 
+export const getPlans = data => dispatch => {
+  return apiCall('post', `/api/insurancesearch`, data)
+  .then(function(res) {
+    dispatch(state_get_plans(res));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+export const addPlan = data => dispatch => {
+  return apiCall('post', `/api/patients/insurance/add`, data)
+  .then(function(res) {
+    dispatch(state_update_user({id: data.id, insurance: res}));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+export const updatePlan = data => dispatch => {
+  return apiCall('put', `/api/patients/insurance/update`, data)
+  .then(function(res) {
+    dispatch(state_update_user({id: data.id, insurance: res}));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
 
