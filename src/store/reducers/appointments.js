@@ -1,4 +1,4 @@
-import {GET_APPOINTMENTS, UPDATE_APPOINTMENTS} from '../types';
+import {GET_APPOINTMENTS, UPDATE_APPOINTMENTS, ADD_APPOINTMENT} from '../types';
 
 const appointments = (state = [], action) => {
 	switch(action.type) {
@@ -12,6 +12,8 @@ const appointments = (state = [], action) => {
 					return appt;
 				}
 			});
+		case ADD_APPOINTMENT:
+			return [...state, action.payload];
 		default:
 			return state;
 	}

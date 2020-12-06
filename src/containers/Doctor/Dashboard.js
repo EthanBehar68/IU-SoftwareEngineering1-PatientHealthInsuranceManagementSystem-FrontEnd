@@ -18,6 +18,12 @@ class Dashboard extends Component {
     };
   }
 
+  componentDidMount() {
+    if(!empty(this.props.user.detail)) {
+      this.props.history.push('/doctor/schedule');
+    }
+  }
+
   render() {
     const {maxWidth, small, xs, theme, dark, user} = this.props;
     const {loaded} = this.state;

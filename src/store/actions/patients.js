@@ -2,7 +2,7 @@ import {apiCall} from "../../services/api";
 import jwt_decode from "jwt-decode";
 import empty from "is-empty";
 
-import {UPDATE_USER, GET_DOCTORS, GET_PLANS, GET_APPOINTMENTS, UPDATE_APPOINTMENTS} from "../types";
+import {UPDATE_USER, GET_DOCTORS, GET_PLANS, GET_APPOINTMENTS, UPDATE_APPOINTMENTS, ADD_APPOINTMENT} from "../types";
 
 export const state_update_user = payload => ({
   type: UPDATE_USER,
@@ -26,6 +26,11 @@ export const state_get_appointments = payload => ({
 
 export const state_update_appointments = payload => ({
   type: UPDATE_APPOINTMENTS,
+  payload
+});
+
+export const state_add_appointment = payload => ({
+  type: ADD_APPOINTMENT,
   payload
 });
 
@@ -126,7 +131,7 @@ export const getAppointments = data => dispatch => {
 export const addAppointment = data => dispatch => {
   return apiCall('post', `/api/bookappointment`, data)
   .then(function(res) {
-    dispatch(state_update_appointments(res));
+    dispatch(state_add_appointment(res));
     return {complete: true};
   })
   .catch(function(err) {

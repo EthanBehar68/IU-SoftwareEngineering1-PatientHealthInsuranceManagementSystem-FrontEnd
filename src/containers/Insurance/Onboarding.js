@@ -64,6 +64,7 @@ class Account extends Component {
       this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
     } else {
       this.props.addToast("Successfully onboarded!", { appearance: 'success', autoDismiss: true });
+      this.props.history.push('/insurance/plans');
     }
     this.setState({...this.state, loaded: true});
   }

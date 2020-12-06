@@ -49,9 +49,6 @@ class Navbar extends Component {
 		  					</Link>
 	  					</Fragment>)}
 	  					{!empty(user) && (<Fragment>
-	  						<Link to={`/${user.usertype}/dashboard`} style={{padding: "3px 9px"}}>
-	  							<Home style={{fontSize: "1.25rem", marginTop: "0.25rem", lineHeight: 1.75, color: theme.primary.main}}/>
-	  						</Link>
 	  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
 	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Find a Doctor</span>
 	  						</Link>)}
@@ -114,11 +111,6 @@ class Navbar extends Component {
 					          </Link>
 				          </Fragment>)}
 				          {!empty(user) && (<Fragment>
-			  						<Link to={`/${user.usertype}/dashboard`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
-			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Home</span>
-			  							</ListItem>
-			  						</Link>
 			  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Find a Doctor</span>

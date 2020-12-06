@@ -65,7 +65,7 @@ const conversations = (state = [], action) => {
 					return {
 						...convo,
 						unread: convo.meConnected ? convo.unread : convo.unread + 1,
-						messages: [...convo.messages, ...action.payload]
+						messages: [...convo.messages, ...action.payload.filter(m => !convo.messages.includes(m))]
 					};
 				} else {
 					return convo;
