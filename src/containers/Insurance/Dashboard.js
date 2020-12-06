@@ -5,6 +5,8 @@ import withToast from '../../utils/withToast';
 import moment from 'moment';
 import empty from 'is-empty';
 
+import axios, { post } from 'axios'
+
 import {TextField, Grid, MenuItem, Button, Divider, withWidth, InputAdornment} from '@material-ui/core';
 
 import Loading from '../../components/Graphics/Loading';
@@ -26,8 +28,8 @@ class Dashboard extends Component {
 
   render() {
     const {maxWidth, small, xs, theme, dark, user} = this.props;
-    const {loaded} = this.state;
-    
+    const {loaded, updateFile} = this.state;
+
     return (
       <Fragment>
         {empty(user.detail) && (<Onboarding {...this.props}/>)}
