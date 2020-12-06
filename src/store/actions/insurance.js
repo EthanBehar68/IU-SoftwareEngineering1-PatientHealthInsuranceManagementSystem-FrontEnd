@@ -70,6 +70,17 @@ export const updateProfilePic = data => {
   });
 };
 
+// Update Insurance Pdf FileReader
+export const updatePlanFile = data => {
+  return apiCall('put', `/api/insurance/planfile`, data)
+  .then(function(res) {
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
 // Update Patient Password
 export const updatePassword = data => {
   return apiCall('put', `/api/insurance/password`, data)
@@ -115,7 +126,3 @@ export const updatePlan = data => dispatch => {
     return {complete: false, error: err.data.error};
   });
 };
-
-
-
-
