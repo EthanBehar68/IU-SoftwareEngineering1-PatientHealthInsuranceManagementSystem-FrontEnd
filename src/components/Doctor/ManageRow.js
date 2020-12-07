@@ -20,8 +20,8 @@ class ManageRow extends Component {
 
 		return (
 			<Link to={`/doctor/appointments/${filter}/${appointment.id}`}>
-				<div style={{display: "flex", flexWrap: "wrap", position: "relative", justifyContent: "space-between", padding: "1rem", background: "rgb(238, 238, 238)", cursor: "pointer"}}>
-					<Grid item container xs={12} sm={1}><img src={`https://apollocare.blob.core.windows.net/patient${appointment.patient.id}/profile`} alt="Profile" style={{height: xs ? "12rem" : "5.5rem", width: "100%", objectFit: "cover", borderRadius: 6}}/></Grid>
+				<div style={{display: "flex", flexWrap: "wrap", position: "relative", justifyContent: "space-between", padding: "1rem", background: "rgb(238, 238, 238)", cursor: "pointer", height: xs ? "12rem" : "7.5rem"}}>
+					<Grid item container xs={12} sm={1} style={{height:  xs ? "12rem" : "5.5rem", borderRadius: 6}}><img src={`https://apollocare.blob.core.windows.net/patient${appointment.patient.id}/profile`} alt="Profile" style={{width: "100%", objectFit: "cover", borderRadius: 6}}/></Grid>
 					<Grid item container xs={12} sm={11}>
 						<div style={{display: "flex", flexDirection: "column", width: "100%", marginLeft: !xs ? "1rem" : "", marginTop: xs ? "0.5rem" : ""}}>
 							<span style={{width: "100%", fontSize: "2rem", color: "black"}}>{appointment.patient.fname} {appointment.patient.lname}</span>

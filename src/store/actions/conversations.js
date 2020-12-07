@@ -1,6 +1,6 @@
 import {apiCall} from '../../services/api';
 import empty from 'is-empty';
-import {APPEND_MESSAGES, ADD_MESSAGE, UPDATE_CONVERSATION, UPDATE_CONVERSATIONS, PREPEND_MESSAGES, SET_SOCKET_STATUS, USER_TYPING} from '../types';
+import {APPEND_MESSAGES, ADD_MESSAGE, UPDATE_CONVERSATION, UPDATE_CONVERSATIONS, ADD_CONVERSATION, PREPEND_MESSAGES, SET_SOCKET_STATUS, USER_TYPING} from '../types';
 
 export const first_socket_connect = payload => ({
 	event: 'socketConnect',
@@ -17,6 +17,13 @@ export const add_message = payload => ({
 export const user_typing = payload => ({
 	event: 'user_typing',
 	emit: true,
+	payload
+});
+
+export const socket_join_room = payload => ({
+	event: 'join_room',
+	emit: true,
+	handle: ADD_CONVERSATION,
 	payload
 });
 

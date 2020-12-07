@@ -98,7 +98,7 @@ class Appointments extends Component {
                 {loaded && (list)}
               </Fragment>)}
               {!empty(appointment) && (<AppointmentDetail 
-                onClose={() => this.setState({...this.state, appointmentId: ''})}
+                onClose={() => {this.setState({...this.state, appointmentId: ''}); this.props.history.push(`/patient/appointments/${filter}`);}}
                 appointment={appointment}
                 theme={theme} 
                 small={small} 

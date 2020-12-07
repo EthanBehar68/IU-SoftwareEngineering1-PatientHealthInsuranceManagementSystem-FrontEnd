@@ -49,6 +49,9 @@ class Navbar extends Component {
 		  					</Link>
 	  					</Fragment>)}
 	  					{!empty(user) && (<Fragment>
+	  						{user.usertype === "patient" && (<Link to={`/patient/dashboard`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
+	  							<Home style={{fontSize: "1.25rem", marginTop: "0.25rem", lineHeight: 1.75, color: theme.primary.main}}/>
+	  						</Link>)}
 	  						{user.usertype === "patient" && (<Link to={`/patient/find`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
 	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Find a Doctor</span>
 	  						</Link>)}

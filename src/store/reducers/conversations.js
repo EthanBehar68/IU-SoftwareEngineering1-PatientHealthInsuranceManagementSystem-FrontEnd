@@ -1,4 +1,4 @@
-import {APPEND_MESSAGES, UPDATE_CONVERSATION, UPDATE_CONVERSATIONS, ADD_MESSAGE, PREPEND_MESSAGES, USER_TYPING} from '../types';
+import {APPEND_MESSAGES, UPDATE_CONVERSATION, UPDATE_CONVERSATIONS, ADD_CONVERSATION, ADD_MESSAGE, PREPEND_MESSAGES, USER_TYPING} from '../types';
 
 const mockState = [
 	{
@@ -29,6 +29,8 @@ const conversations = (state = [], action) => {
 				const existing = state.filter(c => (c.room_id === convo.room_id));
 				return existing.length === 0 ? convo : {...existing[0], ...convo};
 			});
+		case ADD_CONVERSATION:
+			return [...state, action.payload];
 		case USER_TYPING:
 			return state.map(function(convo) {
 				if(convo.room_id === action.payload.room_id) {

@@ -1,8 +1,10 @@
 import {apiCall} from "../../services/api";
 import jwt_decode from "jwt-decode";
 import empty from "is-empty";
+import moment from "moment";
 
 import {UPDATE_USER, GET_DOCTORS, GET_PLANS, GET_APPOINTMENTS, UPDATE_APPOINTMENTS, ADD_APPOINTMENT} from "../types";
+import {socket_join_room} from './conversations';
 
 export const state_update_user = payload => ({
   type: UPDATE_USER,
@@ -132,6 +134,17 @@ export const addAppointment = data => dispatch => {
   return apiCall('post', `/api/bookappointment`, data)
   .then(function(res) {
     dispatch(state_add_appointment(res));
+    dispatch(socket_join_room({
+      userTyping: false, 
+      userConnected: false, 
+      meConnected: false, 
+      messages: [],
+      unread: 0,
+      time: moment().format(),
+      room_id: `${res.id}appt`,
+      user_type: 'patient',
+      user_id: data.pid
+    }));
     return {complete: true};
   })
   .catch(function(err) {
@@ -169,6 +182,17 @@ export const addReview = (data, appointment, name) => dispatch => {
 
 export const getPlans = data => dispatch => {
   return apiCall('post', `/api/insurancesearch`, data)
+  .then(function(res) {
+    dispatch(state_get_plans(res));
+    return {complete: true};
+  })
+  .catch(function(err) {
+    return {complete: false, error: err.data.error};
+  });
+};
+
+export const getSimilarPlans = id => dispatch => {
+  return apiCall('get', `/api/insurancesearch/similar/${id}`)
   .then(function(res) {
     dispatch(state_get_plans(res));
     return {complete: true};

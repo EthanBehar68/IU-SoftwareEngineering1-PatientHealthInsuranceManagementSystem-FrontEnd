@@ -10,20 +10,30 @@ import { TextField, Grid, MenuItem, Button, Divider, withWidth, InputAdornment, 
 import Loading from '../../components/Graphics/Loading';
 import SearchCard from '../../components/Insurance/SearchCard';
 
-import { getPlans, addPlan, updatePlan } from '../../store/actions/patients';
+import { getPlans, addPlan, updatePlan, getSimilarPlans } from '../../store/actions/patients';
 
 class Insurance extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loaded: true,
+      loaded: false,
       search: {
         companyname: '',
         includesmedical: '',
         includesdental: '',
         includesvision: ''
-      }
+      },
+      searched: false
     };
+  }
+
+  async componentDidMount() {
+    if(!empty(this.props.user.insurance)) {
+      await this.props.getSimilarPlans(this.props.user.insurance.iid);
+      this.setState({...this.state, loaded: true});
+    } else {
+      this.setState({...this.state, loaded: true});
+    }
   }
 
   handleSearchChange = e => {
@@ -37,7 +47,7 @@ class Insurance extends Component {
   }
 
   onSearch = async () => {
-    this.setState({ ...this.state, loaded: false });
+    this.setState({ ...this.state, loaded: false, searched: true });
     const resp = await this.props.getPlans(this.state.search);
     if (!resp.complete) {
       this.props.addToast(resp.error, { appearance: 'error', autoDismiss: true });
@@ -47,7 +57,7 @@ class Insurance extends Component {
 
   render() {
     const { maxWidth, small, xs, theme, dark, user, plans } = this.props;
-    const { loaded, search } = this.state;
+    const { loaded, search, searched } = this.state;
 
     const searchBtn = !empty(search.companyname) || !empty(search.includesmedical) || !empty(search.includesdental) || !empty(search.includesvision);
 
@@ -154,6 +164,9 @@ class Insurance extends Component {
                   />
                   <Divider style={{width: "100%", margin: "1rem 0"}}/>
                 </Fragment>)}
+                {!empty(plans) && !searched && !empty(user.insurance) && (<div style={{padding: "1rem", borderRadius: 6, backgroundColor: theme.secondary.light, marginBottom: "1rem"}}>
+                  <span style={{fontWeight: 400}}>Other plans from <i>{user.insurance.companyname}</i></span>
+                </div>)}
                 <Grid container item xs={12} style={{ marginBottom: "0.5rem" }}>
                   {!empty(plans.length) && (<span style={{ fontSize: "0.9rem", lineHeight: "1.1rem" }}>{plans.length} Plans</span>)}
                   {empty(plans.length) && (<span style={{ fontSize: "0.9rem", lineHeight: "1.1rem" }}>No plans match this search criteria.</span>)}
@@ -185,4 +198,4 @@ const mapStateToProps = state => ({
   plans: state.plans
 });
 
-export default connect(mapStateToProps, { getPlans, addPlan, updatePlan })(withRouter(withToast(Insurance)));
+export default connect(mapStateToProps, { getPlans, addPlan, updatePlan, getSimilarPlans })(withRouter(withToast(Insurance)));
