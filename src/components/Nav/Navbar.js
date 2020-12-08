@@ -76,12 +76,6 @@ class Navbar extends Component {
 	  						{user.usertype === "insurance" && (<Link to={`/insurance/plans`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
 	  							<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Plans</span>
 	  						</Link>)}
-	  						{user.usertype === "insurance" && (<Link to={`/insurance/messages`} style={{marginLeft: "0.7rem", padding: "3px 9px"}}>
-	  							<ChatBubble style={{fontSize: "1.25rem", marginTop: "0.25rem", lineHeight: 1.75, color: theme.primary.main}}/>
-	  							{!empty(unreadCount) && (<div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "1rem", height: "1rem", borderRadius: "50%", backgroundColor: "red", position: 'absolute', top: 0, right: 0}}>
-	  								<span style={{color: "white", fontSize: "0.25rem", lineHeight: "0.25rem"}}>{unreadCount > 99 ? "99+" : unreadCount}</span>
-	  							</div>)}
-	  						</Link>)}
 	  						<Link to={`/${user.usertype}/account`} style={{marginLeft: "1.2rem"}}>
 		  						<Button variant="outlined" color="primary" size="small" style={{display: "flex", alignItems: "center"}}>
 		  							<AccountCircle style={{fontSize: "1rem"}}/>
@@ -142,11 +136,6 @@ class Navbar extends Component {
 			  						{user.usertype === "insurance" && (<Link to={`/insurance/plans`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
 			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
 			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Plans</span>
-			  							</ListItem>
-			  						</Link>)}
-			  						{user.usertype === "insurance" && (<Link to={`/insurance/messages`} style={{marginRight: "1.1rem", padding: "3px 9px"}}>
-			  							<ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-			  								<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Messages</span>
 			  							</ListItem>
 			  						</Link>)}
 			  						<Link to={`/${user.usertype}/account`}>
