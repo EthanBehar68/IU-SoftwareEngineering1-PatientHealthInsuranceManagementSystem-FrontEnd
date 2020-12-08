@@ -171,7 +171,7 @@ class Insurance extends Component {
                   {!empty(plans.length) && (<span style={{ fontSize: "0.9rem", lineHeight: "1.1rem" }}>{plans.length} Plans</span>)}
                   {empty(plans.length) && (<span style={{ fontSize: "0.9rem", lineHeight: "1.1rem" }}>No plans match this search criteria.</span>)}
                 </Grid>
-                {plans.map((plan, i) => (
+                {plans.filter(plan => empty(user.insurance) ? plan : plan.id !== user.insurance.id).map((plan, i) => (
                   <SearchCard
                     key={i}
                     plan={plan}

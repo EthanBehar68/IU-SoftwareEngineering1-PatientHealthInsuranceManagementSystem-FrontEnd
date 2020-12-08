@@ -96,6 +96,7 @@ class Appointments extends Component {
                 </div>
                 <Divider style={{marginBottom: "1rem", width: "100%"}}/>
                 {loaded && (list)}
+                {empty(list) && (<span style={{fontSize: "0.9rem"}}>No {filter.toLowerCase()} appointments.</span>)}
               </Fragment>)}
               {!empty(appointment) && (<AppointmentDetail 
                 onClose={() => {this.setState({...this.state, appointmentId: ''}); this.props.history.push(`/patient/appointments/${filter}`);}}
