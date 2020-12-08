@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import {BASE_URI} from './constants';
 
 export default function socketMiddleware() {
-  const socket = io(BASE_URI,{
+  const socket = io({
     reconnection: true,
     reconnectionDelay: 500,
     reconnectionDelayMax : 2000,

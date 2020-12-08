@@ -14,7 +14,7 @@ class Stars extends Component {
 	        starDimension="16px"
 	        starSpacing="1px"
 	      />
-	      {!empty(this.props.number) && (<span style={{fontSize: "0.8rem", marginLeft: "0.3rem", marginBottom: "0.2rem"}}>({this.props.number})</span>)}
+	      <span style={{fontSize: "0.8rem", marginLeft: "0.3rem", marginBottom: "0.2rem"}}>({this.props.number || 0})</span>
   		</div>
   		
   	);

@@ -35,7 +35,7 @@ class SearchCard extends Component {
         </Grid>
         <Grid container item xs={8} md={5} direction="column" style={{paddingLeft: "1rem"}}>
           <span style={{fontSize: "1.5rem", fontWeight: 500}}>{doctor.fname} {doctor.lname}</span>
-          <Stars style={{ marginTop: "0.5rem" }} rating={parseFloat(doctor.reviews.map(r => r.rating).reduce((a,b) => a + b, 0)) / parseFloat(doctor.reviews.length)} number={doctor.reviews.length} />
+          <Stars style={{ marginTop: "0.5rem" }} rating={empty(doctor.reviews) ? 0 : parseFloat(doctor.reviews.map(r => r.rating).reduce((a,b) => a + b, 0)) / parseFloat(doctor.reviews.length)} number={doctor.reviews.length} />
           <span style={{fontSize: "1rem", fontWeight: 400, marginTop: "0.5rem"}}>{doctor.detail.practicename}</span>
           <span style={{fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem"}}>{doctor.detail.address1}{empty(doctor.detail.address2) ? '' : `, ${doctor.detail.address2}`}</span>
           <span style={{fontSize: "1rem", fontWeight: 300, marginTop: "0.25rem"}}>{doctor.detail.city}, {doctor.detail.state1} {doctor.detail.zipcode}</span>

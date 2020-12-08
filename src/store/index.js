@@ -8,8 +8,7 @@ export function configureStore(){
 		rootReducer, 
 		compose(
 			applyMiddleware(thunk),
-			applyMiddleware(socketMiddleware()),
-			window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+			applyMiddleware(socketMiddleware())
 		)
 	);
 
