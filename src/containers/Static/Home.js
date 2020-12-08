@@ -22,7 +22,7 @@ class Home extends Component {
 			<Grid xs={12} container item direction="column" alignItems="center" style={{ background: theme.background.main, position: "relative" }}>
 				<img src={rocket} alt="" style={{ height: 'calc(100vh - 4rem)', objectFit: "cover", position: "absolute", top: 0, right: 0, width: "100vw" }} />
 				<Grid xs={12} container item alignItems="center" style={{ maxWidth: maxWidth, height: 'calc(100vh - 4rem)' }}>
-					<Grid container item direction="column" justify="center" xs={12} style={{ zIndex: 1, padding: small ? "1rem" : "", height: "100%", maxWidth: xs ? "100%" : small ? "90%" : "75%", marginLeft: "-2rem" }}>
+					<Grid container item direction="column" justify="center" xs={12} style={{ zIndex: 1, padding: small ? "1rem" : "", height: "100%", maxWidth: xs ? "100%" : small ? "90%" : "75%"}}>
 						<span style={{ color: "white", fontSize: "3.5rem", fontWeight: 500 }}>Healthcare that
 							<span style={{ color: "white", fontSize: "4rem", fontWeight: 500 }}> inspires.</span>
 						</span>

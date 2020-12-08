@@ -40,11 +40,11 @@ class Navbar extends Component {
 	  				{!small && (<div style={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
 	  					{empty(user) && (<Fragment>
 		  					<Link to="/register" style={{marginRight: "1.1rem", padding: "3px 9px"}}>
-		  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Sign Up</span>
+		  						<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Register</span>
 		  					</Link>
 		  					<Link to="/login">
 		  						<Button variant="outlined" color="primary" size="small">
-		  							Sign In
+		  							Login
 		  						</Button>
 		  					</Link>
 	  					</Fragment>)}
@@ -104,12 +104,12 @@ class Navbar extends Component {
 		          		{empty(user) && (<Fragment>
 					          <Link to="/register">
 					            <ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-						  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN UP</span>
+						  					<span style={{fontWeight: 500, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Register</span>
 						          </ListItem>
 					          </Link>
 					          <Link to="/login">
 					            <ListItem button style={{minWidth: "15rem", padding: "0.2rem 1.2rem"}}>
-						  					<span style={{fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>SIGN IN</span>
+						  					<span style={{fontWeight: 700, fontSize: "0.875rem", lineHeight: 1.75, color: theme.primary.main}}>Login</span>
 						          </ListItem>
 					          </Link>
 				          </Fragment>)}

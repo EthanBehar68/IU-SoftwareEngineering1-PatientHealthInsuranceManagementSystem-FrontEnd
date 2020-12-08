@@ -34,7 +34,7 @@ class LoginWrapper extends Component {
     return (
       <Grid item container xs={12} justify="center" style={{backgroundColor: theme.background.main, minHeight: "calc(100vh - 4rem)"}}>
         {empty(role) && (<Grid item container direction="column" style={{width: maxWidth, height: "100%"}}>
-          <span style={{fontSize: "1.4rem", fontWeight: 500, marginTop: "1.5rem", padding: small ? "0 1rem" : "", color: theme.primary.main}}>{login ? "Portal Sign In" : "Registration"}</span>
+          <span style={{fontSize: "1.4rem", fontWeight: 500, marginTop: "1.5rem", padding: small ? "0 1rem" : "", color: theme.primary.main}}>{login ? "Portal Login" : "Registration"}</span>
           <Grid item container justify="space-between" style={{width: "100%", padding: small ? "1rem" : "1rem 0", position: "relative"}}>
             <Link to={`/${login ? "login" : "register"}/patient`} style={{width: xs ? "calc(100vw - 2rem)" : "calc(33.33% - 1rem)", marginRight: xs ? "" : "1.5rem", marginBottom: xs ? "1rem" : ""}}>
               <Paper variant="outlined" style={{display: "flex", flexDirection: "column", padding: "1rem", background: theme.primary.contrastText, borderColor: theme.primary.main}}>
